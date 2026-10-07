@@ -1,12 +1,26 @@
 "use client";
 
 import React from "react";
+import Image from "next/image";
 import { ShieldCheck, Award, HeartPulse, Sparkles, CheckCircle2 } from "lucide-react";
 
 export default function GuaranteesSection() {
   return (
     <section id="standards" className="py-14 sm:py-20 lg:py-24 bg-reserve-obsidian relative overflow-hidden border-t border-reserve-gold/20">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Official Brand Crest Seal */}
+        <div className="flex justify-center mb-4">
+          <div className="relative w-16 h-16 sm:w-20 sm:h-20 rounded-full border-2 border-reserve-gold shadow-gold-glow bg-white overflow-hidden">
+            <Image
+              src="/images/logo-crest.jpg"
+              alt="Alayaki Reserve Official Guarantee Seal"
+              fill
+              sizes="80px"
+              className="object-cover"
+            />
+          </div>
+        </div>
+
         {/* Banner Pill */}
         <div className="text-center max-w-3xl mx-auto space-y-3">
           <div className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-gradient-to-r from-reserve-burgundy via-reserve-burgundy-light to-reserve-burgundy border border-reserve-gold/70 text-reserve-gold-light text-xs font-bold uppercase tracking-wider shadow-gold-glow">

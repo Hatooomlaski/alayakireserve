@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { useOrder } from "@/context/OrderContext";
 import {
   Calendar,
@@ -95,11 +96,29 @@ export default function Hero() {
               </div>
             </div>
 
-            {/* Slogan & Editorial Header */}
-            <div className="space-y-2 sm:space-y-3">
-              <span className="inline-block text-reserve-gold-bright font-sans font-bold text-xs sm:text-sm uppercase tracking-[0.25em]">
-                Abeokuta’s Premier Bespoke Butchery
-              </span>
+            {/* Slogan & Editorial Header with Official Brand Crest */}
+            <div className="space-y-3">
+              <div className="flex items-center gap-3 justify-center lg:justify-start">
+                <div className="relative w-11 h-11 sm:w-14 sm:h-14 rounded-full border-2 border-reserve-gold shadow-gold-glow bg-white overflow-hidden flex-shrink-0">
+                  <Image
+                    src="/images/logo-crest.jpg"
+                    alt="Alayaki Reserve Official Brand Crest"
+                    fill
+                    sizes="56px"
+                    className="object-cover"
+                    priority
+                  />
+                </div>
+                <div className="text-left">
+                  <span className="inline-block text-reserve-gold-bright font-sans font-bold text-xs sm:text-sm uppercase tracking-[0.25em]">
+                    Abeokuta’s Premier Bespoke Butchery
+                  </span>
+                  <span className="block text-[11px] text-reserve-cream-muted font-medium">
+                    Heritage Artisanal Standard
+                  </span>
+                </div>
+              </div>
+
               <h1 className="font-serif text-3xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-reserve-cream leading-[1.12]">
                 Artisanal Prime Cuts.{" "}
                 <span className="text-gold-gradient-bright block mt-1">

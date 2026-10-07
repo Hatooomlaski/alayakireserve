@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { useOrder } from "@/context/OrderContext";
 import { MessageCircle, ShoppingBag, Menu, X, ShieldCheck, MapPin, Phone, Snowflake } from "lucide-react";
 import { DISPLAY_PHONE_NUMBER, WHATSAPP_PHONE_NUMBER } from "@/lib/whatsapp";
@@ -69,18 +70,23 @@ export default function Navbar() {
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between">
-            {/* Brand Identity / Crest Logo */}
+            {/* Brand Identity / Official Crest Logo */}
             <Link href="/" className="flex items-center gap-2.5 sm:gap-3 group">
-              <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-full border border-reserve-gold bg-gradient-to-br from-reserve-emerald-light to-reserve-obsidian flex items-center justify-center shadow-gold-glow group-hover:border-reserve-gold-bright transition-colors flex-shrink-0">
-                <span className="font-serif text-base sm:text-lg font-bold text-reserve-gold">
-                  AR
-                </span>
+              <div className="relative w-10 h-10 sm:w-12 sm:h-12 rounded-full border-2 border-reserve-gold shadow-gold-glow overflow-hidden bg-white flex-shrink-0 group-hover:scale-105 transition-transform">
+                <Image
+                  src="/images/logo-crest.jpg"
+                  alt="Alayaki Reserve Official Brand Logo"
+                  fill
+                  sizes="48px"
+                  className="object-cover"
+                  priority
+                />
               </div>
               <div>
-                <span className="font-serif text-lg sm:text-2xl font-bold tracking-wider text-gold-gradient block leading-tight">
+                <span className="font-serif text-lg sm:text-2xl font-bold tracking-wider text-gold-gradient-bright block leading-tight">
                   ALAYAKI RESERVE
                 </span>
-                <span className="text-[9px] sm:text-[10px] uppercase tracking-[0.22em] text-reserve-gold-light/90 block font-sans font-medium">
+                <span className="text-[9px] sm:text-[10px] uppercase tracking-[0.22em] text-reserve-gold-bright block font-sans font-semibold">
                   Abeokuta’s Premier Bespoke Butchery
                 </span>
               </div>

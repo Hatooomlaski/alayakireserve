@@ -2,6 +2,7 @@
 
 import React from "react";
 import Link from "next/link";
+import Image from "next/image";
 import {
   MapPin,
   Phone,
@@ -77,10 +78,14 @@ export default function Footer() {
           {/* Brand Info */}
           <div className="lg:col-span-5 space-y-4">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-full border border-reserve-gold/60 bg-gradient-to-br from-reserve-gold-bright to-reserve-gold-dark flex items-center justify-center shadow-gold-glow">
-                <span className="font-serif text-lg font-bold text-reserve-obsidian">
-                  AR
-                </span>
+              <div className="relative w-12 h-12 rounded-full border-2 border-reserve-gold shadow-gold-glow bg-white overflow-hidden flex-shrink-0">
+                <Image
+                  src="/images/logo-crest.jpg"
+                  alt="Alayaki Reserve Official Brand Crest"
+                  fill
+                  sizes="48px"
+                  className="object-cover"
+                />
               </div>
               <div>
                 <span className="font-serif text-xl sm:text-2xl font-bold tracking-wider text-gold-gradient-bright block">

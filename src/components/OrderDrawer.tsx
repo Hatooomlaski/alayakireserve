@@ -1,6 +1,7 @@
 "use client";
 
 import React from "react";
+import Image from "next/image";
 import { useOrder } from "@/context/OrderContext";
 import { DELIVERY_ZONES } from "@/config/zones";
 import { formatNaira } from "@/lib/utils";
@@ -55,8 +56,14 @@ export default function OrderDrawer() {
           {/* Drawer Header */}
           <div className="p-4 sm:p-6 border-b border-white/10 flex items-center justify-between bg-reserve-obsidian">
             <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-full bg-gradient-to-r from-reserve-gold-bright to-reserve-gold text-reserve-obsidian flex items-center justify-center shadow-gold-glow flex-shrink-0">
-                <ShoppingBag className="w-5 h-5" />
+              <div className="relative w-11 h-11 rounded-full border-2 border-reserve-gold shadow-gold-glow bg-white overflow-hidden flex-shrink-0">
+                <Image
+                  src="/images/logo-crest.jpg"
+                  alt="Alayaki Reserve Official Brand Crest"
+                  fill
+                  sizes="44px"
+                  className="object-cover"
+                />
               </div>
               <div>
                 <h2 className="font-serif text-xl sm:text-2xl font-bold text-reserve-cream">

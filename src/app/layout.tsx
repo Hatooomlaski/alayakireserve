@@ -6,6 +6,9 @@ import OrderDrawer from "@/components/OrderDrawer";
 import Footer from "@/components/Footer";
 
 export const metadata: Metadata = {
+  metadataBase: new URL(
+    process.env.NEXT_PUBLIC_SITE_URL || "https://alayakireserve.vercel.app"
+  ),
   title: "Alayaki Reserve | Abeokuta’s Premier Bespoke Butchery",
   description:
     "Abeokuta’s premier luxury butchery service. Guaranteed 100% boneless beef, assorted cow cuts, and fresh goat meat shares. Physical counter at God's Hope Hospital Car Park, Adigbe, Abeokuta. Direct WhatsApp ordering.",
@@ -26,6 +29,18 @@ export const metadata: Metadata = {
       "Guaranteed 100% Boneless Pure Meat. Direct farm-to-table artisanal butchery in Adigbe, Abeokuta. Live orders routed to WhatsApp.",
     type: "website",
     locale: "en_NG",
+    images: [
+      {
+        url: "/images/logo.jpg",
+        width: 1024,
+        height: 1024,
+        alt: "Alayaki Reserve Official Brand Crest",
+      },
+    ],
+  },
+  icons: {
+    icon: "/images/logo-crest.jpg",
+    apple: "/images/logo-crest.jpg",
   },
 };
 

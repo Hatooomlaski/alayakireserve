@@ -69,79 +69,80 @@ export default function Hero() {
   }, []);
 
   return (
-    <section className="relative overflow-hidden bg-radial-emerald pt-12 pb-20 md:pt-16 md:pb-28 border-b border-reserve-gold/20">
-      {/* Decorative ambient background accents */}
-      <div className="absolute inset-0 bg-heritage-pattern opacity-40 pointer-events-none" />
-      <div className="absolute -top-32 -left-32 w-96 h-96 rounded-full bg-reserve-gold/10 blur-3xl pointer-events-none" />
-      <div className="absolute top-1/2 -right-32 w-96 h-96 rounded-full bg-reserve-emerald-light/40 blur-3xl pointer-events-none" />
+    <section className="relative overflow-hidden bg-radial-emerald pt-8 pb-16 sm:pt-14 sm:pb-24 lg:pt-16 lg:pb-28 border-b border-reserve-gold/20">
+      {/* Ambient background lighting */}
+      <div className="absolute inset-0 bg-heritage-pattern opacity-30 pointer-events-none" />
+      <div className="absolute -top-32 -left-32 w-80 sm:w-96 h-80 sm:h-96 rounded-full bg-reserve-gold/10 blur-3xl pointer-events-none" />
+      <div className="absolute top-1/2 -right-32 w-80 sm:w-96 h-80 sm:h-96 rounded-full bg-emerald-500/10 blur-3xl pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
           {/* Left Column: Brand Typography & Value Proposition */}
-          <div className="lg:col-span-7 space-y-6 text-center lg:text-left">
-            {/* Primary Trust Badge (Prompt requirement: displayed prominently) */}
-            <div className="inline-flex flex-wrap items-center justify-center lg:justify-start gap-2.5">
-              <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-reserve-burgundy border-2 border-reserve-gold shadow-gold-glow animate-pulse">
-                <span className="text-lg">🥩</span>
-                <span className="font-bold text-xs sm:text-sm uppercase tracking-wider text-reserve-gold-light">
+          <div className="lg:col-span-7 space-y-5 sm:space-y-6 text-center lg:text-left">
+            {/* Primary Trust Badges */}
+            <div className="inline-flex flex-wrap items-center justify-center lg:justify-start gap-2">
+              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-full bg-gradient-to-r from-reserve-burgundy via-reserve-burgundy-light to-reserve-burgundy border border-reserve-gold/70 shadow-gold-glow">
+                <span className="text-base sm:text-lg">🥩</span>
+                <span className="font-bold text-[11px] sm:text-xs uppercase tracking-wider text-reserve-gold-light">
                   Guaranteed 100% Boneless Pure Meat
                 </span>
               </div>
 
-              {/* Frozen Always Available Pill */}
-              <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-cyan-950/80 border border-cyan-400/40 text-cyan-200 text-xs font-semibold backdrop-blur-sm">
-                <Snowflake className="w-3.5 h-3.5 text-cyan-400" />
+              {/* Frozen Meat In-Store Pill */}
+              <div className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[#07242C]/90 border border-cyan-400/40 text-cyan-200 text-[11px] sm:text-xs font-semibold backdrop-blur-sm shadow-sm">
+                <Snowflake className="w-3.5 h-3.5 text-cyan-300" />
                 <span>Frozen Meat Always Available In-Store</span>
               </div>
             </div>
 
-            {/* Slogan & Main Editorial Heading */}
-            <div className="space-y-3">
-              <span className="block text-reserve-gold font-sans font-semibold text-xs sm:text-sm uppercase tracking-[0.25em]">
+            {/* Slogan & Editorial Header */}
+            <div className="space-y-2 sm:space-y-3">
+              <span className="inline-block text-reserve-gold-bright font-sans font-bold text-xs sm:text-sm uppercase tracking-[0.25em]">
                 Abeokuta’s Premier Bespoke Butchery
               </span>
-              <h1 className="font-serif text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-reserve-cream leading-[1.15]">
+              <h1 className="font-serif text-3xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-reserve-cream leading-[1.12]">
                 Artisanal Prime Cuts.{" "}
-                <span className="text-gold-gradient block mt-1">
+                <span className="text-gold-gradient-bright block mt-1">
                   Zero Bones. Pure Luxury.
                 </span>
               </h1>
             </div>
 
-            {/* Narrative description tailored for Abeokuta residents and B2B clients */}
-            <p className="text-reserve-cream-muted text-base sm:text-lg max-w-2xl mx-auto lg:mx-0 font-light leading-relaxed">
-              Experience the pinnacle of beef precision in Ogun State. Fresh cattle slaughter happens every <span className="text-reserve-gold font-medium">Friday</span>, while premium cold-chain frozen cuts are <span className="text-white font-medium">always available</span> at our Adigbe physical store throughout the week.
+            {/* Description tailored for Abeokuta residents and caterers */}
+            <p className="text-reserve-cream-muted text-sm sm:text-base lg:text-lg max-w-2xl mx-auto lg:mx-0 font-light leading-relaxed">
+              Experience the pinnacle of beef precision in Ogun State. Fresh cattle slaughter happens every <span className="text-reserve-gold font-semibold underline decoration-reserve-gold/40 underline-offset-4">Friday</span> (collection opens by 12:00 Noon), while certified cold-chain frozen cuts are <span className="text-white font-medium">always available</span> at our Adigbe physical store throughout the week.
             </p>
 
             {/* Trust highlights checklist */}
-            <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 pt-2 text-xs sm:text-sm text-reserve-cream-warm">
-              <div className="flex items-center gap-2 justify-center lg:justify-start">
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-2.5 sm:gap-3 pt-1 text-xs sm:text-sm text-reserve-cream-warm">
+              <div className="flex items-center gap-2 justify-center lg:justify-start bg-white/5 py-1.5 px-2.5 rounded-lg border border-white/5">
                 <CheckCircle2 className="w-4 h-4 text-reserve-gold flex-shrink-0" />
                 <span>100% Pure Bone-Free</span>
               </div>
-              <div className="flex items-center gap-2 justify-center lg:justify-start">
-                <CheckCircle2 className="w-4 h-4 text-reserve-gold flex-shrink-0" />
+              <div className="flex items-center gap-2 justify-center lg:justify-start bg-white/5 py-1.5 px-2.5 rounded-lg border border-white/5">
+                <CheckCircle2 className="w-4 h-4 text-cyan-300 flex-shrink-0" />
                 <span>Frozen Always Stocked</span>
               </div>
-              <div className="flex items-center gap-2 justify-center lg:justify-start">
+              <div className="flex items-center gap-2 justify-center lg:justify-start bg-white/5 py-1.5 px-2.5 rounded-lg border border-white/5 col-span-2 sm:col-span-1">
                 <CheckCircle2 className="w-4 h-4 text-reserve-gold flex-shrink-0" />
                 <span>Friday Dawn Slaughter</span>
               </div>
             </div>
 
-            {/* Primary Action Buttons */}
-            <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-4">
+            {/* Action Buttons: Optimized for Touch & High Contrast */}
+            <div className="flex flex-col sm:flex-row items-stretch sm:items-center justify-center lg:justify-start gap-3 pt-2">
               <Link
                 href="#catalog"
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 px-7 py-3.5 rounded-full bg-gradient-to-r from-reserve-gold via-reserve-gold-light to-reserve-gold-dark text-reserve-emerald font-bold text-sm tracking-wide shadow-gold-glow-lg hover:brightness-110 active:scale-95 transition-all"
+                className="inline-flex items-center justify-center gap-2.5 px-7 py-3.5 rounded-xl sm:rounded-full bg-gradient-to-r from-reserve-gold-bright via-reserve-gold to-reserve-gold-dark text-reserve-obsidian font-bold text-sm tracking-wide shadow-gold-glow hover:brightness-110 active:scale-95 transition-all text-center min-h-[46px]"
               >
                 <span>Select Cuts & Order</span>
                 <ArrowRight className="w-4 h-4" />
               </Link>
 
               <button
+                type="button"
                 onClick={openDrawer}
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-full bg-reserve-emerald-light/60 border border-reserve-gold/40 text-reserve-cream hover:bg-reserve-emerald-light hover:border-reserve-gold text-sm font-semibold transition-all"
+                className="inline-flex items-center justify-center gap-2 px-6 py-3.5 rounded-xl sm:rounded-full bg-reserve-emerald-surface/90 border border-reserve-gold/50 text-reserve-cream hover:bg-reserve-emerald-light hover:border-reserve-gold text-sm font-semibold transition-all min-h-[46px]"
               >
                 <ShoppingBag className="w-4 h-4 text-reserve-gold" />
                 <span>Open Order Builder</span>
@@ -149,19 +150,19 @@ export default function Hero() {
 
               <a
                 href="#location"
-                className="w-full sm:w-auto inline-flex items-center justify-center gap-1.5 px-4 py-3.5 text-xs text-reserve-gold/90 hover:text-reserve-gold hover:underline"
+                className="inline-flex items-center justify-center gap-1.5 px-4 py-2.5 text-xs text-reserve-gold/90 hover:text-reserve-gold hover:underline transition-colors min-h-[40px]"
               >
                 <MapPin className="w-3.5 h-3.5" />
-                <span>Adigbe Walk-In Counter</span>
+                <span>Adigbe Walk-In Store</span>
               </a>
             </div>
           </div>
 
           {/* Right Column: Live Friday Butchering Schedule Countdown Card */}
           <div className="lg:col-span-5">
-            <div className="relative rounded-2xl p-6 sm:p-8 bg-gradient-to-b from-reserve-emerald-surface/90 to-reserve-emerald/90 border border-reserve-gold/30 shadow-luxury-lg backdrop-blur-md">
+            <div className="relative rounded-2xl p-5 sm:p-7 bg-card-gradient border border-reserve-gold/35 shadow-luxury-lg backdrop-blur-md">
               {/* Top Card Badge */}
-              <div className="flex items-center justify-between pb-4 border-b border-white/10">
+              <div className="flex items-center justify-between pb-3.5 border-b border-white/10">
                 <div className="flex items-center gap-2">
                   <span className="relative flex h-3 w-3">
                     <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-amber-400 opacity-75"></span>
@@ -171,75 +172,75 @@ export default function Hero() {
                     Friday Slaughter Cycle
                   </span>
                 </div>
-                <span className="text-[11px] font-semibold bg-amber-500/20 text-amber-300 px-3 py-1 rounded-full border border-amber-400/30">
-                  Slots Filling Fast
+                <span className="text-[11px] font-bold bg-amber-500/20 text-amber-300 px-3 py-1 rounded-full border border-amber-400/40">
+                  Slots Filling Fast 🔥
                 </span>
               </div>
 
               {/* Countdown Title */}
-              <div className="mt-5 text-center">
-                <p className="text-xs text-reserve-cream-muted uppercase tracking-widest">
-                  Fresh Collection Opens By 12:00 Noon In:
+              <div className="mt-4 text-center">
+                <p className="text-[11px] sm:text-xs text-reserve-cream-muted uppercase tracking-widest font-medium">
+                  {timeLeft.targetLabel} In:
                 </p>
-                <div className="grid grid-cols-4 gap-2 sm:gap-3 mt-4">
-                  <div className="bg-reserve-emerald-dark/90 rounded-xl p-2.5 sm:p-3 border border-reserve-gold/20 text-center">
-                    <span className="font-serif text-2xl sm:text-3xl font-bold text-reserve-gold block">
+                <div className="grid grid-cols-4 gap-2 sm:gap-2.5 mt-3">
+                  <div className="bg-reserve-obsidian/90 rounded-xl p-2 sm:p-3 border border-reserve-gold/25 text-center shadow-inner">
+                    <span className="font-serif text-2xl sm:text-3xl font-bold text-reserve-gold-bright block leading-tight">
                       {String(timeLeft.days).padStart(2, "0")}
                     </span>
-                    <span className="text-[10px] uppercase text-reserve-cream-muted tracking-wider">
+                    <span className="text-[10px] uppercase text-reserve-cream-muted tracking-wider block mt-0.5">
                       Days
                     </span>
                   </div>
 
-                  <div className="bg-reserve-emerald-dark/90 rounded-xl p-2.5 sm:p-3 border border-reserve-gold/20 text-center">
-                    <span className="font-serif text-2xl sm:text-3xl font-bold text-reserve-gold block">
+                  <div className="bg-reserve-obsidian/90 rounded-xl p-2 sm:p-3 border border-reserve-gold/25 text-center shadow-inner">
+                    <span className="font-serif text-2xl sm:text-3xl font-bold text-reserve-gold-bright block leading-tight">
                       {String(timeLeft.hours).padStart(2, "0")}
                     </span>
-                    <span className="text-[10px] uppercase text-reserve-cream-muted tracking-wider">
+                    <span className="text-[10px] uppercase text-reserve-cream-muted tracking-wider block mt-0.5">
                       Hours
                     </span>
                   </div>
 
-                  <div className="bg-reserve-emerald-dark/90 rounded-xl p-2.5 sm:p-3 border border-reserve-gold/20 text-center">
-                    <span className="font-serif text-2xl sm:text-3xl font-bold text-reserve-gold block">
+                  <div className="bg-reserve-obsidian/90 rounded-xl p-2 sm:p-3 border border-reserve-gold/25 text-center shadow-inner">
+                    <span className="font-serif text-2xl sm:text-3xl font-bold text-reserve-gold-bright block leading-tight">
                       {String(timeLeft.minutes).padStart(2, "0")}
                     </span>
-                    <span className="text-[10px] uppercase text-reserve-cream-muted tracking-wider">
+                    <span className="text-[10px] uppercase text-reserve-cream-muted tracking-wider block mt-0.5">
                       Mins
                     </span>
                   </div>
 
-                  <div className="bg-reserve-emerald-dark/90 rounded-xl p-2.5 sm:p-3 border border-reserve-gold/20 text-center">
-                    <span className="font-serif text-2xl sm:text-3xl font-bold text-reserve-gold block">
+                  <div className="bg-reserve-obsidian/90 rounded-xl p-2 sm:p-3 border border-reserve-gold/25 text-center shadow-inner">
+                    <span className="font-serif text-2xl sm:text-3xl font-bold text-reserve-gold-bright block leading-tight">
                       {String(timeLeft.seconds).padStart(2, "0")}
                     </span>
-                    <span className="text-[10px] uppercase text-reserve-cream-muted tracking-wider">
+                    <span className="text-[10px] uppercase text-reserve-cream-muted tracking-wider block mt-0.5">
                       Secs
                     </span>
                   </div>
                 </div>
               </div>
 
-              {/* Demand Status (No numerical slot count, indicates 'Filling Fast' per prompt) */}
-              <div className="mt-6 pt-5 border-t border-white/10 space-y-2.5">
-                <div className="flex items-center justify-between text-xs">
+              {/* Demand Status and In-store details */}
+              <div className="mt-5 pt-4 border-t border-white/10 space-y-2 text-xs">
+                <div className="flex items-center justify-between">
                   <span className="text-reserve-cream-muted">Slaughter Day:</span>
-                  <span className="font-bold text-reserve-gold">Every Friday (Collection by 12 Noon)</span>
+                  <span className="font-bold text-reserve-gold-bright">Every Friday (Collection by 12 Noon)</span>
                 </div>
-                <div className="flex items-center justify-between text-xs">
+                <div className="flex items-center justify-between">
                   <span className="text-reserve-cream-muted">Reservation Status:</span>
                   <span className="font-bold text-amber-300">Slots Filling Fast 🔥</span>
                 </div>
-                <div className="p-2.5 rounded-lg bg-cyan-950/40 border border-cyan-400/25 flex items-start gap-2 text-xs text-cyan-200">
-                  <Snowflake className="w-3.5 h-3.5 flex-shrink-0 mt-0.5 text-cyan-400" />
+                <div className="p-2.5 rounded-xl bg-[#06242B]/90 border border-cyan-400/30 flex items-start gap-2 text-xs text-cyan-200">
+                  <Snowflake className="w-4 h-4 flex-shrink-0 mt-0.5 text-cyan-300" />
                   <span>
-                    <strong>Need meat today?</strong> Frozen boneless beef, offal & goat shares are always available for immediate walk-in purchase.
+                    <strong>Need meat today?</strong> Frozen boneless beef, offal & goat shares are <span className="underline decoration-cyan-300">always in stock</span> for immediate walk-in purchase.
                   </span>
                 </div>
               </div>
 
-              {/* Physical counter note with updated hours */}
-              <div className="mt-4 p-3 rounded-lg bg-reserve-emerald/80 border border-reserve-gold/15 space-y-1 text-xs">
+              {/* Physical Store Schedule Box */}
+              <div className="mt-3.5 p-3 rounded-xl bg-reserve-obsidian/80 border border-reserve-gold/20 space-y-1 text-xs">
                 <div className="flex items-center gap-1.5 text-white font-semibold">
                   <MapPin className="w-3.5 h-3.5 text-reserve-gold flex-shrink-0" />
                   <span>God&apos;s Hope Hospital Car Park, Adigbe</span>
@@ -254,9 +255,9 @@ export default function Hero() {
                 href={`https://wa.me/${WHATSAPP_PHONE_NUMBER}?text=${encodeURIComponent("Hello Alayaki Reserve, I would like to reserve my fresh cuts for this Friday's slaughter cycle.")}`}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="mt-4 w-full flex items-center justify-center gap-2 py-3 rounded-xl bg-reserve-emerald border border-reserve-gold/50 hover:border-reserve-gold text-reserve-gold font-bold text-xs uppercase tracking-wider hover:bg-reserve-gold/10 transition-colors shadow-sm"
+                className="mt-4 w-full flex items-center justify-center gap-2 py-3.5 rounded-xl bg-gradient-to-r from-reserve-gold-bright via-reserve-gold to-reserve-gold-dark text-reserve-obsidian font-bold text-xs uppercase tracking-wider hover:brightness-110 active:scale-98 transition-all shadow-gold-glow"
               >
-                <span>Reserve Friday Fresh Cuts via WhatsApp</span>
+                <span>Reserve Friday Fresh Cuts on WhatsApp</span>
               </a>
             </div>
           </div>

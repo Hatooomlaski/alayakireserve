@@ -4,94 +4,116 @@
 
 @layer base {
   :root {
-    --reserve-emerald: 11 32 20;
-    --reserve-cream: 253 251 247;
-    --reserve-gold: 212 175 55;
-    --reserve-burgundy: 74 14 23;
+    --reserve-obsidian: 4 13 7;
+    --reserve-emerald: 8 26 15;
+    --reserve-cream: 250 248 245;
+    --reserve-gold: 224 186 75;
+    --reserve-burgundy: 84 16 26;
+  }
+
+  html {
+    color-scheme: dark;
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
   }
 
   body {
-    background-color: #0B2014;
-    color: #FDFBF7;
+    background-color: #06130B;
+    color: #FAF8F5;
     font-feature-settings: "cv02", "cv03", "cv04", "cv11";
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     overflow-x: hidden;
+    touch-action: manipulation;
+  }
+
+  /* Prevent auto-zooming on inputs in iOS Safari */
+  input, select, textarea {
+    font-size: 16px !important;
   }
 }
 
 /* Custom luxury scrollbars */
 ::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
+  width: 6px;
+  height: 6px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #06120B;
+  background: #040D07;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #234E35;
-  border-radius: 4px;
-  border: 1px solid rgba(212, 175, 55, 0.2);
+  background: #153B25;
+  border-radius: 9999px;
+  border: 1px solid rgba(224, 186, 75, 0.2);
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #D4AF37;
+  background: #E0BA4B;
+}
+
+/* Hide scrollbars for horizontal chip carousels */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
 }
 
 /* Luxury gold border utility */
 .border-gold-hairline {
   border-width: 0.5px;
-  border-color: rgba(212, 175, 55, 0.3);
+  border-color: rgba(224, 186, 75, 0.35);
 }
 
 .border-gold-subtle {
-  border: 1px solid rgba(212, 175, 55, 0.2);
+  border: 1px solid rgba(224, 186, 75, 0.25);
 }
 
 .border-gold-glow {
-  border: 1px solid #D4AF37;
-  box-shadow: 0 0 15px rgba(212, 175, 55, 0.25);
+  border: 1px solid #E0BA4B;
+  box-shadow: 0 0 16px rgba(224, 186, 75, 0.35);
 }
 
-/* Heritage gold gradient text */
+/* Radiant gold gradient text */
 .text-gold-gradient {
-  background: linear-gradient(135deg, #FFF0BE 0%, #D4AF37 50%, #AA820A 100%);
+  background: linear-gradient(135deg, #FFF8DC 0%, #FADB6A 45%, #C99E2A 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
-.text-gold-subtle {
-  color: #D4AF37;
-}
-
-/* Glassmorphism surfaces for dark luxury butchery aesthetics */
-.glass-emerald {
-  background: rgba(11, 32, 20, 0.85);
+/* High-contrast luxury surfaces */
+.glass-obsidian {
+  background: rgba(8, 24, 15, 0.85);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(212, 175, 55, 0.2);
+  border: 1px solid rgba(224, 186, 75, 0.25);
 }
 
-.glass-emerald-card {
-  background: linear-gradient(180deg, rgba(20, 56, 35, 0.45) 0%, rgba(11, 32, 20, 0.75) 100%);
+.glass-card {
+  background: linear-gradient(180deg, rgba(16, 42, 28, 0.75) 0%, rgba(8, 22, 14, 0.9) 100%);
   backdrop-filter: blur(12px);
-  border: 1px solid rgba(212, 175, 55, 0.22);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(224, 186, 75, 0.22);
+  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.08);
 }
 
 .card-luxury-hover {
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.card-luxury-hover:hover {
-  transform: translateY(-4px);
-  border-color: rgba(212, 175, 55, 0.5);
-  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.4), 0 0 20px rgba(212, 175, 55, 0.15);
+@media (hover: hover) {
+  .card-luxury-hover:hover {
+    transform: translateY(-4px);
+    border-color: rgba(224, 186, 75, 0.55);
+    box-shadow: 0 16px 36px rgba(0, 0, 0, 0.6), 0 0 25px rgba(224, 186, 75, 0.2);
+  }
 }
 
-/* Subtle heritage grid pattern */
+/* Subtle luxury diamond grid texture */
 .bg-heritage-pattern {
-  background-image: radial-gradient(rgba(212, 175, 55, 0.08) 1px, transparent 1px);
-  background-size: 28px 28px;
+  background-image: radial-gradient(rgba(224, 186, 75, 0.08) 1px, transparent 1px);
+  background-size: 24px 24px;
 }

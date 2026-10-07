@@ -1,8 +1,10 @@
 import { CustomerDetails, OrderItem, DeliveryZone } from "@/types/store";
 import { formatNaira } from "./utils";
 
-export const WHATSAPP_PHONE_NUMBER = "2348153861887";
-export const DISPLAY_PHONE_NUMBER = "+234 815 386 1887";
+export const WHATSAPP_PHONE_NUMBER =
+  process.env.NEXT_PUBLIC_WHATSAPP_PHONE_NUMBER || "2348153861887";
+export const DISPLAY_PHONE_NUMBER =
+  process.env.NEXT_PUBLIC_DISPLAY_PHONE_NUMBER || "+234 815 386 1887";
 
 interface WhatsAppOrderPayload {
   items: OrderItem[];

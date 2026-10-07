@@ -13,11 +13,11 @@ export const PRODUCTS: ProductItem[] = [
     isSpecialty: false,
     availableStates: ["Fresh", "Frozen"],
     tiers: [
-      { weightLabel: "0.5kg (Half kg)", weightKg: 0.5, price: 3850 },
-      { weightLabel: "1kg", weightKg: 1, price: 7700 },
-      { weightLabel: "2kg", weightKg: 2, price: 15400 },
-      { weightLabel: "5kg", weightKg: 5, price: 38500 },
-      { weightLabel: "10kg", weightKg: 10, price: 77000 },
+      { weightLabel: "0.5kg (Half kg)", shortLabel: "0.5kg", subtitle: "Half kg", weightKg: 0.5, price: 3850 },
+      { weightLabel: "1kg", shortLabel: "1kg", subtitle: "Standard", weightKg: 1, price: 7700 },
+      { weightLabel: "2kg", shortLabel: "2kg", subtitle: "Family", weightKg: 2, price: 15400 },
+      { weightLabel: "5kg", shortLabel: "5kg", subtitle: "Bulk Slab", weightKg: 5, price: 38500 },
+      { weightLabel: "10kg", shortLabel: "10kg", subtitle: "Party Bag", weightKg: 10, price: 77000 },
     ],
     imageUrl: "/images/products/prime-beef-boneless.jpg",
     cutOptions: [
@@ -40,10 +40,10 @@ export const PRODUCTS: ProductItem[] = [
     isSpecialty: false,
     availableStates: ["Fresh", "Frozen"],
     tiers: [
-      { weightLabel: "0.5kg (Half kg)", weightKg: 0.5, price: 3000 },
-      { weightLabel: "1kg", weightKg: 1, price: 6000 },
-      { weightLabel: "2kg", weightKg: 2, price: 12000 },
-      { weightLabel: "5kg", weightKg: 5, price: 30000 },
+      { weightLabel: "0.5kg (Half kg)", shortLabel: "0.5kg", subtitle: "Half kg", weightKg: 0.5, price: 3000 },
+      { weightLabel: "1kg", shortLabel: "1kg", subtitle: "Standard", weightKg: 1, price: 6000 },
+      { weightLabel: "2kg", shortLabel: "2kg", subtitle: "Family", weightKg: 2, price: 12000 },
+      { weightLabel: "5kg", shortLabel: "5kg", subtitle: "Bulk Slab", weightKg: 5, price: 30000 },
     ],
     imageUrl: "/images/products/assorted-cow-intestines.jpg",
     cutOptions: [
@@ -124,9 +124,9 @@ export const PRODUCTS: ProductItem[] = [
     isSpecialty: false,
     availableStates: ["Fresh", "Frozen"],
     tiers: [
-      { weightLabel: "1 Slot (Share)", slots: 1, price: 25000 },
-      { weightLabel: "2 Slots (Half Goat Share)", slots: 2, price: 50000 },
-      { weightLabel: "4 Slots (Full Goat Share)", slots: 4, price: 100000 },
+      { weightLabel: "1 Slot (Share)", shortLabel: "1 Slot", subtitle: "Standard Share", slots: 1, price: 25000 },
+      { weightLabel: "2 Slots (Half Goat)", shortLabel: "2 Slots", subtitle: "Half Goat", slots: 2, price: 50000 },
+      { weightLabel: "4 Slots (Full Goat)", shortLabel: "4 Slots", subtitle: "Full Goat", slots: 4, price: 100000 },
     ],
     imageUrl: "/images/products/goat-meat-ogufe.jpg",
     cutOptions: [

@@ -4,6 +4,8 @@ export type ProductCategory = "all" | "beef" | "intestines" | "specialty" | "goa
 
 export interface PriceTier {
   weightLabel: string;
+  shortLabel?: string;
+  subtitle?: string;
   weightKg?: number;
   slots?: number;
   price: number;

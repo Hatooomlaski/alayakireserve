@@ -33,9 +33,13 @@ export default function ProductCard({ product }: ProductCardProps) {
     openDrawer,
   } = useOrder();
 
-  // Selected portion/tier (default to 1kg or first tier)
+  // Selected portion/tier (default to 1kg for beef/offal, 1 Slot for goat)
+  const defaultTierIndex =
+    product.category === "beef" || product.category === "intestines" ? 1 : 0;
   const [selectedTier, setSelectedTier] = useState<PriceTier | undefined>(
-    product.tiers && product.tiers.length > 0 ? product.tiers[1] || product.tiers[0] : undefined
+    product.tiers && product.tiers.length > 0
+      ? product.tiers[defaultTierIndex] || product.tiers[0]
+      : undefined
   );
 
   // Selected meat state (Fresh vs Frozen)
@@ -176,15 +180,23 @@ export default function ProductCard({ product }: ProductCardProps) {
         <div className="space-y-3 pt-3 border-t border-white/10">
           {product.tiers && product.tiers.length > 0 && (
             <div>
-              <div className="flex items-center justify-between mb-2">
-                <label className="text-[11px] uppercase tracking-wider text-reserve-cream-muted font-semibold">
-                  Choose Portion / Weight:
+              <div className="flex items-center justify-between gap-2 mb-2">
+                <label className="text-[11px] uppercase tracking-wider text-reserve-cream-muted font-semibold truncate">
+                  Choose Portion / Share:
                 </label>
-                <span className="text-xs text-reserve-gold-bright font-bold">
+                <span className="text-xs text-reserve-gold-bright font-bold truncate text-right flex-shrink-0">
                   {selectedTier?.weightLabel}
                 </span>
               </div>
-              <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
+              <div
+                className={`grid gap-2 ${
+                  product.tiers.length === 3
+                    ? "grid-cols-3"
+                    : product.tiers.length === 4
+                    ? "grid-cols-2 sm:grid-cols-4"
+                    : "grid-cols-3 sm:grid-cols-5"
+                }`}
+              >
                 {product.tiers.map((tier) => {
                   const isSelected = selectedTier?.weightLabel === tier.weightLabel;
                   const qtyForThisTier = getItemQuantity(product.id, tier.weightLabel, selectedState);
@@ -193,18 +205,35 @@ export default function ProductCard({ product }: ProductCardProps) {
                       key={tier.weightLabel}
                       type="button"
                       onClick={() => setSelectedTier(tier)}
-                      className={`relative min-h-[46px] px-2.5 py-2 rounded-xl text-xs font-semibold transition-all border text-center flex flex-col items-center justify-center ${
+                      className={`relative w-full min-w-0 px-1 py-2.5 rounded-xl text-center flex flex-col items-center justify-center transition-all border overflow-hidden ${
                         isSelected
                           ? "bg-gradient-to-r from-reserve-gold-bright via-reserve-gold to-reserve-gold-dark text-reserve-obsidian border-reserve-gold shadow-gold-glow font-bold"
                           : "bg-reserve-obsidian/80 text-reserve-cream-muted border-white/10 hover:border-reserve-gold/40 hover:text-white"
                       }`}
                     >
-                      <span className="block truncate font-bold">{tier.weightLabel}</span>
-                      <span className={`block text-[10px] ${isSelected ? "text-reserve-obsidian/90 font-medium" : "text-reserve-cream-muted/80"}`}>
+                      <span className="block font-bold text-xs truncate max-w-full leading-tight">
+                        {tier.shortLabel || tier.weightLabel}
+                      </span>
+                      {tier.subtitle && (
+                        <span
+                          className={`block text-[10px] truncate max-w-full leading-tight mt-0.5 ${
+                            isSelected
+                              ? "text-reserve-obsidian/85 font-medium"
+                              : "text-reserve-cream-muted/70"
+                          }`}
+                        >
+                          {tier.subtitle}
+                        </span>
+                      )}
+                      <span
+                        className={`block text-[10px] font-bold truncate max-w-full mt-1 ${
+                          isSelected ? "text-reserve-obsidian" : "text-reserve-gold-bright"
+                        }`}
+                      >
                         {formatNaira(tier.price)}
                       </span>
                       {qtyForThisTier > 0 && (
-                        <span className="absolute -top-1.5 -right-1.5 min-w-[18px] h-[18px] px-1 rounded-full bg-emerald-500 text-white text-[10px] font-bold flex items-center justify-center border-2 border-reserve-obsidian shadow">
+                        <span className="absolute top-1 right-1 min-w-[17px] h-[17px] px-0.5 rounded-full bg-emerald-500 text-white text-[9px] font-bold flex items-center justify-center border border-reserve-obsidian shadow">
                           {qtyForThisTier}
                         </span>
                       )}
@@ -339,8 +368,10 @@ export default function ProductCard({ product }: ProductCardProps) {
                   </>
                 ) : (
                   <>
-                    <Plus className="w-4 h-4 text-reserve-obsidian stroke-[3]" />
-                    <span>Add {currentPortionLabel} ({formatNaira(currentPrice)})</span>
+                    <Plus className="w-4 h-4 text-reserve-obsidian stroke-[3] flex-shrink-0" />
+                    <span className="truncate">
+                      Add {selectedTier?.shortLabel || currentPortionLabel} ({formatNaira(currentPrice)})
+                    </span>
                   </>
                 )}
               </button>

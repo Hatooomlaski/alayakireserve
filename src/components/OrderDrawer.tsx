@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React from "react";
 import { useOrder } from "@/context/OrderContext";
 import { DELIVERY_ZONES } from "@/config/zones";
 import { formatNaira } from "@/lib/utils";
@@ -39,30 +39,7 @@ export default function OrderDrawer() {
     getWhatsAppOrderUrl,
   } = useOrder();
 
-  const [validationError, setValidationError] = useState<string | null>(null);
-
   if (!isDrawerOpen) return null;
-
-  const handleProceedToWhatsApp = () => {
-    if (items.length === 0) {
-      setValidationError("Please add at least one cut to your order.");
-      return;
-    }
-
-    if (!customer.fullName.trim()) {
-      setValidationError("Please enter your name so we can address you properly.");
-      return;
-    }
-
-    if (customer.deliveryType === "delivery" && !customer.deliveryAddress.trim()) {
-      setValidationError("Please provide your delivery address or landmark in Abeokuta.");
-      return;
-    }
-
-    setValidationError(null);
-    const url = getWhatsAppOrderUrl();
-    window.open(url, "_blank", "noopener,noreferrer");
-  };
 
   return (
     <div className="fixed inset-0 z-50 overflow-hidden">
@@ -112,7 +89,7 @@ export default function OrderDrawer() {
                   Your Order Builder is Empty
                 </h3>
                 <p className="text-xs text-reserve-cream-muted max-w-xs mx-auto">
-                  Select your cuts, portions, and custom butchering preferences from our catalog to route directly to WhatsApp.
+                  Click on any cut, weight, or portion in our catalog to automatically populate your order here.
                 </p>
                 <button
                   onClick={closeDrawer}
@@ -280,17 +257,17 @@ export default function OrderDrawer() {
                   </div>
                 )}
 
-                {/* Customer Details Form */}
+                {/* Customer Details Form (Optional on-site helpers) */}
                 <div className="space-y-3 pt-2">
                   <label className="text-xs font-semibold uppercase tracking-wider text-reserve-cream-muted block">
-                    Your Contact & Delivery Information:
+                    Contact & Delivery Details (Optional):
                   </label>
 
                   <div className="space-y-2.5">
                     <div>
                       <input
                         type="text"
-                        placeholder="Your Full Name *"
+                        placeholder="Your Name (Optional)"
                         value={customer.fullName}
                         onChange={(e) => updateCustomer({ fullName: e.target.value })}
                         className="w-full bg-reserve-emerald-dark text-reserve-cream text-xs rounded-xl px-3 py-2.5 border border-white/15 focus:border-reserve-gold focus:outline-none placeholder:text-reserve-cream-muted/50"
@@ -300,7 +277,7 @@ export default function OrderDrawer() {
                     <div>
                       <input
                         type="tel"
-                        placeholder="Phone Number (WhatsApp Active)"
+                        placeholder="Phone Number (Optional)"
                         value={customer.phone}
                         onChange={(e) => updateCustomer({ phone: e.target.value })}
                         className="w-full bg-reserve-emerald-dark text-reserve-cream text-xs rounded-xl px-3 py-2.5 border border-white/15 focus:border-reserve-gold focus:outline-none placeholder:text-reserve-cream-muted/50"
@@ -311,7 +288,7 @@ export default function OrderDrawer() {
                       <div>
                         <input
                           type="text"
-                          placeholder="Exact Street Address / Closest Landmark in Abeokuta *"
+                          placeholder="Delivery Address / Closest Landmark (Optional)"
                           value={customer.deliveryAddress}
                           onChange={(e) => updateCustomer({ deliveryAddress: e.target.value })}
                           className="w-full bg-reserve-emerald-dark text-reserve-cream text-xs rounded-xl px-3 py-2.5 border border-white/15 focus:border-reserve-gold focus:outline-none placeholder:text-reserve-cream-muted/50"
@@ -329,7 +306,7 @@ export default function OrderDrawer() {
                   </label>
                   <textarea
                     rows={2}
-                    placeholder="e.g. Cut beef into bite-sized stew chunks, pack intestines separately, keep cow leg skin intact..."
+                    placeholder="e.g. Cut beef into bite-sized stew chunks, pack intestines separately..."
                     value={customer.cuttingInstructions}
                     onChange={(e) => updateCustomer({ cuttingInstructions: e.target.value })}
                     className="w-full bg-reserve-emerald-dark text-reserve-cream text-xs rounded-xl p-3 border border-white/15 focus:border-reserve-gold focus:outline-none placeholder:text-reserve-cream-muted/50"
@@ -349,7 +326,7 @@ export default function OrderDrawer() {
             )}
           </div>
 
-          {/* Drawer Footer / Sticky WhatsApp Action Bar */}
+          {/* Drawer Footer / Direct Native WhatsApp Link */}
           {items.length > 0 && (
             <div className="p-5 sm:p-6 border-t border-white/15 bg-reserve-emerald space-y-4">
               {/* Financial Calculation Breakdown */}
@@ -381,26 +358,21 @@ export default function OrderDrawer() {
                 </div>
               </div>
 
-              {/* Validation Error Banner */}
-              {validationError && (
-                <div className="p-2.5 rounded-lg bg-rose-500/20 border border-rose-500 text-rose-200 text-xs text-center font-medium">
-                  {validationError}
-                </div>
-              )}
-
-              {/* Main Green/Gold WhatsApp Order Action Button */}
-              <button
-                onClick={handleProceedToWhatsApp}
-                className="w-full py-4 px-4 rounded-xl bg-gradient-to-r from-emerald-600 via-emerald-500 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-bold text-sm uppercase tracking-wider flex items-center justify-center gap-2.5 shadow-lg shadow-emerald-900/50 hover:brightness-105 active:scale-98 transition-all border border-emerald-400/40"
+              {/* Main Green/Gold WhatsApp Order Action Link (Native <a> tag so it is never blocked) */}
+              <a
+                href={getWhatsAppOrderUrl()}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-full py-4 px-4 rounded-xl bg-gradient-to-r from-emerald-600 via-emerald-500 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-bold text-sm uppercase tracking-wider flex items-center justify-center gap-2.5 shadow-lg shadow-emerald-900/50 hover:brightness-105 active:scale-98 transition-all border border-emerald-400/40 text-center"
               >
                 <MessageCircle className="w-5 h-5 fill-white text-emerald-600" />
-                <span>Proceed to WhatsApp Order ({DISPLAY_PHONE_NUMBER})</span>
-              </button>
+                <span>Send Order to WhatsApp ({DISPLAY_PHONE_NUMBER})</span>
+              </a>
 
               <div className="text-center">
                 <p className="text-[11px] text-reserve-cream-muted/70 flex items-center justify-center gap-1">
                   <ShieldCheck className="w-3.5 h-3.5 text-reserve-gold" />
-                  <span>No card required online. Confirmed with master butcher via WhatsApp.</span>
+                  <span>Opens WhatsApp directly with your verified cut breakdown.</span>
                 </p>
               </div>
             </div>

@@ -10,6 +10,11 @@ interface OrderContextType {
   addItem: (product: ProductItem, tier: PriceTier | undefined, meatState: MeatState, customCutting?: string) => void;
   removeItem: (itemId: string) => void;
   updateQuantity: (itemId: string, newQty: number) => void;
+  incrementItem: (product: ProductItem, tier: PriceTier | undefined, meatState: MeatState, customCutting?: string) => void;
+  decrementItem: (product: ProductItem, tier: PriceTier | undefined, meatState: MeatState, customCutting?: string) => void;
+  getItemQuantity: (productId: string, portionLabel: string, meatState: MeatState) => number;
+  getProductTotalQuantity: (productId: string) => number;
+  getProductSelectedItems: (productId: string) => OrderItem[];
   clearCart: () => void;
   customer: CustomerDetails;
   updateCustomer: (updates: Partial<CustomerDetails>) => void;
@@ -80,6 +85,20 @@ export function OrderProvider({ children }: { children: React.ReactNode }) {
     return DELIVERY_ZONES.find((z) => z.id === customer.deliveryZoneId) || DELIVERY_ZONES[1];
   }, [customer.deliveryType, customer.deliveryZoneId]);
 
+  const getItemId = (
+    product: ProductItem,
+    tier: PriceTier | undefined,
+    meatState: MeatState,
+    customCutting?: string
+  ) => {
+    const portionLabel = product.isSpecialty
+      ? `1 ${product.unitLabel || "Unit"}`
+      : tier
+      ? tier.weightLabel
+      : "Standard Portion";
+    return `${product.id}-${portionLabel}-${meatState}-${customCutting || "standard"}`;
+  };
+
   const addItem = (
     product: ProductItem,
     tier: PriceTier | undefined,
@@ -98,8 +117,7 @@ export function OrderProvider({ children }: { children: React.ReactNode }) {
       ? tier.price
       : 0;
 
-    // Unique ID combining product, portion, and state
-    const itemId = `${product.id}-${portionLabel}-${meatState}-${customCutting || "standard"}`;
+    const itemId = getItemId(product, tier, meatState, customCutting);
 
     setItems((prev) => {
       const existingIndex = prev.findIndex((i) => i.id === itemId);
@@ -126,8 +144,34 @@ export function OrderProvider({ children }: { children: React.ReactNode }) {
       };
       return [...prev, newItem];
     });
+  };
 
-    setIsDrawerOpen(true);
+  const incrementItem = (
+    product: ProductItem,
+    tier: PriceTier | undefined,
+    meatState: MeatState,
+    customCutting?: string
+  ) => {
+    addItem(product, tier, meatState, customCutting);
+  };
+
+  const decrementItem = (
+    product: ProductItem,
+    tier: PriceTier | undefined,
+    meatState: MeatState,
+    customCutting?: string
+  ) => {
+    const itemId = getItemId(product, tier, meatState, customCutting);
+    setItems((prev) => {
+      const existing = prev.find((i) => i.id === itemId);
+      if (!existing) return prev;
+      if (existing.quantity <= 1) {
+        return prev.filter((i) => i.id !== itemId);
+      }
+      return prev.map((i) =>
+        i.id === itemId ? { ...i, quantity: i.quantity - 1 } : i
+      );
+    });
   };
 
   const removeItem = (itemId: string) => {
@@ -142,6 +186,23 @@ export function OrderProvider({ children }: { children: React.ReactNode }) {
     setItems((prev) =>
       prev.map((i) => (i.id === itemId ? { ...i, quantity: newQty } : i))
     );
+  };
+
+  const getItemQuantity = (productId: string, portionLabel: string, meatState: MeatState) => {
+    const item = items.find(
+      (i) => i.productId === productId && i.portionLabel === portionLabel && i.meatState === meatState
+    );
+    return item ? item.quantity : 0;
+  };
+
+  const getProductTotalQuantity = (productId: string) => {
+    return items
+      .filter((i) => i.productId === productId)
+      .reduce((sum, item) => sum + item.quantity, 0);
+  };
+
+  const getProductSelectedItems = (productId: string) => {
+    return items.filter((i) => i.productId === productId);
   };
 
   const clearCart = () => {
@@ -191,6 +252,11 @@ export function OrderProvider({ children }: { children: React.ReactNode }) {
         addItem,
         removeItem,
         updateQuantity,
+        incrementItem,
+        decrementItem,
+        getItemQuantity,
+        getProductTotalQuantity,
+        getProductSelectedItems,
         clearCart,
         customer,
         updateCustomer,

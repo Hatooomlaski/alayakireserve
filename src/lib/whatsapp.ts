@@ -28,8 +28,8 @@ export function generateWhatsAppOrderUrl({
 
   const addressDisplay =
     customer.deliveryType === "pickup"
-      ? "Self-Pickup in person"
-      : customer.deliveryAddress || "Address provided via WhatsApp";
+      ? "Self-Pickup in person (Adigbe Store)"
+      : customer.deliveryAddress?.trim() || "Will provide address in chat";
 
   const selectedItemsLines = items.map((item) => {
     const specialtyFlag = item.isSpecialty ? " - Starting from " : " - ";
@@ -46,7 +46,7 @@ export function generateWhatsAppOrderUrl({
     : null;
 
   const cuttingInstructions =
-    customer.cuttingInstructions.trim() || "Standard hygienic precision cuts";
+    customer.cuttingInstructions?.trim() || "Standard hygienic precision cuts";
 
   const deliveryFee =
     customer.deliveryType === "delivery" && selectedZone
@@ -55,14 +55,22 @@ export function generateWhatsAppOrderUrl({
 
   const totalEstimateWithDelivery = subtotal + deliveryFee;
 
+  const statesInCart = Array.from(new Set(items.map((i) => i.meatState)));
+  const meatStatePreference =
+    statesInCart.length === 1
+      ? statesInCart[0]
+      : statesInCart.length > 1
+      ? "Mixed (As indicated per cut)"
+      : customer.preferredMeatState || "Fresh";
+
   const message = [
     "*NEW ORDER INQUIRY - ALAYAKI RESERVE*",
     "----------------------------------",
-    `*Customer Name:* ${customer.fullName || "Valued Client"}`,
-    `*Contact Phone:* ${customer.phone || "Not specified"}`,
+    `*Customer Name:* ${customer.fullName?.trim() || "Valued Client"}`,
+    `*Contact Phone:* ${customer.phone?.trim() || "Active WhatsApp Chat"}`,
     `*Delivery Type:* ${deliveryTypeDisplay}`,
     `*Delivery Address:* ${addressDisplay}`,
-    `*Meat State Preference:* ${customer.preferredMeatState}`,
+    `*Meat State Preference:* ${meatStatePreference}`,
     "",
     "*SELECTED ITEMS:*",
     ...selectedItemsLines,

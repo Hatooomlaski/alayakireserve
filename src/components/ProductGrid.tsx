@@ -4,7 +4,7 @@ import React, { useState } from "react";
 import { PRODUCTS } from "@/config/products";
 import { ProductCategory } from "@/types/store";
 import ProductCard from "./ProductCard";
-import { Sparkles, ShoppingBag, ShieldCheck } from "lucide-react";
+import { Sparkles, ShoppingBag, MessageCircle, ArrowRight } from "lucide-react";
 import { useOrder } from "@/context/OrderContext";
 import { formatNaira } from "@/lib/utils";
 
@@ -24,7 +24,7 @@ const FILTERS: FilterOption[] = [
 
 export default function ProductGrid() {
   const [activeCategory, setActiveCategory] = useState<ProductCategory>("all");
-  const { totalItemCount, subtotal, openDrawer } = useOrder();
+  const { totalItemCount, subtotal, openDrawer, getWhatsAppOrderUrl } = useOrder();
 
   const filteredProducts =
     activeCategory === "all"
@@ -44,7 +44,7 @@ export default function ProductGrid() {
             The Reserve Butchery Selection
           </h2>
           <p className="text-reserve-cream-muted text-sm sm:text-base font-light">
-            Every cut is inspected by certified veterinarians, prepared in hygienic cold-chain environments, and customized to your exact stew, pepper soup, or roasting preference.
+            Choose your desired portions below. Your order will automatically populate in real-time, ready to route directly to WhatsApp for priority preparation.
           </p>
         </div>
 
@@ -86,36 +86,51 @@ export default function ProductGrid() {
             <ProductCard key={product.id} product={product} />
           ))}
         </div>
+      </div>
 
-        {/* Floating Cart Indicator when items are added */}
-        {totalItemCount > 0 && (
-          <div className="sticky bottom-6 z-30 mt-10 max-w-xl mx-auto">
-            <div className="bg-reserve-emerald-surface/95 border-2 border-reserve-gold p-3.5 sm:p-4 rounded-2xl shadow-gold-glow-lg backdrop-blur-md flex items-center justify-between gap-4">
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-xl bg-reserve-gold/20 border border-reserve-gold flex items-center justify-center text-reserve-gold font-bold">
-                  {totalItemCount}
+      {/* Persistent Floating Bottom Bar across the screen when items are chosen */}
+      {totalItemCount > 0 && (
+        <div className="fixed bottom-4 left-3 right-3 sm:left-auto sm:right-6 sm:max-w-md z-40 animate-in fade-in slide-in-from-bottom duration-300">
+          <div className="bg-reserve-emerald-surface/98 border-2 border-reserve-gold p-3.5 rounded-2xl shadow-2xl backdrop-blur-lg flex items-center justify-between gap-3 text-reserve-cream">
+            <button
+              onClick={openDrawer}
+              className="flex items-center gap-2.5 text-left group"
+            >
+              <div className="w-10 h-10 rounded-xl bg-reserve-gold text-reserve-emerald flex items-center justify-center font-bold text-sm shadow-gold-glow group-hover:scale-105 transition-transform">
+                {totalItemCount}
+              </div>
+              <div>
+                <div className="text-[11px] text-reserve-cream-muted flex items-center gap-1 font-medium">
+                  <span>{totalItemCount} {totalItemCount === 1 ? "item" : "items"} selected</span>
+                  <span className="text-reserve-gold underline text-[10px]">(View)</span>
                 </div>
-                <div>
-                  <div className="text-xs text-reserve-cream-muted">
-                    {totalItemCount} {totalItemCount === 1 ? "cut" : "cuts"} in Order Builder
-                  </div>
-                  <div className="font-serif text-lg font-bold text-reserve-gold">
-                    Subtotal: {formatNaira(subtotal)}
-                  </div>
+                <div className="font-serif text-base sm:text-lg font-bold text-reserve-gold leading-tight">
+                  {formatNaira(subtotal)}
                 </div>
               </div>
+            </button>
 
+            <div className="flex items-center gap-2">
               <button
                 onClick={openDrawer}
-                className="px-5 py-2.5 rounded-xl bg-gradient-to-r from-reserve-gold to-reserve-gold-dark text-reserve-emerald font-bold text-xs uppercase tracking-wider shadow-md hover:brightness-110 active:scale-95 transition-all flex items-center gap-2"
+                className="px-3 py-2 rounded-xl bg-white/10 hover:bg-white/15 text-xs font-semibold text-white transition-colors hidden sm:block"
               >
-                <ShoppingBag className="w-4 h-4" />
-                <span>Review WhatsApp Order</span>
+                Review
               </button>
+
+              <a
+                href={getWhatsAppOrderUrl()}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="px-4 py-2.5 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-400 hover:to-teal-500 text-white font-bold text-xs uppercase tracking-wider shadow-lg flex items-center gap-1.5 transition-all active:scale-95 border border-emerald-400/40"
+              >
+                <MessageCircle className="w-4 h-4 fill-white text-emerald-600" />
+                <span>Order on WhatsApp</span>
+              </a>
             </div>
           </div>
-        )}
-      </div>
+        </div>
+      )}
     </section>
   );
 }

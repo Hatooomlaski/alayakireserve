@@ -43,7 +43,7 @@ export default function Navbar() {
               />
             </div>
             <div>
-              <span className="font-serif text-lg sm:text-2xl font-bold tracking-wider text-gold-gradient-bright block leading-tight">
+              <span className="font-serif text-lg sm:text-2xl font-bold tracking-wider text-white block leading-tight">
                 ALAYAKI RESERVE
               </span>
               <span className="text-[9px] sm:text-[10px] uppercase tracking-[0.22em] text-reserve-gold-bright block font-sans font-semibold">

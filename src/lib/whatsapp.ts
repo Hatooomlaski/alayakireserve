@@ -23,8 +23,23 @@ export function generateWhatsAppOrderUrl({
 }: WhatsAppOrderPayload): string {
   const deliveryTypeDisplay =
     customer.deliveryType === "pickup"
-      ? "Pickup at Adigbe Store (God's Hope Hospital Car Park)"
-      : `Delivery to ${selectedZone ? selectedZone.name : "Abeokuta Address"}`;
+      ? "🏪 In-Store Walk-In Pickup (God's Hope Hospital Car Park, Adigbe)"
+      : `🚗 Delivery Requested (Carefully Packaged to ${selectedZone ? selectedZone.name : "Abeokuta Address"})`;
+
+  const totalWeightKg = items.reduce(
+    (sum, item) => sum + (item.weightKg || 0) * item.quantity,
+    0
+  );
+  const totalSlots = items.reduce(
+    (sum, item) => sum + (item.slots || 0) * item.quantity,
+    0
+  );
+  const weightSummaryLine =
+    totalWeightKg > 0
+      ? `*Accurately Weighed Total:* ${totalWeightKg}kg${totalSlots > 0 ? ` + ${totalSlots} Goat Slot(s)` : ""}`
+      : totalSlots > 0
+      ? `*Accurately Measured Slots:* ${totalSlots} Goat Slot(s)`
+      : null;
 
   const addressDisplay =
     customer.deliveryType === "pickup"
@@ -68,9 +83,10 @@ export function generateWhatsAppOrderUrl({
     "----------------------------------",
     `*Customer Name:* ${customer.fullName?.trim() || "Valued Client"}`,
     `*Contact Phone:* ${customer.phone?.trim() || "Active WhatsApp Chat"}`,
-    `*Delivery Type:* ${deliveryTypeDisplay}`,
+    `*Fulfillment Preference:* ${deliveryTypeDisplay}`,
     `*Delivery Address:* ${addressDisplay}`,
     `*Meat State Preference:* ${meatStatePreference}`,
+    weightSummaryLine,
     "",
     "*SELECTED ITEMS:*",
     ...selectedItemsLines,

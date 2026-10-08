@@ -9,56 +9,91 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
+        // Hybrid Premium & Pristine Palette (60-30-10 Rule)
+        pristine: {
+          DEFAULT: "#FFFFFF",
+          surface: "#FDFDFD",
+          muted: "#F8FAFC",
+        },
+        charcoal: {
+          DEFAULT: "#1F2421",
+          rich: "#141815",
+          surface: "#2A312D",
+          card: "#191E1B",
+          border: "#333D37",
+          muted: "#3E4942",
+        },
+        ruby: {
+          DEFAULT: "#A80016",
+          hover: "#8C0012",
+          active: "#70000E",
+          subtle: "#FFF1F2",
+          border: "#FECDD3",
+        },
+        steel: {
+          DEFAULT: "#64748B",
+          dark: "#475569",
+          light: "#94A3B8",
+          surface: "#F1F5F9",
+          border: "#E2E8F0",
+        },
+        whatsapp: {
+          DEFAULT: "#25D366",
+          hover: "#1EBE5D",
+          dark: "#128C7E",
+        },
         reserve: {
-          // Sleeker Royal Obsidian Emerald Palette
-          obsidian: "#040D07",
-          emerald: "#081A0F",
-          "emerald-dark": "#05120A",
-          "emerald-card": "#0C2316",
-          "emerald-light": "#143823",
-          "emerald-surface": "#0F291A",
-          "emerald-glow": "#10B981",
-
-          // High-contrast Warm Ivory & Pearl
-          cream: "#FAF8F5",
-          "cream-warm": "#F3EFE6",
-          "cream-muted": "#CFC7B8",
-          "cream-soft": "#E5DFD3",
-
-          // Radiant Champagne Gold
-          gold: "#E0BA4B",
+          // Heritage Gold & Brand Accents
+          gold: "#D4AF37",
           "gold-bright": "#FADB6A",
           "gold-light": "#FFF3C4",
           "gold-dark": "#B38C22",
           "gold-muted": "#96751C",
 
-          // Imperial Ruby / Deep Wine
-          burgundy: "#54101A",
-          "burgundy-light": "#7A1827",
-          "burgundy-surface": "#2C080E",
+          // Classic tokens preserved for compatibility
+          obsidian: "#1F2421",
+          emerald: "#141815",
+          "emerald-dark": "#0E1210",
+          "emerald-card": "#FFFFFF",
+          "emerald-surface": "#F8FAFC",
+          "emerald-glow": "#25D366",
+
+          cream: "#FFFFFF",
+          "cream-warm": "#F8FAFC",
+          "cream-muted": "#64748B",
+          "cream-soft": "#E2E8F0",
+
+          burgundy: "#A80016",
+          "burgundy-light": "#C9142B",
+          "burgundy-surface": "#FFF1F2",
         },
-        "text-dark": "#121212",
+        "text-dark": "#1F2421",
         "text-light": "#FFFFFF",
       },
       fontFamily: {
-        serif: ["'Cormorant Garamond'", "Georgia", "serif"],
-        sans: ["'Plus Jakarta Sans'", "system-ui", "-apple-system", "sans-serif"],
+        serif: ["'Playfair Display'", "'Cormorant Garamond'", "Georgia", "serif"],
+        sans: ["'Inter'", "'Plus Jakarta Sans'", "system-ui", "-apple-system", "sans-serif"],
       },
       boxShadow: {
-        "luxury-sm": "0 2px 10px rgba(0, 0, 0, 0.25)",
-        "luxury-md": "0 8px 30px rgba(0, 0, 0, 0.45)",
-        "luxury-lg": "0 20px 50px rgba(0, 0, 0, 0.6)",
-        "gold-glow": "0 0 20px rgba(224, 186, 75, 0.3)",
-        "gold-glow-lg": "0 0 35px rgba(224, 186, 75, 0.5)",
-        "card-glass": "0 10px 30px -10px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.1)",
+        "pristine-sm": "0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.03)",
+        "pristine-md": "0 4px 16px -2px rgba(31, 36, 33, 0.08), 0 2px 6px -1px rgba(31, 36, 33, 0.04)",
+        "pristine-lg": "0 12px 32px -4px rgba(31, 36, 33, 0.12), 0 4px 12px -2px rgba(31, 36, 33, 0.06)",
+        "bottom-bar": "0 -4px 25px rgba(31, 36, 33, 0.08), 0 -1px 3px rgba(31, 36, 33, 0.04)",
+        "ruby-glow": "0 4px 14px rgba(168, 0, 22, 0.35)",
+        "whatsapp-glow": "0 4px 16px rgba(37, 211, 102, 0.4)",
+        "gold-glow": "0 0 20px rgba(212, 175, 55, 0.3)",
+        "luxury-sm": "0 2px 10px rgba(0, 0, 0, 0.08)",
+        "luxury-md": "0 8px 24px rgba(31, 36, 33, 0.12)",
+        "luxury-lg": "0 16px 40px rgba(31, 36, 33, 0.16)",
       },
       backgroundImage: {
-        "gold-gradient": "linear-gradient(135deg, #FFF3C4 0%, #E0BA4B 50%, #B38C22 100%)",
+        "gold-gradient": "linear-gradient(135deg, #FFF3C4 0%, #D4AF37 50%, #B38C22 100%)",
         "gold-gradient-bright": "linear-gradient(135deg, #FFF8DC 0%, #FADB6A 50%, #D4AF37 100%)",
-        "gold-gradient-subtle": "linear-gradient(135deg, rgba(224,186,75,0.18) 0%, rgba(224,186,75,0.04) 100%)",
-        "card-gradient": "linear-gradient(180deg, #102A1C 0%, #08170F 100%)",
-        "obsidian-gradient": "linear-gradient(180deg, #081A0F 0%, #040D07 100%)",
-        "radial-emerald": "radial-gradient(circle at 50% 20%, #153B25 0%, #081A0F 60%, #040D07 100%)",
+        "ruby-gradient": "linear-gradient(135deg, #C9142B 0%, #A80016 60%, #8C0012 100%)",
+        "charcoal-gradient": "linear-gradient(180deg, #1F2421 0%, #141815 100%)",
+        "card-gradient": "linear-gradient(180deg, #FFFFFF 0%, #F8FAFC 100%)",
+        "obsidian-gradient": "linear-gradient(180deg, #1F2421 0%, #141815 100%)",
+        "radial-emerald": "radial-gradient(circle at 50% 20%, #2A312D 0%, #1F2421 60%, #141815 100%)",
       },
       borderWidth: {
         hairline: "0.5px",

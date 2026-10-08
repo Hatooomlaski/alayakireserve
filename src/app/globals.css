@@ -4,22 +4,22 @@
 
 @layer base {
   :root {
-    --reserve-obsidian: 4 13 7;
-    --reserve-emerald: 8 26 15;
-    --reserve-cream: 250 248 245;
-    --reserve-gold: 224 186 75;
-    --reserve-burgundy: 84 16 26;
+    --pristine-white: 255 255 255;
+    --charcoal-black: 31 36 33;
+    --ruby-crimson: 168 0 22;
+    --steel-gray: 100 116 139;
+    --whatsapp-green: 37 211 102;
   }
 
   html {
-    color-scheme: dark;
+    color-scheme: light;
     scroll-behavior: smooth;
     -webkit-text-size-adjust: 100%;
   }
 
   body {
-    background-color: #06130B;
-    color: #FAF8F5;
+    background-color: #FFFFFF;
+    color: #1F2421;
     font-feature-settings: "cv02", "cv03", "cv04", "cv11";
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -33,24 +33,24 @@
   }
 }
 
-/* Custom luxury scrollbars */
+/* Custom pristine scrollbars */
 ::-webkit-scrollbar {
   width: 6px;
   height: 6px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #040D07;
+  background: #F8FAFC;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #153B25;
+  background: #CBD5E1;
   border-radius: 9999px;
-  border: 1px solid rgba(224, 186, 75, 0.2);
+  border: 1px solid #E2E8F0;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #E0BA4B;
+  background: #94A3B8;
 }
 
 /* Hide scrollbars for horizontal chip carousels */
@@ -104,7 +104,22 @@
   transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
+.pristine-card {
+  background-color: #FFFFFF;
+  border: 1px solid #E2E8F0;
+  box-shadow: 0 4px 16px -2px rgba(31, 36, 33, 0.06);
+}
+
+.pristine-card-hover {
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
 @media (hover: hover) {
+  .pristine-card-hover:hover {
+    transform: translateY(-3px);
+    border-color: #CBD5E1;
+    box-shadow: 0 12px 28px -4px rgba(31, 36, 33, 0.12);
+  }
   .card-luxury-hover:hover {
     transform: translateY(-4px);
     border-color: rgba(224, 186, 75, 0.55);

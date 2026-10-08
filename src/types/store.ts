@@ -37,6 +37,8 @@ export interface OrderItem {
   meatState: MeatState;
   unitPrice: number;
   quantity: number;
+  weightKg?: number;
+  slots?: number;
   isSpecialty: boolean;
   customCutting?: string;
 }

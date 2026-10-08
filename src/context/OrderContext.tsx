@@ -23,6 +23,8 @@ interface OrderContextType {
   deliveryFee: number;
   totalWithDelivery: number;
   totalItemCount: number;
+  totalEstimatedWeightKg: number;
+  totalEstimatedSlots: number;
   hasSpecialtyItems: boolean;
   isDrawerOpen: boolean;
   setIsDrawerOpen: (open: boolean) => void;
@@ -139,6 +141,8 @@ export function OrderProvider({ children }: { children: React.ReactNode }) {
         meatState,
         unitPrice,
         quantity: 1,
+        weightKg: tier?.weightKg,
+        slots: tier?.slots,
         isSpecialty: product.isSpecialty,
         customCutting,
       };
@@ -228,6 +232,14 @@ export function OrderProvider({ children }: { children: React.ReactNode }) {
     return items.reduce((acc, item) => acc + item.quantity, 0);
   }, [items]);
 
+  const totalEstimatedWeightKg = useMemo(() => {
+    return items.reduce((acc, item) => acc + (item.weightKg || 0) * item.quantity, 0);
+  }, [items]);
+
+  const totalEstimatedSlots = useMemo(() => {
+    return items.reduce((acc, item) => acc + (item.slots || 0) * item.quantity, 0);
+  }, [items]);
+
   const hasSpecialtyItems = useMemo(() => {
     return items.some((item) => item.isSpecialty);
   }, [items]);
@@ -265,6 +277,8 @@ export function OrderProvider({ children }: { children: React.ReactNode }) {
         deliveryFee,
         totalWithDelivery,
         totalItemCount,
+        totalEstimatedWeightKg,
+        totalEstimatedSlots,
         hasSpecialtyItems,
         isDrawerOpen,
         setIsDrawerOpen,

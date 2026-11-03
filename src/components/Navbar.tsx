@@ -4,7 +4,7 @@ import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { useOrder } from "@/context/OrderContext";
-import { MessageCircle, ShoppingBag, Menu, X, MapPin } from "lucide-react";
+import { MessageCircle, ShoppingBag, Menu, X } from "lucide-react";
 import { DISPLAY_PHONE_NUMBER, WHATSAPP_PHONE_NUMBER } from "@/lib/whatsapp";
 
 export default function Navbar() {
@@ -24,103 +24,117 @@ export default function Navbar() {
     <header
       className={`sticky top-0 z-40 transition-all duration-300 ${
         isScrolled
-          ? "bg-charcoal/95 backdrop-blur-md border-b border-charcoal-border py-3 shadow-luxury-md"
-          : "bg-charcoal border-b border-charcoal-border py-4"
+          ? "bg-charcoal/95 backdrop-blur-md border-b border-charcoal-border py-2.5 sm:py-3 shadow-luxury-md"
+          : "bg-charcoal border-b border-charcoal-border py-3 sm:py-3.5"
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between">
           {/* Brand Identity / Official Crest Logo */}
-          <Link href="/" className="flex items-center gap-2.5 sm:gap-3 group">
-            <div className="relative w-10 h-10 sm:w-12 sm:h-12 rounded-full border-2 border-reserve-gold shadow-gold-glow overflow-hidden bg-white flex-shrink-0 group-hover:scale-105 transition-transform">
+          <Link href="/" className="flex items-center gap-2.5 sm:gap-3 group flex-shrink-0">
+            <div className="relative w-9 h-9 sm:w-11 sm:h-11 rounded-full border border-reserve-gold/80 shadow-gold-glow overflow-hidden bg-white flex-shrink-0 group-hover:scale-105 transition-transform">
               <Image
                 src="/images/logo-crest.jpg"
                 alt="Alayaki Reserve Official Brand Logo"
                 fill
-                sizes="48px"
+                sizes="44px"
                 className="object-cover"
                 priority
               />
             </div>
             <div>
-              <span className="font-serif text-lg sm:text-2xl font-bold tracking-wider text-white block leading-tight">
+              <span className="font-serif text-lg sm:text-2xl font-bold tracking-[0.12em] text-white block leading-tight">
                 ALAYAKI RESERVE
               </span>
-              <span className="text-[9px] sm:text-[10px] uppercase tracking-[0.22em] text-reserve-gold-bright block font-sans font-semibold">
-                Abeokuta’s Premier Bespoke Butchery
+              <span className="hidden sm:block text-[9px] uppercase tracking-[0.25em] text-reserve-gold-bright font-sans font-semibold">
+                Bespoke Butchery • Abeokuta
               </span>
             </div>
           </Link>
 
-          {/* Desktop Navigation Links */}
-          <nav className="hidden lg:flex items-center space-x-6 text-sm font-medium">
+          {/* Desktop Navigation Links (Understated Editorial Luxury) */}
+          <nav className="hidden lg:flex items-center space-x-7 text-xs sm:text-sm font-medium tracking-wide">
             <Link
               href="#catalog"
-              className="text-white hover:text-reserve-gold transition-colors font-medium"
+              className="text-steel-light hover:text-white transition-colors"
             >
               Artisanal Cuts
             </Link>
             <Link
               href="#schedule"
-              className="text-white hover:text-reserve-gold transition-colors font-medium"
+              className="text-steel-light hover:text-white transition-colors"
             >
-              Friday Slaughter
+              Slaughter Schedule
             </Link>
             <Link
               href="#standards"
-              className="text-white hover:text-reserve-gold transition-colors font-medium"
+              className="text-steel-light hover:text-white transition-colors"
             >
-              100% Boneless Standard
+              The Standard
             </Link>
             <Link
               href="#location"
-              className="text-white hover:text-reserve-gold transition-colors font-medium"
+              className="text-steel-light hover:text-white transition-colors"
             >
-              Walk-In Store
+              Store Location
             </Link>
             <Link
               href="#corporate"
-              className="text-white hover:text-reserve-gold transition-colors font-medium"
+              className="text-steel-light hover:text-white transition-colors"
             >
-              B2B Bulk Supply
+              B2B Supply
             </Link>
           </nav>
 
-          {/* Quick Actions (WhatsApp Direct + Cart Drawer Trigger) */}
+          {/* Actions: Desktop & Mobile Responsive */}
           <div className="flex items-center gap-2 sm:gap-3">
-            {/* WhatsApp direct line quick button (desktop) */}
+            {/* WhatsApp direct inquiry (desktop) */}
             <a
               href={`https://wa.me/${WHATSAPP_PHONE_NUMBER}?text=${encodeURIComponent(
                 "Hello Alayaki Reserve, I would like to make an inquiry about your bespoke butchery cuts."
               )}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="hidden sm:inline-flex items-center gap-1.5 px-3.5 py-2 rounded-full bg-whatsapp hover:bg-whatsapp-hover text-white transition-all text-xs font-bold shadow-whatsapp-glow"
+              className="hidden sm:inline-flex items-center gap-1.5 px-3.5 py-2 rounded-full border border-charcoal-border hover:border-whatsapp text-steel-light hover:text-white transition-all text-xs font-semibold"
               title="Chat with Alayaki Reserve on WhatsApp"
             >
-              <MessageCircle className="w-3.5 h-3.5" />
-              <span>WhatsApp</span>
+              <MessageCircle className="w-3.5 h-3.5 text-whatsapp" />
+              <span>Inquire</span>
             </a>
 
-            {/* Order Builder Drawer Trigger */}
+            {/* Desktop Order Builder Trigger */}
             <button
               onClick={openDrawer}
-              className="relative inline-flex items-center gap-1.5 sm:gap-2 px-3.5 sm:px-4 py-2 rounded-full bg-ruby hover:bg-ruby-hover text-white font-bold text-xs sm:text-sm shadow-ruby-glow active:scale-95 transition-all"
+              className="hidden sm:inline-flex items-center gap-2 px-4 py-2 rounded-full bg-ruby hover:bg-ruby-hover text-white font-bold text-xs uppercase tracking-wider shadow-ruby-glow active:scale-95 transition-all"
               aria-label="View Order Builder"
             >
-              <ShoppingBag className="w-4 h-4 text-white stroke-[2.5]" />
+              <ShoppingBag className="w-3.5 h-3.5 stroke-[2.5]" />
               <span>Build Order</span>
               {totalItemCount > 0 && (
-                <span className="ml-1 px-1.5 py-0.2 bg-white text-ruby text-[10px] sm:text-[11px] font-extrabold rounded-full shadow-sm animate-pulse">
+                <span className="ml-0.5 px-1.5 py-0.2 bg-white text-ruby text-[10px] font-extrabold rounded-full">
                   {totalItemCount}
                 </span>
               )}
             </button>
 
-            {/* Mobile Menu Button */}
+            {/* Mobile Minimalist Cart Icon Button */}
+            <button
+              onClick={openDrawer}
+              className="sm:hidden relative p-2 rounded-xl text-white hover:text-reserve-gold bg-white/5 border border-white/10 active:scale-95 transition-all"
+              aria-label="View Order Builder"
+            >
+              <ShoppingBag className="w-5 h-5" />
+              {totalItemCount > 0 && (
+                <span className="absolute -top-1 -right-1 min-w-[18px] h-[18px] px-1 bg-ruby text-white text-[10px] font-extrabold rounded-full flex items-center justify-center shadow-md">
+                  {totalItemCount}
+                </span>
+              )}
+            </button>
+
+            {/* Mobile Menu Toggle Button */}
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="lg:hidden p-2 rounded-xl text-white hover:text-reserve-gold bg-white/10 border border-white/15 active:scale-95 transition-all"
+              className="lg:hidden p-2 rounded-xl text-white hover:text-reserve-gold bg-white/5 border border-white/10 active:scale-95 transition-all"
               aria-label="Toggle menu"
             >
               {mobileMenuOpen ? (
@@ -133,80 +147,73 @@ export default function Navbar() {
         </div>
       </div>
 
-      {/* Mobile Dropdown Menu */}
+      {/* Mobile Dropdown Menu (Clean, Minimalist Luxury) */}
       {mobileMenuOpen && (
-        <div className="lg:hidden bg-charcoal border-b border-charcoal-border px-5 pt-4 pb-6 mt-2.5 space-y-4 shadow-2xl backdrop-blur-xl">
-          <div className="flex flex-col gap-1 pb-3 border-b border-white/10 text-xs text-reserve-gold">
-            <span className="font-semibold flex items-center gap-1.5">
-              <MapPin className="w-3.5 h-3.5 text-reserve-gold" />
-              God&apos;s Hope Hospital Car Park, Adigbe
-            </span>
-            <span className="text-[11px] text-steel-light pl-5">
-              Mon–Sat: 8am–7pm | Sun: 1pm–7pm (Frozen Always Available)
-            </span>
-          </div>
-          <div className="flex flex-col space-y-2.5 text-sm font-medium">
+        <div className="lg:hidden bg-charcoal border-b border-charcoal-border px-6 pt-4 pb-6 mt-2 space-y-4 shadow-2xl backdrop-blur-xl animate-in fade-in slide-in-from-top-2 duration-200">
+          <nav className="flex flex-col divide-y divide-white/5 text-sm font-medium">
             <Link
               href="#catalog"
               onClick={() => setMobileMenuOpen(false)}
-              className="text-white hover:text-reserve-gold py-1.5 flex items-center justify-between border-b border-white/5"
+              className="text-white hover:text-reserve-gold py-3 flex items-center justify-between"
             >
-              <span>🥩 Artisanal Cuts & Prices</span>
-              <span className="text-xs text-reserve-gold font-serif">View</span>
+              <span>Artisanal Cuts & Prices</span>
+              <span className="text-xs text-steel-light font-serif">Catalog</span>
             </Link>
             <Link
               href="#schedule"
               onClick={() => setMobileMenuOpen(false)}
-              className="text-white hover:text-reserve-gold py-1.5 flex items-center justify-between border-b border-white/5"
+              className="text-white hover:text-reserve-gold py-3 flex items-center justify-between"
             >
-              <span>🗓️ Friday Slaughter Schedule</span>
-              <span className="text-xs text-amber-300 font-serif">12 Noon</span>
+              <span>Slaughter Schedule</span>
+              <span className="text-xs text-reserve-gold font-serif">Fridays 12 Noon</span>
             </Link>
             <Link
               href="#standards"
               onClick={() => setMobileMenuOpen(false)}
-              className="text-white hover:text-reserve-gold py-1.5 flex items-center justify-between border-b border-white/5"
+              className="text-white hover:text-reserve-gold py-3 flex items-center justify-between"
             >
-              <span>✨ 100% Boneless Standard</span>
-              <span className="text-xs text-reserve-gold font-serif">Pure Meat</span>
+              <span>The 100% Boneless Standard</span>
+              <span className="text-xs text-steel-light font-serif">Pure Yield</span>
             </Link>
             <Link
               href="#location"
               onClick={() => setMobileMenuOpen(false)}
-              className="text-white hover:text-reserve-gold py-1.5 flex items-center justify-between border-b border-white/5"
+              className="text-white hover:text-reserve-gold py-3 flex items-center justify-between"
             >
-              <span>🏪 Walk-In Store & Directions</span>
-              <span className="text-xs text-reserve-gold font-serif">Adigbe</span>
+              <span>Walk-In Store (Adigbe)</span>
+              <span className="text-xs text-steel-light font-serif">Location</span>
             </Link>
             <Link
               href="#corporate"
               onClick={() => setMobileMenuOpen(false)}
-              className="text-white hover:text-reserve-gold py-1.5 flex items-center justify-between"
+              className="text-white hover:text-reserve-gold py-3 flex items-center justify-between"
             >
-              <span>🏢 Corporate & Bulk Supply</span>
-              <span className="text-xs text-reserve-gold font-serif">B2B</span>
+              <span>B2B Commercial Supply</span>
+              <span className="text-xs text-steel-light font-serif">Wholesale</span>
             </Link>
-          </div>
+          </nav>
 
-          <div className="pt-2 flex flex-col gap-2.5">
+          <div className="pt-2 flex flex-col gap-2">
             <button
               onClick={() => {
                 setMobileMenuOpen(false);
                 openDrawer();
               }}
-              className="w-full flex items-center justify-center gap-2 py-3 rounded-xl bg-ruby hover:bg-ruby-hover text-white font-extrabold text-sm shadow-ruby-glow transition-colors"
+              className="w-full flex items-center justify-center gap-2 py-3 rounded-xl bg-ruby hover:bg-ruby-hover text-white font-bold text-xs uppercase tracking-wider shadow-ruby-glow transition-colors"
             >
               <ShoppingBag className="w-4 h-4" />
-              <span>View Order Cart ({totalItemCount} items)</span>
+              <span>Review Order ({totalItemCount} items)</span>
             </button>
 
             <a
-              href={`https://wa.me/${WHATSAPP_PHONE_NUMBER}`}
+              href={`https://wa.me/${WHATSAPP_PHONE_NUMBER}?text=${encodeURIComponent(
+                "Hello Alayaki Reserve, I would like to make an inquiry about your bespoke butchery cuts."
+              )}`}
               target="_blank"
               rel="noopener noreferrer"
-              className="w-full flex items-center justify-center gap-2 py-3 rounded-xl bg-whatsapp hover:bg-whatsapp-hover text-white text-sm font-bold shadow-whatsapp-glow transition-colors"
+              className="w-full flex items-center justify-center gap-2 py-3 rounded-xl bg-charcoal-rich border border-charcoal-border hover:border-whatsapp text-white text-xs font-semibold transition-colors"
             >
-              <MessageCircle className="w-4 h-4 text-white" />
+              <MessageCircle className="w-4 h-4 text-whatsapp" />
               <span>Chat on WhatsApp (+234 815 386 1887)</span>
             </a>
           </div>

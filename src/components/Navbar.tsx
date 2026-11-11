@@ -111,7 +111,7 @@ export default function Navbar() {
               <ShoppingBag className="w-3.5 h-3.5 stroke-[2.5]" />
               <span>Build Order</span>
               {totalItemCount > 0 && (
-                <span className="ml-0.5 px-1.5 py-0.2 bg-white text-ruby text-[10px] font-extrabold rounded-full">
+                <span className="ml-0.5 px-1.5 py-px bg-white text-ruby text-[10px] font-extrabold rounded-full">
                   {totalItemCount}
                 </span>
               )}
@@ -151,7 +151,7 @@ export default function Navbar() {
 
       {/* Mobile Dropdown Menu (Clean, Minimalist Luxury) */}
       {mobileMenuOpen && (
-        <div id="mobile-menu" className="lg:hidden bg-charcoal border-b border-charcoal-border px-6 pt-4 pb-6 mt-2 space-y-4 shadow-2xl backdrop-blur-xl animate-in fade-in slide-in-from-top-2 duration-200">
+        <div id="mobile-menu" className="lg:hidden bg-charcoal border-b border-charcoal-border px-6 pt-4 pb-6 mt-2 space-y-4 shadow-2xl backdrop-blur-xl duration-200">
           <nav className="flex flex-col divide-y divide-white/5 text-sm font-medium">
             <Link
               href="#catalog"

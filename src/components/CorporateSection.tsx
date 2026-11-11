@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { Building2, Utensils, Briefcase, Truck, CheckCircle2, MessageCircle } from "lucide-react";
+import { Utensils, Briefcase, Truck, MessageCircle } from "lucide-react";
 import { generateCorporateWhatsAppUrl } from "@/lib/whatsapp";
 
 const SUPPLY_TYPES = [
@@ -216,7 +216,7 @@ export default function CorporateSection() {
                 {/* Submit Action in Ruby Crimson */}
                 <button
                   type="submit"
-                  className="w-full min-h-[48px] py-3.5 px-6 rounded-xl bg-ruby hover:bg-ruby-hover text-white font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2 shadow-ruby-glow transition-all active:scale-98"
+                  className="w-full min-h-[48px] py-3.5 px-6 rounded-xl bg-ruby hover:bg-ruby-hover text-white font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2 shadow-ruby-glow transition-all active:scale-[0.98]"
                 >
                   <MessageCircle className="w-4 h-4 fill-white" />
                   <span>Submit Corporate Inquiry to WhatsApp</span>

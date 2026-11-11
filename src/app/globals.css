@@ -3,14 +3,6 @@
 @tailwind utilities;
 
 @layer base {
-  :root {
-    --pristine-white: 255 255 255;
-    --charcoal-black: 31 36 33;
-    --ruby-crimson: 168 0 22;
-    --steel-gray: 100 116 139;
-    --whatsapp-green: 37 211 102;
-  }
-
   html {
     color-scheme: light;
     scroll-behavior: smooth;
@@ -62,72 +54,7 @@
   scrollbar-width: none;
 }
 
-/* Luxury gold border utility */
-.border-gold-hairline {
-  border-width: 0.5px;
-  border-color: rgba(224, 186, 75, 0.35);
-}
-
-.border-gold-subtle {
-  border: 1px solid rgba(224, 186, 75, 0.25);
-}
-
-.border-gold-glow {
-  border: 1px solid #E0BA4B;
-  box-shadow: 0 0 16px rgba(224, 186, 75, 0.35);
-}
-
-/* Radiant gold gradient text */
-.text-gold-gradient {
-  background: linear-gradient(135deg, #FFF8DC 0%, #FADB6A 45%, #C99E2A 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-}
-
-/* High-contrast luxury surfaces */
-.glass-obsidian {
-  background: rgba(8, 24, 15, 0.85);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  border: 1px solid rgba(224, 186, 75, 0.25);
-}
-
-.glass-card {
-  background: linear-gradient(180deg, rgba(16, 42, 28, 0.75) 0%, rgba(8, 22, 14, 0.9) 100%);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(224, 186, 75, 0.22);
-  box-shadow: 0 10px 30px -10px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.08);
-}
-
-.card-luxury-hover {
-  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.pristine-card {
-  background-color: #FFFFFF;
-  border: 1px solid #E2E8F0;
-  box-shadow: 0 4px 16px -2px rgba(31, 36, 33, 0.06);
-}
-
-.pristine-card-hover {
-  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-@media (hover: hover) {
-  .pristine-card-hover:hover {
-    transform: translateY(-3px);
-    border-color: #CBD5E1;
-    box-shadow: 0 12px 28px -4px rgba(31, 36, 33, 0.12);
-  }
-  .card-luxury-hover:hover {
-    transform: translateY(-4px);
-    border-color: rgba(224, 186, 75, 0.55);
-    box-shadow: 0 16px 36px rgba(0, 0, 0, 0.6), 0 0 25px rgba(224, 186, 75, 0.2);
-  }
-}
-
-/* Subtle luxury diamond grid texture */
+/* Subtle luxury diamond grid texture (hero) */
 .bg-heritage-pattern {
   background-image: radial-gradient(rgba(224, 186, 75, 0.08) 1px, transparent 1px);
   background-size: 24px 24px;

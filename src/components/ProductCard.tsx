@@ -10,7 +10,6 @@ import {
   ShieldCheck,
   Plus,
   Minus,
-  Check,
   Snowflake,
   Sun,
   AlertCircle,
@@ -84,7 +83,7 @@ export default function ProductCard({ product }: ProductCardProps) {
             alt={product.name}
             fill
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-            className="object-cover group-hover:scale-104 transition-transform duration-500"
+            className="object-cover group-hover:scale-105 transition-transform duration-500"
           />
         ) : (
           /* Branded placeholder until a product photo is added */
@@ -130,7 +129,7 @@ export default function ProductCard({ product }: ProductCardProps) {
 
         {/* Floating In-Order Indicator if already chosen */}
         {totalOfThisProductInCart > 0 && (
-          <div className="absolute top-12 left-3 bg-charcoal text-white border border-charcoal-border px-3 py-1 rounded-lg text-xs font-bold shadow-md flex items-center gap-1.5 animate-in fade-in">
+          <div className="absolute top-12 left-3 bg-charcoal text-white border border-charcoal-border px-3 py-1 rounded-lg text-xs font-bold shadow-md flex items-center gap-1.5">
             <CheckCircle2 className="w-3.5 h-3.5 text-whatsapp" />
             <span>{totalOfThisProductInCart} in Order</span>
           </div>
@@ -393,7 +392,7 @@ export default function ProductCard({ product }: ProductCardProps) {
               <button
                 onClick={handleAddOne}
                 type="button"
-                className="w-full min-h-[46px] py-3 px-4 rounded-xl bg-ruby hover:bg-ruby-hover text-white font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2 shadow-ruby-glow active:scale-98 transition-all"
+                className="w-full min-h-[46px] py-3 px-4 rounded-xl bg-ruby hover:bg-ruby-hover text-white font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2 shadow-ruby-glow active:scale-[0.98] transition-all"
               >
                 <Plus className="w-4 h-4 text-white stroke-[3] flex-shrink-0" />
                 <span className="truncate">

@@ -8,12 +8,9 @@ import {
   Plus,
   Minus,
   CheckCircle2,
-  Truck,
   Scale,
-  Sparkles,
   Sun,
   Snowflake,
-  ShoppingBag,
 } from "lucide-react";
 import { MeatState, ProductItem, WholesaleItem } from "@/types/store";
 import { PRODUCTS } from "@/config/products";
@@ -304,7 +301,7 @@ export default function WholesaleTable() {
             type="button"
             disabled={totalSelectedUnits === 0}
             onClick={handleAddAllToOrder}
-            className="w-full sm:w-auto min-h-[48px] px-6 py-3 rounded-xl bg-ruby hover:bg-ruby-hover disabled:bg-steel-border disabled:text-steel text-white font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2 shadow-ruby-glow transition-all active:scale-98"
+            className="w-full sm:w-auto min-h-[48px] px-6 py-3 rounded-xl bg-ruby hover:bg-ruby-hover disabled:bg-steel-border disabled:text-steel text-white font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2 shadow-ruby-glow transition-all active:scale-[0.98]"
           >
             {addedSuccess ? (
               <>

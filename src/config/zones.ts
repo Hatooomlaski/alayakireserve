@@ -1,10 +1,11 @@
 import { DeliveryZone } from "@/types/store";
+import { BUSINESS } from "@/config/business";
 
 export const DELIVERY_ZONES: DeliveryZone[] = [
   {
     id: "pickup-adigbe",
     name: "Self-Pickup (Adigbe Store)",
-    area: "God's Hope Hospital Car Park, Adigbe",
+    area: BUSINESS.address.street,
     fee: 0,
     estimatedTime: "Frozen always in-store (Mon–Sat 8am–7pm, Sun 1pm–7pm); Fresh Friday collection from 3:00 PM",
     isPickup: true,

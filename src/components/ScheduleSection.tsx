@@ -1,5 +1,6 @@
 import React from "react";
 import { Calendar, Clock, CheckCircle2, Snowflake, ArrowRight, Store } from "lucide-react";
+import { BUSINESS } from "@/config/business";
 import { WHATSAPP_PHONE_NUMBER } from "@/lib/whatsapp";
 
 export default function ScheduleSection() {
@@ -40,13 +41,13 @@ export default function ScheduleSection() {
                 <div className="flex items-start gap-2.5">
                   <Clock className="w-4 h-4 text-ruby flex-shrink-0 mt-0.5" />
                   <span>
-                    <strong>Walk-In Collection:</strong> From 3:00 PM on Friday (Adigbe Store).
+                    <strong>Walk-In Collection:</strong> From {BUSINESS.schedule.freshCollectionFrom} on Friday (Adigbe Store).
                   </span>
                 </div>
                 <div className="flex items-start gap-2.5">
                   <CheckCircle2 className="w-4 h-4 text-whatsapp flex-shrink-0 mt-0.5" />
                   <span>
-                    <strong>Doorstep Delivery:</strong> Across Abeokuta from 12:00 Noon to 7:00 PM.
+                    <strong>Doorstep Delivery:</strong> Across Abeokuta, {BUSINESS.schedule.deliveryWindow}.
                   </span>
                 </div>
                 <div className="flex items-start gap-2.5">
@@ -95,19 +96,19 @@ export default function ScheduleSection() {
                 <div className="flex items-start gap-2.5">
                   <Store className="w-4 h-4 text-steel flex-shrink-0 mt-0.5" />
                   <span>
-                    <strong>Mondays – Saturdays:</strong> 8:00 AM – 7:00 PM
+                    <strong>{BUSINESS.hours.weekdays.label}:</strong> {BUSINESS.hours.weekdays.display}
                   </span>
                 </div>
                 <div className="flex items-start gap-2.5">
                   <Clock className="w-4 h-4 text-steel flex-shrink-0 mt-0.5" />
                   <span>
-                    <strong>Sundays:</strong> 1:00 PM – 7:00 PM
+                    <strong>{BUSINESS.hours.sunday.label}:</strong> {BUSINESS.hours.sunday.display}
                   </span>
                 </div>
                 <div className="flex items-start gap-2.5">
                   <CheckCircle2 className="w-4 h-4 text-whatsapp flex-shrink-0 mt-0.5" />
                   <span>
-                    <strong>Location:</strong> God&apos;s Hope Hospital Car Park, Adigbe, Abeokuta.
+                    <strong>Location:</strong> {BUSINESS.fullAddress}.
                   </span>
                 </div>
               </div>

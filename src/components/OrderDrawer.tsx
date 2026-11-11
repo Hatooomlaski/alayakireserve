@@ -21,6 +21,7 @@ import {
   ShoppingBag,
   Scale,
 } from "lucide-react";
+import { BUSINESS } from "@/config/business";
 
 const FOCUSABLE =
   'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])';
@@ -35,7 +36,6 @@ const inputClass = (hasError: boolean) =>
 export default function OrderDrawer() {
   const {
     items,
-    removeItem,
     updateQuantity,
     clearCart,
     customer,
@@ -367,7 +367,7 @@ export default function OrderDrawer() {
                               : "text-steel"
                           }`}
                         >
-                          God&apos;s Hope Hospital Car Park, Adigbe, Abeokuta.
+                          {BUSINESS.fullAddress}.
                         </span>
                       </div>
                     </button>
@@ -431,13 +431,13 @@ export default function OrderDrawer() {
                       <span>Walk-In Pickup Location:</span>
                     </div>
                     <p className="text-steel text-[11px]">
-                      God&apos;s Hope Hospital Car Park, Adigbe, Abeokuta, Ogun State.
+                      {BUSINESS.fullAddress}.
                     </p>
                     <p className="text-[11px] text-charcoal font-semibold">
-                      Opening Hours: Mon–Sat: 8am–7pm | Sun: 1pm–7pm
+                      Opening Hours: {BUSINESS.hours.weekdays.label} {BUSINESS.hours.weekdays.display} | {BUSINESS.hours.sunday.label} {BUSINESS.hours.sunday.display}
                     </p>
                     <p className="text-[10px] text-steel">
-                      (Fresh Friday collection from 3 PM; frozen cuts ready anytime during opening hours)
+                      (Fresh Friday collection from {BUSINESS.schedule.freshCollectionFrom}; frozen cuts ready anytime during opening hours)
                     </p>
                   </div>
                 )}
@@ -562,7 +562,7 @@ export default function OrderDrawer() {
                 target="_blank"
                 rel="noopener noreferrer"
                 onClick={handleSendClick}
-                className="w-full min-h-[50px] py-3.5 px-4 rounded-xl bg-whatsapp hover:bg-whatsapp-hover text-white font-extrabold text-sm uppercase tracking-wider flex items-center justify-center gap-2 shadow-whatsapp-glow transition-all active:scale-98"
+                className="w-full min-h-[50px] py-3.5 px-4 rounded-xl bg-whatsapp hover:bg-whatsapp-hover text-white font-extrabold text-sm uppercase tracking-wider flex items-center justify-center gap-2 shadow-whatsapp-glow transition-all active:scale-[0.98]"
               >
                 <MessageCircle className="w-5 h-5 fill-white" />
                 <span>Send Order via WhatsApp ({DISPLAY_PHONE_NUMBER})</span>

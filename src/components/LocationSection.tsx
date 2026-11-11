@@ -1,10 +1,10 @@
 import React from "react";
-import { MapPin, Phone, Clock, Navigation, Snowflake, Calendar } from "lucide-react";
+import { MapPin, Phone, Clock, Navigation, Calendar } from "lucide-react";
+import { BUSINESS } from "@/config/business";
 import { DISPLAY_PHONE_NUMBER, WHATSAPP_PHONE_NUMBER } from "@/lib/whatsapp";
 
 export default function LocationSection() {
-  const googleMapsUrl =
-    "https://www.google.com/maps/search/?api=1&query=God's+Hope+Hospital+Adigbe+Abeokuta+Ogun+State";
+  const googleMapsUrl = BUSINESS.mapsUrl;
 
   return (
     <section id="location" className="py-14 sm:py-20 lg:py-24 bg-steel-surface/50 relative border-t border-steel-border">
@@ -22,7 +22,7 @@ export default function LocationSection() {
             </h2>
 
             <p className="text-steel text-sm sm:text-base font-normal leading-relaxed">
-              Prefer to see your cuts weighed, trimmed, and packaged in person? Walk into our hygienic butcher station at Adigbe, Abeokuta. Frozen boneless pure beef, offal, and goat shares are <strong className="text-charcoal font-bold">always available</strong> in-store daily, with live slaughter processing every <strong className="text-charcoal font-bold">Friday</strong> (fresh collection from 3:00 PM).
+              Prefer to see your cuts weighed, trimmed, and packaged in person? Walk into our hygienic butcher station at Adigbe, Abeokuta. Frozen boneless pure beef, offal, and goat shares are <strong className="text-charcoal font-bold">always available</strong> in-store daily, with live slaughter processing every <strong className="text-charcoal font-bold">Friday</strong> (fresh collection from {BUSINESS.schedule.freshCollectionFrom}).
             </p>
 
             {/* Store Information Grid */}
@@ -37,7 +37,7 @@ export default function LocationSection() {
                     Physical Store Address:
                   </strong>
                   <p className="text-steel">
-                    God&apos;s Hope Hospital Car Park, Adigbe, Abeokuta, Ogun State, Nigeria.
+                    {BUSINESS.fullAddress}.
                   </p>
                   <span className="inline-block mt-1 text-[11px] text-charcoal font-semibold">
                     Easily accessible along main Adigbe road with ample secure parking.
@@ -56,15 +56,15 @@ export default function LocationSection() {
                   </strong>
                   <div className="flex justify-between gap-4 text-steel">
                     <span>Mondays – Saturdays:</span>
-                    <strong className="text-charcoal font-bold">8:00 AM – 7:00 PM</strong>
+                    <strong className="text-charcoal font-bold">{BUSINESS.hours.weekdays.display}</strong>
                   </div>
                   <div className="flex justify-between gap-4 text-steel">
                     <span>Sundays:</span>
-                    <strong className="text-charcoal font-bold">1:00 PM – 7:00 PM</strong>
+                    <strong className="text-charcoal font-bold">{BUSINESS.hours.sunday.display}</strong>
                   </div>
                   <div className="pt-1 text-[11px] text-ruby font-bold border-t border-steel-border flex items-center gap-1.5">
                     <Calendar className="w-3.5 h-3.5" />
-                    <span>Friday Fresh Collection: From 3:00 PM</span>
+                    <span>Friday Fresh Collection: From {BUSINESS.schedule.freshCollectionFrom}</span>
                   </div>
                 </div>
               </div>
@@ -98,7 +98,7 @@ export default function LocationSection() {
               <div className="relative w-full h-[360px] sm:h-[440px] rounded-xl overflow-hidden bg-steel-surface">
                 <iframe
                   title="Alayaki Reserve Walk-In Butchery Location Map"
-                  src="https://maps.google.com/maps?q=God's+Hope+Hospital+Adigbe+Abeokuta&t=&z=15&ie=UTF8&iwloc=&output=embed"
+                  src={BUSINESS.mapsEmbedUrl}
                   width="100%"
                   height="100%"
                   style={{ border: 0 }}

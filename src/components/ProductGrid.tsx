@@ -6,8 +6,7 @@ import { ProductCategory } from "@/types/store";
 import ProductCard from "./ProductCard";
 import WholesaleTable from "./WholesaleTable";
 import FloatingOrderBar from "./FloatingOrderBar";
-import { Sparkles, Utensils, Building2, ShoppingBag } from "lucide-react";
-import { useOrder } from "@/context/OrderContext";
+import { Sparkles, Utensils, Building2 } from "lucide-react";
 
 interface FilterOption {
   label: string;
@@ -26,7 +25,6 @@ const FILTERS: FilterOption[] = [
 export default function ProductGrid() {
   const [activeMode, setActiveMode] = useState<"retail" | "wholesale">("retail");
   const [activeCategory, setActiveCategory] = useState<ProductCategory>("all");
-  const { totalItemCount } = useOrder();
 
   const filteredProducts =
     activeCategory === "all"

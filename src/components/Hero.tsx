@@ -3,7 +3,7 @@
 import React from "react";
 import Link from "next/link";
 import { useOrder } from "@/context/OrderContext";
-import { ArrowRight, ShoppingBag, Sparkles, MapPin } from "lucide-react";
+import { ArrowRight, ShoppingBag, Sparkles } from "lucide-react";
 
 export default function Hero() {
   const { openDrawer, totalItemCount } = useOrder();

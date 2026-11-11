@@ -30,7 +30,7 @@ export default function FloatingOrderBar() {
   return (
     <aside
       aria-label="Live Order Summary"
-      className="fixed bottom-0 left-0 right-0 z-40 bg-pristine border-t border-steel-border shadow-bottom-bar transition-all duration-300 animate-in slide-in-from-bottom"
+      className="fixed bottom-0 left-0 right-0 z-40 bg-pristine border-t border-steel-border shadow-bottom-bar transition-all duration-300"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 sm:py-3.5">
         <div className="flex flex-col sm:flex-row items-center justify-between gap-3">
@@ -50,7 +50,7 @@ export default function FloatingOrderBar() {
                   <span className="text-xs sm:text-sm font-extrabold text-charcoal">
                     Total Items: {totalItemCount}
                   </span>
-                  <span className="text-steel-light hidden xs:inline">•</span>
+                  <span className="text-steel-light hidden sm:inline">•</span>
                   <span className="text-xs sm:text-sm font-bold text-steel flex items-center gap-1">
                     <Scale className="w-3.5 h-3.5 text-ruby flex-shrink-0" />
                     <span>
@@ -108,7 +108,7 @@ export default function FloatingOrderBar() {
               target="_blank"
               rel="noopener noreferrer"
               onClick={handleSendClick}
-              className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-2 px-5 sm:px-6 py-2.5 sm:py-3 rounded-xl bg-whatsapp hover:bg-whatsapp-hover text-white font-bold text-xs sm:text-sm shadow-whatsapp-glow transition-all active:scale-98 whitespace-nowrap min-h-[44px]"
+              className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-2 px-5 sm:px-6 py-2.5 sm:py-3 rounded-xl bg-whatsapp hover:bg-whatsapp-hover text-white font-bold text-xs sm:text-sm shadow-whatsapp-glow transition-all active:scale-[0.98] whitespace-nowrap min-h-[44px]"
             >
               <MessageCircle className="w-4 h-4 fill-white flex-shrink-0" />
               <span>Send Order via WhatsApp</span>

@@ -10,6 +10,7 @@ import {
   Instagram,
   Clock,
 } from "lucide-react";
+import { BUSINESS } from "@/config/business";
 import { DISPLAY_PHONE_NUMBER, WHATSAPP_PHONE_NUMBER } from "@/lib/whatsapp";
 import { useOrder } from "@/context/OrderContext";
 
@@ -62,13 +63,13 @@ export default function Footer() {
               </a>
 
               <a
-                href="https://instagram.com/alayaki.reserve"
+                href={BUSINESS.instagramUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-1.5 px-3.5 py-2 rounded-xl bg-charcoal-rich border border-charcoal-border text-steel-light hover:text-white text-xs transition-colors"
               >
                 <Instagram className="w-4 h-4" />
-                <span>@alayaki.reserve</span>
+                <span>@{BUSINESS.instagramHandle}</span>
               </a>
             </div>
           </div>
@@ -116,15 +117,15 @@ export default function Footer() {
               <div className="flex items-start gap-2">
                 <MapPin className="w-4 h-4 text-ruby flex-shrink-0 mt-0.5" />
                 <span>
-                  God&apos;s Hope Hospital Car Park, Adigbe, Abeokuta, Ogun State.
+                  {BUSINESS.fullAddress}.
                 </span>
               </div>
 
               <div className="flex items-start gap-2">
                 <Clock className="w-4 h-4 text-steel flex-shrink-0 mt-0.5" />
                 <div>
-                  <p>Mondays – Saturdays: 8:00 AM – 7:00 PM</p>
-                  <p>Sundays: 1:00 PM – 7:00 PM</p>
+                  <p>{BUSINESS.hours.weekdays.label}: {BUSINESS.hours.weekdays.display}</p>
+                  <p>{BUSINESS.hours.sunday.label}: {BUSINESS.hours.sunday.display}</p>
                 </div>
               </div>
 

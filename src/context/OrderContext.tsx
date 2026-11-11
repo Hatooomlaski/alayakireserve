@@ -65,7 +65,11 @@ export function OrderProvider({ children }: { children: React.ReactNode }) {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
   const [isLoaded, setIsLoaded] = useState(false);
 
-  // Load cart from localStorage on client mount
+  // Load cart from localStorage on client mount. This must run after
+  // hydration (the server has no localStorage), so setting state in this
+  // one-time effect is intentional; a lazy useState initialiser would make
+  // the server and client HTML differ.
+  /* eslint-disable react-hooks/set-state-in-effect */
   useEffect(() => {
     try {
       const savedItems = localStorage.getItem("alayaki_reserve_cart");
@@ -84,6 +88,7 @@ export function OrderProvider({ children }: { children: React.ReactNode }) {
       setIsLoaded(true);
     }
   }, []);
+  /* eslint-enable react-hooks/set-state-in-effect */
 
   // Save changes to localStorage
   useEffect(() => {

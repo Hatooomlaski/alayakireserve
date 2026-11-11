@@ -23,15 +23,17 @@ The platform serves as an interactive luxury catalog, live pricing calculator, b
   - **Status:** *Slots Filling Fast* (High Demand)
 - **Direct WhatsApp Line:** `+2348153861887`
 - **Aesthetic Direction:** Heritage artisanal butchery with high-end luxury styling
-- **Color Palette:**
-  - `bg-emerald-deep`: `#0B2014` (Royal Forest Noir)
-  - `bg-cream-warm`: `#FDFBF7` (Alabaster / Cream Surface)
-  - `accent-gold`: `#D4AF37` (Champagne Gold for borders, stars, and tags)
-  - `accent-burgundy`: `#4A0E17` (Deep Wine for guarantees and alerts)
-  - `text-dark`: `#1A1A1A` / `text-light`: `#FBFBFB`
-- **Typography:**
-  - Headers / Hero: Cormorant Garamond (Editorial Serif)
-  - UI / Data / Prices: Plus Jakarta Sans (Modern Sans-Serif)
+- **Color Palette** (60-30-10, defined in `tailwind.config.ts`):
+  - `pristine`: `#FFFFFF` (white surfaces, 60%)
+  - `charcoal`: `#1F2421` (header, footer, structure, 30%)
+  - `ruby`: `#A80016` (primary actions, 10%)
+  - `steel`: `#64748B` (secondary text, borders)
+  - `whatsapp`: `#25D366` (WhatsApp send buttons only)
+  - `reserve-gold`: `#D4AF37` / `reserve-gold-bright`: `#FADB6A` (crest and accent text)
+- **Typography** (self-hosted via `next/font` in `src/app/layout.tsx`):
+  - Headings: Playfair Display (`font-serif`)
+  - UI / Data / Prices: Inter (`font-sans`)
+- **Business details** (address, hours, schedule, site URL) live in `src/config/business.ts`; products in `src/config/products.ts`, wholesale packs in `src/config/wholesale.ts`, delivery zones in `src/config/zones.ts`.
 
 ---
 
@@ -129,3 +131,12 @@ Hello Alayaki Reserve, I am ready to confirm this order.
    npm run build
    npm run start
    ```
+
+4. **Checks** (run before pushing):
+   ```bash
+   npm run typecheck   # TypeScript
+   npm run lint        # ESLint (Next.js core-web-vitals + TypeScript rules)
+   npm test            # Vitest: pricing, saved carts, slot totals, WhatsApp message
+   ```
+
+Requires Node.js 20.9 or newer (Next.js 16). Copy `.env.example` to `.env.local` to override the site URL or WhatsApp number.

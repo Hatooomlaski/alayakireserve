@@ -1,6 +1,7 @@
 import { CustomerDetails, OrderItem, DeliveryZone } from "@/types/store";
 import { formatNaira } from "./utils";
 import { summariseSlots } from "./pricing";
+import { BUSINESS } from "@/config/business";
 
 export const WHATSAPP_PHONE_NUMBER =
   process.env.NEXT_PUBLIC_WHATSAPP_PHONE_NUMBER || "2348153861887";
@@ -24,7 +25,7 @@ export function generateWhatsAppOrderUrl({
 }: WhatsAppOrderPayload): string {
   const deliveryTypeDisplay =
     customer.deliveryType === "pickup"
-      ? "🏪 In-Store Walk-In Pickup (God's Hope Hospital Car Park, Adigbe)"
+      ? `🏪 In-Store Walk-In Pickup (${BUSINESS.address.street})`
       : `🚗 Delivery Requested (Carefully Packaged to ${selectedZone ? selectedZone.name : "Abeokuta Address"})`;
 
   const totalWeightKg = items.reduce(

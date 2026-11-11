@@ -20,7 +20,7 @@ const FILTERS: FilterOption[] = [
   { label: "Boneless Beef (100% Pure)", category: "beef", badge: "Guaranteed" },
   { label: "Assorted Intestines (Inu Eran)", category: "intestines" },
   { label: "Specialty Cow Cuts (Ori/Iru/Bokoto)", category: "specialty" },
-  { label: "Ogufe Goat Meat", category: "goat" },
+  { label: "Cow, Goat & Ram Sharing", category: "sharing", badge: "New" },
 ];
 
 export default function ProductGrid() {

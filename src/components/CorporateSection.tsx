@@ -4,13 +4,31 @@ import React, { useState } from "react";
 import { Building2, Utensils, Briefcase, Truck, CheckCircle2, MessageCircle } from "lucide-react";
 import { generateCorporateWhatsAppUrl } from "@/lib/whatsapp";
 
+const SUPPLY_TYPES = [
+  "Fine Dining Restaurant / Lounge",
+  "Hotel / Guest House",
+  "Event Caterer",
+  "Corporate / School Canteen",
+  "Bulk Family Freezer",
+  "Other",
+];
+
+const VOLUME_OPTIONS = [
+  "10kg - 25kg Weekly",
+  "25kg - 50kg Weekly",
+  "50kg - 100kg Weekly",
+  "Over 100kg+ Weekly (Full Cow Contract)",
+  "One-Time Large Event / Party Supply",
+];
+
 export default function CorporateSection() {
+  // Defaults must be real options so what's shown is what gets sent.
   const [formData, setFormData] = useState({
     companyName: "",
     contactPerson: "",
     phone: "",
-    supplyType: "Fine Dining Restaurant / Lounge",
-    estimatedVolume: "20kg - 50kg Weekly",
+    supplyType: SUPPLY_TYPES[0],
+    estimatedVolume: VOLUME_OPTIONS[0],
     notes: "",
   });
 
@@ -146,13 +164,32 @@ export default function CorporateSection() {
                       }
                       className="w-full bg-steel-surface text-charcoal text-xs rounded-xl px-3 py-2.5 border border-steel-border focus:border-charcoal focus:outline-none min-h-[42px]"
                     >
-                      <option>10kg - 25kg Weekly</option>
-                      <option>25kg - 50kg Weekly</option>
-                      <option>50kg - 100kg Weekly</option>
-                      <option>Over 100kg+ Weekly (Full Cow Contract)</option>
-                      <option>One-Time Large Event / Party Supply</option>
+                      {VOLUME_OPTIONS.map((option) => (
+                        <option key={option} value={option}>
+                          {option}
+                        </option>
+                      ))}
                     </select>
                   </div>
+                </div>
+
+                <div>
+                  <label className="text-xs font-bold text-charcoal uppercase tracking-wider block mb-1">
+                    Type of Business
+                  </label>
+                  <select
+                    value={formData.supplyType}
+                    onChange={(e) =>
+                      setFormData({ ...formData, supplyType: e.target.value })
+                    }
+                    className="w-full bg-steel-surface text-charcoal text-xs rounded-xl px-3 py-2.5 border border-steel-border focus:border-charcoal focus:outline-none min-h-[42px]"
+                  >
+                    {SUPPLY_TYPES.map((option) => (
+                      <option key={option} value={option}>
+                        {option}
+                      </option>
+                    ))}
+                  </select>
                 </div>
 
                 <div>

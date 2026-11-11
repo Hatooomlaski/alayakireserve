@@ -55,16 +55,17 @@ Each cut features bespoke culinary photography on dark green marble:
    - *State Options:* Fresh (Friday Batch) or Cold-Chain Frozen (Always in-store)
 
 3. **Specialty Cow Cuts (Starting base rates — finalized on cow sizing):**
-   - Whole / Split Cow Head (*Ori Eran*): Starting from ₦50,000 (Fresh only)
-   - Prime Cow Tail (*Iru Eran / Oxtail*): Starting from ₦15,000 (Fresh only)
-   - Cow Leg / Trotters (*Bokoto*): Starting from ₦6,000 (Fresh only)
-
-4. **Goat Meat (Ogufe) — *Eran Ewure / Ogufe Prime Share***
-   - Photo: Artisanal goat chops, trimmed ribs, and Asun portions with singed skin
-   - 1 Slot (Share): ₦25,000
-   - 2 Slots (Half Goat): ₦50,000
-   - 4 Slots (Full Goat): ₦100,000
+   - Whole / Split Cow Head (*Ori Eran*): Starting from ₦50,000
+   - Prime Cow Tail (*Iru Eran / Oxtail*): Starting from ₦15,000
+   - Cow Leg / Trotters (*Bokoto*): Starting from ₦6,000
    - *State Options:* Fresh (Friday Batch) or Cold-Chain Frozen (Always in-store)
+
+4. **Meat Sharing (Cow, Goat & Ram)** — slots are counted per animal
+   - All sharing is **Fresh only**.
+   - **Cow Sharing**: ¼ Slot ₦5,000 · ½ Slot ₦10,000 · 1 Full Slot ₦20,000. A slot is not a fixed fraction: share size depends on the size of the cow butchered for the batch.
+   - **Goat Sharing (Ogufe)**, 1 slot = ¼ goat: ½ Slot (⅛ goat) ₦12,500 · 1 Slot ₦25,000 · 2 Slots (Half Goat) ₦50,000 · 4 Slots (Full Goat) ₦100,000
+   - **Ram Sharing**, 1 slot = ⅛ ram: ½ Slot (1/16 ram) ₦12,500 · 1 Slot ₦25,000
+   - Cow photo: Veeresh Pattar on Unsplash (Unsplash License). Ram Sharing has no photo yet (`imageUrl` unset in `src/config/products.ts`); the card shows the brand crest until one is added.
 
 ---
 

@@ -5,6 +5,7 @@ import Image from "next/image";
 import { ProductItem, MeatState, PriceTier } from "@/types/store";
 import { useOrder } from "@/context/OrderContext";
 import { formatNaira } from "@/lib/utils";
+import { resolvePortion } from "@/lib/pricing";
 import {
   ShieldCheck,
   Plus,
@@ -32,13 +33,11 @@ export default function ProductCard({ product }: ProductCardProps) {
     openDrawer,
   } = useOrder();
 
-  // Selected portion/tier (default to 1kg for beef/offal, 1 Slot for goat)
-  const defaultTierIndex =
-    product.category === "beef" || product.category === "intestines" ? 1 : 0;
+  // Default to the standard portion: 1kg for weighed cuts, 1 slot for sharing
   const [selectedTier, setSelectedTier] = useState<PriceTier | undefined>(
-    product.tiers && product.tiers.length > 0
-      ? product.tiers[defaultTierIndex] || product.tiers[0]
-      : undefined
+    () =>
+      product.tiers?.find((t) => t.weightKg === 1 || t.slots === 1) ??
+      product.tiers?.[0]
   );
 
   // Selected meat state (Fresh vs Frozen)
@@ -53,23 +52,15 @@ export default function ProductCard({ product }: ProductCardProps) {
 
   const [toastMessage, setToastMessage] = useState<string | null>(null);
 
-  const currentPortionLabel = product.isSpecialty
-    ? `1 ${product.unitLabel || "Unit"}`
-    : selectedTier
-    ? selectedTier.weightLabel
-    : "Standard Portion";
+  const { portionLabel: currentPortionLabel, unitPrice: currentPrice } =
+    resolvePortion(product, selectedTier);
 
-  const currentPrice = product.isSpecialty
-    ? product.baseStartingPrice || 0
-    : selectedTier
-    ? selectedTier.price
-    : 0;
-
-  // Quantity of the CURRENT active combination in cart
+  // Quantity of the exact cart line the stepper acts on (portion + state + cut)
   const currentItemQuantity = getItemQuantity(
-    product.id,
-    currentPortionLabel,
-    selectedState
+    product,
+    selectedTier,
+    selectedState,
+    selectedCut
   );
 
   const totalOfThisProductInCart = getProductTotalQuantity(product.id);
@@ -89,13 +80,29 @@ export default function ProductCard({ product }: ProductCardProps) {
     <div className="group relative rounded-2xl bg-pristine border border-steel-border hover:border-steel-dark overflow-hidden shadow-pristine-sm hover:shadow-pristine-md transition-all duration-300 flex flex-col justify-between">
       {/* Top Media on Pure White Container for maximum appetite appeal */}
       <div className="relative w-full h-56 sm:h-64 overflow-hidden bg-white border-b border-steel-border/60">
-        <Image
-          src={product.imageUrl}
-          alt={product.name}
-          fill
-          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-          className="object-cover group-hover:scale-104 transition-transform duration-500"
-        />
+        {product.imageUrl ? (
+          <Image
+            src={product.imageUrl}
+            alt={product.name}
+            fill
+            sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+            className="object-cover group-hover:scale-104 transition-transform duration-500"
+          />
+        ) : (
+          /* Branded placeholder until a product photo is added */
+          <div className="absolute inset-0 bg-charcoal-gradient flex flex-col items-center justify-center gap-3 text-center px-6">
+            <div className="relative w-20 h-20 rounded-full border-2 border-reserve-gold/80 shadow-gold-glow overflow-hidden bg-white">
+              <Image
+                src="/images/logo-crest.jpg"
+                alt=""
+                fill
+                sizes="80px"
+                className="object-cover"
+              />
+            </div>
+            <span className="font-serif text-xl font-bold text-white">{product.name}</span>
+          </div>
+        )}
 
         {/* Soft bottom vignette to keep price tag legible */}
         <div className="absolute inset-0 bg-gradient-to-t from-charcoal/40 via-transparent to-transparent pointer-events-none" />
@@ -191,7 +198,9 @@ export default function ProductCard({ product }: ProductCardProps) {
               </div>
               <div
                 className={`grid gap-2 ${
-                  product.tiers.length === 3
+                  product.tiers.length <= 2
+                    ? "grid-cols-2"
+                    : product.tiers.length === 3
                     ? "grid-cols-3"
                     : product.tiers.length === 4
                     ? "grid-cols-2 sm:grid-cols-4"
@@ -201,9 +210,10 @@ export default function ProductCard({ product }: ProductCardProps) {
                 {product.tiers.map((tier) => {
                   const isSelected = selectedTier?.weightLabel === tier.weightLabel;
                   const qtyForThisTier = getItemQuantity(
-                    product.id,
-                    tier.weightLabel,
-                    selectedState
+                    product,
+                    tier,
+                    selectedState,
+                    selectedCut
                   );
 
                   return (
@@ -310,9 +320,14 @@ export default function ProductCard({ product }: ProductCardProps) {
               <span className="text-charcoal font-bold block">Currently in your Order:</span>
               <div className="space-y-1 text-steel">
                 {selectedItemsOfThisProduct.map((item) => (
-                  <div key={item.id} className="flex justify-between items-center text-[10px]">
-                    <span>• {item.portionLabel} ({item.meatState}) x{item.quantity}</span>
-                    <span className="text-charcoal font-bold">{formatNaira(item.unitPrice * item.quantity)}</span>
+                  <div key={item.id} className="flex justify-between items-start gap-2 text-[10px]">
+                    <span className="min-w-0">
+                      • {item.portionLabel} ({item.meatState}) x{item.quantity}
+                      {item.customCutting && (
+                        <span className="block pl-2 truncate">{item.customCutting}</span>
+                      )}
+                    </span>
+                    <span className="text-charcoal font-bold flex-shrink-0">{formatNaira(item.unitPrice * item.quantity)}</span>
                   </div>
                 ))}
               </div>

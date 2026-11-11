@@ -64,7 +64,7 @@ export const PRODUCTS: ProductItem[] = [
     isBonelessGuaranteed: false,
     isSpecialty: true,
     baseStartingPrice: 50000,
-    availableStates: ["Fresh"],
+    availableStates: ["Fresh", "Frozen"],
     imageUrl: "/images/products/specialty-cow-head.jpg",
     cutOptions: [
       "Chopped into Stew Chunks with Bone",
@@ -84,7 +84,7 @@ export const PRODUCTS: ProductItem[] = [
     isBonelessGuaranteed: false,
     isSpecialty: true,
     baseStartingPrice: 15000,
-    availableStates: ["Fresh"],
+    availableStates: ["Fresh", "Frozen"],
     imageUrl: "/images/products/specialty-cow-tail.jpg",
     cutOptions: [
       "Neat Medallion Discs (Joint Sliced)",
@@ -103,7 +103,7 @@ export const PRODUCTS: ProductItem[] = [
     isBonelessGuaranteed: false,
     isSpecialty: true,
     baseStartingPrice: 6000,
-    availableStates: ["Fresh"],
+    availableStates: ["Fresh", "Frozen"],
     imageUrl: "/images/products/specialty-cow-leg.jpg",
     cutOptions: [
       "Chopped into Bite Chunks",
@@ -112,23 +112,78 @@ export const PRODUCTS: ProductItem[] = [
     ],
     unitLabel: "Unit",
   },
+  // ── Meat sharing ──────────────────────────────────────────────
+  // Tier `slots` values are in that animal's slots (0.5 = half slot).
+  {
+    id: "cow-sharing",
+    name: "Cow Sharing",
+    yorubaName: "Eran Malu (Ipin Pinpin)",
+    category: "sharing",
+    shareAnimal: "Cow",
+    description:
+      "Join a cow share and take your portion of a whole freshly slaughtered cow. Choose a full, half, or quarter slot. The size of each share depends on the size of the cow butchered for that batch, and every share is cut and weighed fairly at the counter.",
+    trustBadge: "Community Sharing Slot",
+    isBonelessGuaranteed: false,
+    isSpecialty: false,
+    availableStates: ["Fresh"],
+    // Photo: Veeresh Pattar on Unsplash (unsplash.com/photos/H2ujzP8003I), Unsplash License
+    imageUrl: "/images/products/cow-sharing.jpg",
+    tiers: [
+      { weightLabel: "¼ Slot (Quarter Slot)", shortLabel: "¼ Slot", subtitle: "Quarter", slots: 0.25, price: 5000 },
+      { weightLabel: "½ Slot (Half Slot)", shortLabel: "½ Slot", subtitle: "Half", slots: 0.5, price: 10000 },
+      { weightLabel: "1 Slot (Full Slot)", shortLabel: "1 Slot", subtitle: "Full Slot", slots: 1, price: 20000 },
+    ],
+    cutOptions: [
+      "Stew Chunks (Bone-in)",
+      "Large Party Cut (Ariya)",
+      "Pepper Soup Cut (Bite-sized)",
+      "Whole Primal Parts",
+    ],
+    unitLabel: "Slot",
+  },
   {
     id: "goat-meat-ogufe",
-    name: "Goat Meat (Ogufe)",
+    name: "Goat Sharing (Ogufe)",
     yorubaName: "Eran Ewure / Ogufe Prime Share",
-    category: "goat",
+    category: "sharing",
+    shareAnimal: "Goat",
     description:
-      "Premium mature castrated billy goat meat (Ogufe) renowned for unmatched aroma, tenderness, and taste. Sold in measured community slots containing balanced ribs, leg, and loin portions.",
+      "Premium mature castrated billy goat meat (Ogufe) renowned for unmatched aroma, tenderness, and taste. One slot is a quarter of the goat, with balanced ribs, leg, and loin portions.",
     trustBadge: "Traditional Ogufe Flavor",
     isBonelessGuaranteed: false,
     isSpecialty: false,
-    availableStates: ["Fresh", "Frozen"],
+    availableStates: ["Fresh"],
     tiers: [
-      { weightLabel: "1 Slot (Share)", shortLabel: "1 Slot", subtitle: "Standard Share", slots: 1, price: 25000 },
+      { weightLabel: "½ Slot (1/8 Goat)", shortLabel: "½ Slot", subtitle: "⅛ Goat", slots: 0.5, price: 12500 },
+      { weightLabel: "1 Slot (Share)", shortLabel: "1 Slot", subtitle: "¼ Goat", slots: 1, price: 25000 },
       { weightLabel: "2 Slots (Half Goat)", shortLabel: "2 Slots", subtitle: "Half Goat", slots: 2, price: 50000 },
       { weightLabel: "4 Slots (Full Goat)", shortLabel: "4 Slots", subtitle: "Full Goat", slots: 4, price: 100000 },
     ],
     imageUrl: "/images/products/goat-meat-ogufe.jpg",
+    cutOptions: [
+      "Classic Asun Chunks (Bite-sized with skin)",
+      "Party Stew Chunks",
+      "Pepper Soup Chunks",
+      "Whole Primal Parts",
+    ],
+    unitLabel: "Slot",
+  },
+  {
+    id: "ram-sharing",
+    name: "Ram Sharing",
+    yorubaName: "Eran Agbo (Ipin Pinpin)",
+    category: "sharing",
+    shareAnimal: "Ram",
+    description:
+      "Share a whole ram with other households. One slot is an eighth of the ram and a half slot is a sixteenth, cut and weighed fairly at the counter.",
+    trustBadge: "Community Sharing Slot",
+    isBonelessGuaranteed: false,
+    isSpecialty: false,
+    availableStates: ["Fresh"],
+    tiers: [
+      { weightLabel: "½ Slot (1/16 Ram)", shortLabel: "½ Slot", subtitle: "1/16 Ram", slots: 0.5, price: 12500 },
+      { weightLabel: "1 Slot (1/8 Ram)", shortLabel: "1 Slot", subtitle: "⅛ Ram", slots: 1, price: 25000 },
+    ],
     cutOptions: [
       "Classic Asun Chunks (Bite-sized with skin)",
       "Party Stew Chunks",

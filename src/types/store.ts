@@ -1,6 +1,9 @@
 export type MeatState = "Fresh" | "Frozen";
 
-export type ProductCategory = "all" | "beef" | "intestines" | "specialty" | "goat";
+export type ProductCategory = "all" | "beef" | "intestines" | "specialty" | "sharing";
+
+/** Animal a sharing slot belongs to; slots are only summed per animal. */
+export type ShareAnimal = "Cow" | "Goat" | "Ram";
 
 export interface PriceTier {
   weightLabel: string;
@@ -23,9 +26,29 @@ export interface ProductItem {
   baseStartingPrice?: number;
   tiers?: PriceTier[];
   availableStates: MeatState[];
-  imageUrl: string;
+  /** Omit until a photo exists; the card shows a branded placeholder. */
+  imageUrl?: string;
+  /** Set on sharing products; tiers then carry `slots` (fractions allowed, e.g. 0.5). */
+  shareAnimal?: ShareAnimal;
   cutOptions?: string[];
   unitLabel?: string;
+}
+
+export interface WholesaleItem {
+  id: string;
+  productId: string;
+  name: string;
+  /** Label shown on the cart line and in the WhatsApp message. Keep stable: saved carts are matched on it. */
+  portionLabel: string;
+  specification: string;
+  price: number;
+  /** Net weight that is actually sold (sent with the order). */
+  weightKg?: number;
+  /** Goat slots (sent with the order instead of a weight). */
+  slots?: number;
+  /** Rough weight for display only (specialty cuts and goat), never sent as a weighed total. */
+  estimatedWeightKg?: number;
+  defaultState: MeatState;
 }
 
 export interface OrderItem {
@@ -39,6 +62,7 @@ export interface OrderItem {
   quantity: number;
   weightKg?: number;
   slots?: number;
+  shareAnimal?: ShareAnimal;
   isSpecialty: boolean;
   customCutting?: string;
 }

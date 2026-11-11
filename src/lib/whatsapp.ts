@@ -1,5 +1,6 @@
 import { CustomerDetails, OrderItem, DeliveryZone } from "@/types/store";
 import { formatNaira } from "./utils";
+import { summariseSlots } from "./pricing";
 
 export const WHATSAPP_PHONE_NUMBER =
   process.env.NEXT_PUBLIC_WHATSAPP_PHONE_NUMBER || "2348153861887";
@@ -30,16 +31,10 @@ export function generateWhatsAppOrderUrl({
     (sum, item) => sum + (item.weightKg || 0) * item.quantity,
     0
   );
-  const totalSlots = items.reduce(
-    (sum, item) => sum + (item.slots || 0) * item.quantity,
-    0
-  );
   const weightSummaryLine =
-    totalWeightKg > 0
-      ? `*Accurately Weighed Total:* ${totalWeightKg}kg${totalSlots > 0 ? ` + ${totalSlots} Goat Slot(s)` : ""}`
-      : totalSlots > 0
-      ? `*Accurately Measured Slots:* ${totalSlots} Goat Slot(s)`
-      : null;
+    totalWeightKg > 0 ? `*Accurately Weighed Total:* ${totalWeightKg}kg` : null;
+  const slotSummary = summariseSlots(items);
+  const slotSummaryLine = slotSummary ? `*Sharing Slots:* ${slotSummary}` : null;
 
   const addressDisplay =
     customer.deliveryType === "pickup"
@@ -87,6 +82,7 @@ export function generateWhatsAppOrderUrl({
     `*Delivery Address:* ${addressDisplay}`,
     `*Meat State Preference:* ${meatStatePreference}`,
     weightSummaryLine,
+    slotSummaryLine,
     "",
     "*SELECTED ITEMS:*",
     ...selectedItemsLines,

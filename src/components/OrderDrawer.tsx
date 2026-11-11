@@ -38,7 +38,7 @@ export default function OrderDrawer() {
     totalWithDelivery,
     totalItemCount,
     totalEstimatedWeightKg,
-    totalEstimatedSlots,
+    slotSummary,
     hasSpecialtyItems,
     isDrawerOpen,
     closeDrawer,
@@ -119,7 +119,8 @@ export default function OrderDrawer() {
                       <Scale className="w-3.5 h-3.5 text-ruby" />
                       <span>
                         Selected Cuts ({totalItemCount} Items
-                        {totalEstimatedWeightKg > 0 && ` • ~${totalEstimatedWeightKg.toFixed(1)}kg`})
+                        {totalEstimatedWeightKg > 0 && ` • ~${totalEstimatedWeightKg.toFixed(1)}kg`}
+                        {slotSummary && ` • ${slotSummary}`})
                       </span>
                     </span>
                     <button

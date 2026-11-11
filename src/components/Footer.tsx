@@ -11,8 +11,11 @@ import {
   Clock,
 } from "lucide-react";
 import { DISPLAY_PHONE_NUMBER, WHATSAPP_PHONE_NUMBER } from "@/lib/whatsapp";
+import { useOrder } from "@/context/OrderContext";
 
 export default function Footer() {
+  const { totalItemCount } = useOrder();
+
   return (
     <footer className="bg-charcoal text-white border-t border-charcoal-border relative overflow-hidden">
       {/* Decorative top gold hairline */}
@@ -140,7 +143,12 @@ export default function Footer() {
       </div>
 
       {/* Bottom Copyright & Disclaimer */}
-      <div className="border-t border-charcoal-border py-6 bg-charcoal-rich text-[11px] text-steel-light">
+      {/* Extra bottom padding while the fixed FloatingOrderBar is visible, so it never covers this row */}
+      <div
+        className={`border-t border-charcoal-border pt-6 bg-charcoal-rich text-[11px] text-steel-light ${
+          totalItemCount > 0 ? "pb-36 sm:pb-24" : "pb-6"
+        }`}
+      >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-3 text-center sm:text-left">
           <p>
             © {new Date().getFullYear()} <strong className="text-white">Alayaki Reserve</strong>. All Rights Reserved. Abeokuta, Ogun State.

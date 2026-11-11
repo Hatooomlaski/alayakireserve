@@ -4,6 +4,13 @@ import React, { createContext, useContext, useState, useEffect, useMemo } from "
 import { OrderItem, CustomerDetails, DeliveryZone, MeatState, ProductItem, PriceTier } from "@/types/store";
 import { DELIVERY_ZONES } from "@/config/zones";
 import { generateWhatsAppOrderUrl } from "@/lib/whatsapp";
+import {
+  buildOrderItem,
+  orderItemId,
+  restoreSavedCustomer,
+  restoreSavedItems,
+  summariseSlots,
+} from "@/lib/pricing";
 
 interface OrderContextType {
   items: OrderItem[];
@@ -12,7 +19,7 @@ interface OrderContextType {
   updateQuantity: (itemId: string, newQty: number) => void;
   incrementItem: (product: ProductItem, tier: PriceTier | undefined, meatState: MeatState, customCutting?: string) => void;
   decrementItem: (product: ProductItem, tier: PriceTier | undefined, meatState: MeatState, customCutting?: string) => void;
-  getItemQuantity: (productId: string, portionLabel: string, meatState: MeatState) => number;
+  getItemQuantity: (product: ProductItem, tier: PriceTier | undefined, meatState: MeatState, customCutting?: string) => number;
   getProductTotalQuantity: (productId: string) => number;
   getProductSelectedItems: (productId: string) => OrderItem[];
   clearCart: () => void;
@@ -24,7 +31,8 @@ interface OrderContextType {
   totalWithDelivery: number;
   totalItemCount: number;
   totalEstimatedWeightKg: number;
-  totalEstimatedSlots: number;
+  /** e.g. "1½ Cow Slots + ½ Goat Slot"; null when no sharing slots. */
+  slotSummary: string | null;
   hasSpecialtyItems: boolean;
   isDrawerOpen: boolean;
   setIsDrawerOpen: (open: boolean) => void;
@@ -56,11 +64,13 @@ export function OrderProvider({ children }: { children: React.ReactNode }) {
     try {
       const savedItems = localStorage.getItem("alayaki_reserve_cart");
       const savedCustomer = localStorage.getItem("alayaki_reserve_customer");
+      // Saved carts are re-priced against the current catalogue so customers
+      // never send prices that have since changed.
       if (savedItems) {
-        setItems(JSON.parse(savedItems));
+        setItems(restoreSavedItems(JSON.parse(savedItems)));
       }
       if (savedCustomer) {
-        setCustomer(JSON.parse(savedCustomer));
+        setCustomer(restoreSavedCustomer(JSON.parse(savedCustomer), defaultCustomer));
       }
     } catch (e) {
       console.warn("Could not load cart state from localStorage", e);
@@ -87,39 +97,14 @@ export function OrderProvider({ children }: { children: React.ReactNode }) {
     return DELIVERY_ZONES.find((z) => z.id === customer.deliveryZoneId) || DELIVERY_ZONES[1];
   }, [customer.deliveryType, customer.deliveryZoneId]);
 
-  const getItemId = (
-    product: ProductItem,
-    tier: PriceTier | undefined,
-    meatState: MeatState,
-    customCutting?: string
-  ) => {
-    const portionLabel = product.isSpecialty
-      ? `1 ${product.unitLabel || "Unit"}`
-      : tier
-      ? tier.weightLabel
-      : "Standard Portion";
-    return `${product.id}-${portionLabel}-${meatState}-${customCutting || "standard"}`;
-  };
-
   const addItem = (
     product: ProductItem,
     tier: PriceTier | undefined,
     meatState: MeatState,
     customCutting?: string
   ) => {
-    const portionLabel = product.isSpecialty
-      ? `1 ${product.unitLabel || "Unit"}`
-      : tier
-      ? tier.weightLabel
-      : "Standard Portion";
-
-    const unitPrice = product.isSpecialty
-      ? product.baseStartingPrice || 0
-      : tier
-      ? tier.price
-      : 0;
-
-    const itemId = getItemId(product, tier, meatState, customCutting);
+    const newItem = buildOrderItem(product, tier, meatState, customCutting, 1);
+    const itemId = newItem.id;
 
     setItems((prev) => {
       const existingIndex = prev.findIndex((i) => i.id === itemId);
@@ -131,21 +116,6 @@ export function OrderProvider({ children }: { children: React.ReactNode }) {
         };
         return next;
       }
-
-      const newItem: OrderItem = {
-        id: itemId,
-        productId: product.id,
-        productName: product.name,
-        yorubaName: product.yorubaName,
-        portionLabel,
-        meatState,
-        unitPrice,
-        quantity: 1,
-        weightKg: tier?.weightKg,
-        slots: tier?.slots,
-        isSpecialty: product.isSpecialty,
-        customCutting,
-      };
       return [...prev, newItem];
     });
   };
@@ -165,7 +135,7 @@ export function OrderProvider({ children }: { children: React.ReactNode }) {
     meatState: MeatState,
     customCutting?: string
   ) => {
-    const itemId = getItemId(product, tier, meatState, customCutting);
+    const itemId = orderItemId(product, tier, meatState, customCutting);
     setItems((prev) => {
       const existing = prev.find((i) => i.id === itemId);
       if (!existing) return prev;
@@ -192,11 +162,15 @@ export function OrderProvider({ children }: { children: React.ReactNode }) {
     );
   };
 
-  const getItemQuantity = (productId: string, portionLabel: string, meatState: MeatState) => {
-    const item = items.find(
-      (i) => i.productId === productId && i.portionLabel === portionLabel && i.meatState === meatState
-    );
-    return item ? item.quantity : 0;
+  // Looks up the exact cart line (incl. cut style) that increment/decrement act on.
+  const getItemQuantity = (
+    product: ProductItem,
+    tier: PriceTier | undefined,
+    meatState: MeatState,
+    customCutting?: string
+  ) => {
+    const itemId = orderItemId(product, tier, meatState, customCutting);
+    return items.find((i) => i.id === itemId)?.quantity ?? 0;
   };
 
   const getProductTotalQuantity = (productId: string) => {
@@ -236,9 +210,8 @@ export function OrderProvider({ children }: { children: React.ReactNode }) {
     return items.reduce((acc, item) => acc + (item.weightKg || 0) * item.quantity, 0);
   }, [items]);
 
-  const totalEstimatedSlots = useMemo(() => {
-    return items.reduce((acc, item) => acc + (item.slots || 0) * item.quantity, 0);
-  }, [items]);
+  // Slots are only meaningful per animal (a cow slot ≠ a goat slot).
+  const slotSummary = useMemo(() => summariseSlots(items), [items]);
 
   const hasSpecialtyItems = useMemo(() => {
     return items.some((item) => item.isSpecialty);
@@ -278,7 +251,7 @@ export function OrderProvider({ children }: { children: React.ReactNode }) {
         totalWithDelivery,
         totalItemCount,
         totalEstimatedWeightKg,
-        totalEstimatedSlots,
+        slotSummary,
         hasSpecialtyItems,
         isDrawerOpen,
         setIsDrawerOpen,

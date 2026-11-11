@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useOrder } from "@/context/OrderContext";
 import { formatNaira } from "@/lib/utils";
 import {
@@ -15,109 +15,53 @@ import {
   Snowflake,
   ShoppingBag,
 } from "lucide-react";
-import { MeatState } from "@/types/store";
+import { MeatState, ProductItem, WholesaleItem } from "@/types/store";
 import { PRODUCTS } from "@/config/products";
+import { WHOLESALE_ITEMS } from "@/config/wholesale";
+import { wholesaleTier } from "@/lib/pricing";
 
-interface WholesaleItemState {
-  productId: string;
-  name: string;
-  specification: string;
-  unitWeightKg: number;
-  unitPrice: number;
+interface WholesaleRow extends WholesaleItem {
+  product: ProductItem;
   isSpecialty: boolean;
+  /** Weight shown in the table and batch total (net weight or estimate). */
+  displayWeightKg: number;
+  availableStates: MeatState[];
   state: MeatState;
   quantity: number;
 }
 
-const INITIAL_WHOLESALE_ITEMS: WholesaleItemState[] = [
-  {
-    productId: "prime-beef-boneless",
-    name: "Prime Beef (100% Boneless) — 10kg Master Carton",
-    specification: "Zero bones, 100% trimmed lean muscle yield for hotels & restaurants",
-    unitWeightKg: 10,
-    unitPrice: 77000,
-    isSpecialty: false,
-    state: "Fresh",
-    quantity: 0,
-  },
-  {
-    productId: "prime-beef-boneless",
-    name: "Prime Beef (100% Boneless) — 5kg Kitchen Slab",
-    specification: "100% pure edible yield, cut into stew chunks or blocks",
-    unitWeightKg: 5,
-    unitPrice: 38500,
-    isSpecialty: false,
-    state: "Frozen",
-    quantity: 0,
-  },
-  {
-    productId: "assorted-cow-intestines",
-    name: "Assorted Offal (Inu Eran) — 10kg Caterer Bag",
-    specification: "Triple-washed honeycomb shaki, liver, abodi & roundabouts",
-    unitWeightKg: 10,
-    unitPrice: 60000,
-    isSpecialty: false,
-    state: "Frozen",
-    quantity: 0,
-  },
-  {
-    productId: "assorted-cow-intestines",
-    name: "Assorted Offal (Inu Eran) — 5kg Standard Bag",
-    specification: "Pre-cleaned, ready-for-pot offal mix with zero odors",
-    unitWeightKg: 5,
-    unitPrice: 30000,
-    isSpecialty: false,
-    state: "Fresh",
-    quantity: 0,
-  },
-  {
-    productId: "specialty-cow-head",
-    name: "Whole Cleaned Cow Head (Ori Eran)",
-    specification: "Firewood-singed, pressure scrubbed, split or stew-chunked",
-    unitWeightKg: 15,
-    unitPrice: 50000,
-    isSpecialty: true,
-    state: "Fresh",
-    quantity: 0,
-  },
-  {
-    productId: "specialty-cow-tail",
-    name: "Prime Cow Tail / Oxtail (Iru Eran)",
-    specification: "Thick round medallion cuts with maximum marrow & collagen",
-    unitWeightKg: 4,
-    unitPrice: 15000,
-    isSpecialty: true,
-    state: "Fresh",
-    quantity: 0,
-  },
-  {
-    productId: "specialty-cow-leg",
-    name: "Cow Leg / Trotters (Bokoto) — Pack of 2",
-    specification: "Clean singed trotters, cracked or whole for rich pepper soup",
-    unitWeightKg: 3,
-    unitPrice: 12000,
-    isSpecialty: true,
-    state: "Fresh",
-    quantity: 0,
-  },
-  {
-    productId: "goat-meat-ogufe",
-    name: "Ogufe Goat Meat — Full Goat (4 Slots / Quarters)",
-    specification: "Whole mature castrated billy goat, divided into prime cuts",
-    unitWeightKg: 16,
-    unitPrice: 100000,
-    isSpecialty: false,
-    state: "Fresh",
-    quantity: 0,
-  },
-];
+function buildInitialRows(): WholesaleRow[] {
+  return WHOLESALE_ITEMS.flatMap((item) => {
+    const product = PRODUCTS.find((p) => p.id === item.productId);
+    if (!product) return [];
+    const availableStates = product.availableStates;
+    return [
+      {
+        ...item,
+        product,
+        isSpecialty: product.isSpecialty,
+        displayWeightKg: item.weightKg ?? item.estimatedWeightKg ?? 0,
+        availableStates,
+        state: availableStates.includes(item.defaultState)
+          ? item.defaultState
+          : availableStates[0],
+        quantity: 0,
+      },
+    ];
+  });
+}
 
 export default function WholesaleTable() {
   const { addItem, openDrawer } = useOrder();
-  const [itemsState, setItemsState] = useState<WholesaleItemState[]>(
-    INITIAL_WHOLESALE_ITEMS
-  );
+  const [itemsState, setItemsState] = useState<WholesaleRow[]>(buildInitialRows);
   const [addedSuccess, setAddedSuccess] = useState(false);
+  const successTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  useEffect(() => {
+    return () => {
+      if (successTimer.current) clearTimeout(successTimer.current);
+    };
+  }, []);
 
   const handleQtyChange = (index: number, delta: number) => {
     setItemsState((prev) =>
@@ -137,11 +81,11 @@ export default function WholesaleTable() {
 
   const totalSelectedUnits = itemsState.reduce((sum, i) => sum + i.quantity, 0);
   const totalWholesaleWeightKg = itemsState.reduce(
-    (sum, i) => sum + i.unitWeightKg * i.quantity,
+    (sum, i) => sum + i.displayWeightKg * i.quantity,
     0
   );
   const totalWholesaleSubtotal = itemsState.reduce(
-    (sum, i) => sum + i.unitPrice * i.quantity,
+    (sum, i) => sum + i.price * i.quantity,
     0
   );
 
@@ -149,29 +93,20 @@ export default function WholesaleTable() {
     const selected = itemsState.filter((i) => i.quantity > 0);
     if (selected.length === 0) return;
 
-    selected.forEach((wholesaleItem) => {
-      const productObj = PRODUCTS.find((p) => p.id === wholesaleItem.productId);
-      if (!productObj) return;
-
-      for (let q = 0; q < wholesaleItem.quantity; q++) {
-        addItem(
-          productObj,
-          {
-            weightLabel: wholesaleItem.name.includes("—")
-              ? wholesaleItem.name.split("—")[1].trim()
-              : `${wholesaleItem.unitWeightKg}kg Bulk`,
-            shortLabel: `${wholesaleItem.unitWeightKg}kg`,
-            price: wholesaleItem.unitPrice,
-            weightKg: wholesaleItem.unitWeightKg,
-          },
-          wholesaleItem.state,
-          "Wholesale Commercial Prep"
-        );
+    selected.forEach((row) => {
+      // The row's own pack price is used, specialty packs included.
+      const tier = wholesaleTier(row);
+      for (let q = 0; q < row.quantity; q++) {
+        addItem(row.product, tier, row.state, "Wholesale Commercial Prep");
       }
     });
 
+    // Clear the matrix so a second click can't add the same selection twice.
+    setItemsState(buildInitialRows());
+
     setAddedSuccess(true);
-    setTimeout(() => {
+    if (successTimer.current) clearTimeout(successTimer.current);
+    successTimer.current = setTimeout(() => {
       setAddedSuccess(false);
       openDrawer();
     }, 800);
@@ -232,12 +167,12 @@ export default function WholesaleTable() {
           </thead>
           <tbody className="divide-y divide-steel-border text-xs sm:text-sm">
             {itemsState.map((row, index) => {
-              const rowTotal = row.unitPrice * row.quantity;
+              const rowTotal = row.price * row.quantity;
               const hasQty = row.quantity > 0;
 
               return (
                 <tr
-                  key={row.name}
+                  key={row.id}
                   className={`transition-colors ${
                     hasQty ? "bg-ruby-subtle/50" : "hover:bg-pristine-muted"
                   }`}
@@ -257,42 +192,57 @@ export default function WholesaleTable() {
 
                   {/* Weight */}
                   <td className="py-3.5 px-3 text-center font-bold text-charcoal whitespace-nowrap">
-                    {row.unitWeightKg} kg
+                    {row.slots ? (
+                      <>
+                        {row.slots} Slots
+                        {row.estimatedWeightKg && (
+                          <span className="block text-[10px] font-normal text-steel">
+                            ~{row.estimatedWeightKg} kg
+                          </span>
+                        )}
+                      </>
+                    ) : row.weightKg ? (
+                      `${row.weightKg} kg`
+                    ) : (
+                      `~${row.displayWeightKg} kg`
+                    )}
                   </td>
 
-                  {/* State Toggle */}
+                  {/* State Toggle (only states this product is actually sold in) */}
                   <td className="py-3.5 px-3 text-center whitespace-nowrap">
                     <div className="inline-flex rounded-lg border border-steel-border bg-pristine p-0.5">
-                      <button
-                        type="button"
-                        onClick={() => handleStateToggle(index, "Fresh")}
-                        className={`px-2 py-1 rounded text-[10px] font-bold transition-colors flex items-center gap-1 ${
-                          row.state === "Fresh"
-                            ? "bg-amber-100 text-amber-900 font-extrabold"
-                            : "text-steel hover:text-charcoal"
-                        }`}
-                      >
-                        <Sun className="w-3 h-3 text-amber-600" />
-                        <span>Fresh</span>
-                      </button>
-                      <button
-                        type="button"
-                        onClick={() => handleStateToggle(index, "Frozen")}
-                        className={`px-2 py-1 rounded text-[10px] font-bold transition-colors flex items-center gap-1 ${
-                          row.state === "Frozen"
-                            ? "bg-cyan-100 text-cyan-900 font-extrabold"
-                            : "text-steel hover:text-charcoal"
-                        }`}
-                      >
-                        <Snowflake className="w-3 h-3 text-cyan-600" />
-                        <span>Frozen</span>
-                      </button>
+                      {row.availableStates.map((state) => {
+                        const isSelected = row.state === state;
+                        const isFresh = state === "Fresh";
+                        return (
+                          <button
+                            key={state}
+                            type="button"
+                            onClick={() => handleStateToggle(index, state)}
+                            aria-pressed={isSelected}
+                            className={`px-2 py-1 rounded text-[10px] font-bold transition-colors flex items-center gap-1 ${
+                              isSelected
+                                ? isFresh
+                                  ? "bg-amber-100 text-amber-900 font-extrabold"
+                                  : "bg-cyan-100 text-cyan-900 font-extrabold"
+                                : "text-steel hover:text-charcoal"
+                            }`}
+                          >
+                            {isFresh ? (
+                              <Sun className="w-3 h-3 text-amber-600" />
+                            ) : (
+                              <Snowflake className="w-3 h-3 text-cyan-600" />
+                            )}
+                            <span>{state}</span>
+                          </button>
+                        );
+                      })}
                     </div>
                   </td>
 
                   {/* Unit Rate */}
                   <td className="py-3.5 px-3 text-right font-bold text-charcoal whitespace-nowrap">
-                    {formatNaira(row.unitPrice)}
+                    {formatNaira(row.price)}
                   </td>
 
                   {/* Quantity Stepper (Thumb-friendly mobile size) */}

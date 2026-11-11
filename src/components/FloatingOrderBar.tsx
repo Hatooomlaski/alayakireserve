@@ -9,7 +9,7 @@ export default function FloatingOrderBar() {
   const {
     totalItemCount,
     totalEstimatedWeightKg,
-    totalEstimatedSlots,
+    slotSummary,
     subtotal,
     openDrawer,
     getWhatsAppOrderUrl,
@@ -44,10 +44,14 @@ export default function FloatingOrderBar() {
                   <span className="text-xs sm:text-sm font-bold text-steel flex items-center gap-1">
                     <Scale className="w-3.5 h-3.5 text-ruby flex-shrink-0" />
                     <span>
-                      Est. Weight:{" "}
-                      {totalEstimatedWeightKg > 0
-                        ? `${totalEstimatedWeightKg.toFixed(1)}kg`
-                        : `${totalEstimatedSlots} Slot(s)`}
+                      {[
+                        totalEstimatedWeightKg > 0
+                          ? `Est. Weight: ${totalEstimatedWeightKg.toFixed(1)}kg`
+                          : null,
+                        slotSummary,
+                      ]
+                        .filter(Boolean)
+                        .join(" • ") || "Base-rate cuts"}
                     </span>
                   </span>
                 </div>

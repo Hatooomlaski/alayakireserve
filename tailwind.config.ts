@@ -71,8 +71,9 @@ const config: Config = {
         "text-light": "#FFFFFF",
       },
       fontFamily: {
-        serif: ["'Playfair Display'", "'Cormorant Garamond'", "Georgia", "serif"],
-        sans: ["'Inter'", "'Plus Jakarta Sans'", "system-ui", "-apple-system", "sans-serif"],
+        // CSS variables are set by next/font in src/app/layout.tsx
+        serif: ["var(--font-playfair)", "Georgia", "serif"],
+        sans: ["var(--font-inter)", "system-ui", "-apple-system", "sans-serif"],
       },
       boxShadow: {
         "pristine-sm": "0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.03)",

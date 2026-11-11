@@ -1,17 +1,34 @@
 import type { Metadata } from "next";
+import { Inter, Playfair_Display } from "next/font/google";
 import "./globals.css";
 import { OrderProvider } from "@/context/OrderContext";
 import Navbar from "@/components/Navbar";
 import OrderDrawer from "@/components/OrderDrawer";
 import Footer from "@/components/Footer";
+import { BUSINESS, SITE_URL } from "@/config/business";
+import { WHATSAPP_PHONE_NUMBER } from "@/lib/whatsapp";
+
+// Self-hosted at build time by next/font: no render-blocking Google Fonts request.
+const inter = Inter({
+  subsets: ["latin"],
+  style: ["normal", "italic"],
+  display: "swap",
+  variable: "--font-inter",
+});
+
+const playfair = Playfair_Display({
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-playfair",
+});
+
+const description =
+  "Abeokuta’s premier luxury butchery service. Guaranteed 100% boneless beef, assorted cow cuts, and fresh cow, goat and ram sharing. Physical counter at God's Hope Hospital Car Park, Adigbe, Abeokuta. Direct WhatsApp ordering.";
 
 export const metadata: Metadata = {
-  metadataBase: new URL(
-    process.env.NEXT_PUBLIC_SITE_URL || "https://alayakireserve.vercel.app"
-  ),
-  title: "Alayaki Reserve | Abeokuta’s Premier Bespoke Butchery",
-  description:
-    "Abeokuta’s premier luxury butchery service. Guaranteed 100% boneless beef, assorted cow cuts, and fresh cow, goat and ram sharing. Physical counter at God's Hope Hospital Car Park, Adigbe, Abeokuta. Direct WhatsApp ordering.",
+  metadataBase: new URL(SITE_URL),
+  title: `${BUSINESS.name} | ${BUSINESS.tagline}`,
+  description,
   keywords: [
     "Alayaki Reserve",
     "Butchery Abeokuta",
@@ -26,12 +43,15 @@ export const metadata: Metadata = {
     "Inu eran clean offal Abeokuta",
     "Bokoto cow head oxtail Abeokuta",
   ],
+  alternates: { canonical: "/" },
   openGraph: {
-    title: "Alayaki Reserve — Abeokuta’s Premier Bespoke Butchery",
+    title: `${BUSINESS.name} — ${BUSINESS.tagline}`,
     description:
       "Guaranteed 100% Boneless Beef. Direct farm-to-table artisanal butchery in Adigbe, Abeokuta. Live orders routed to WhatsApp.",
     type: "website",
     locale: "en_NG",
+    url: "/",
+    siteName: BUSINESS.name,
     images: [
       {
         url: "/images/logo.jpg",
@@ -41,10 +61,51 @@ export const metadata: Metadata = {
       },
     ],
   },
+  twitter: {
+    card: "summary",
+    title: `${BUSINESS.name} — ${BUSINESS.tagline}`,
+    description,
+    images: ["/images/logo.jpg"],
+  },
+  // The browser-tab icon comes from src/app/icon.jpg (file convention).
   icons: {
-    icon: "/images/logo-crest.jpg",
     apple: "/images/logo-crest.jpg",
   },
+};
+
+// Business details for Google/Maps (schema.org). Keep in sync via config/business.ts.
+const localBusinessJsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Store",
+  name: BUSINESS.name,
+  description,
+  url: SITE_URL,
+  logo: `${SITE_URL}/images/logo.jpg`,
+  image: `${SITE_URL}/images/logo.jpg`,
+  telephone: `+${WHATSAPP_PHONE_NUMBER}`,
+  address: {
+    "@type": "PostalAddress",
+    streetAddress: BUSINESS.address.street,
+    addressLocality: BUSINESS.address.city,
+    addressRegion: BUSINESS.address.state,
+    addressCountry: BUSINESS.address.countryCode,
+  },
+  openingHoursSpecification: [
+    {
+      "@type": "OpeningHoursSpecification",
+      dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+      opens: BUSINESS.hours.weekdays.opens,
+      closes: BUSINESS.hours.weekdays.closes,
+    },
+    {
+      "@type": "OpeningHoursSpecification",
+      dayOfWeek: "Sunday",
+      opens: BUSINESS.hours.sunday.opens,
+      closes: BUSINESS.hours.sunday.closes,
+    },
+  ],
+  hasMap: BUSINESS.mapsUrl,
+  sameAs: [BUSINESS.instagramUrl],
 };
 
 export default function RootLayout({
@@ -53,16 +114,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className="scroll-smooth">
-      <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
-        <link
-          href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,500;0,600;0,700;0,800;1,600&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,600&display=swap"
-          rel="stylesheet"
-        />
-      </head>
+    <html lang="en" className={`scroll-smooth ${inter.variable} ${playfair.variable}`}>
       <body className="font-sans bg-pristine text-charcoal min-h-screen flex flex-col selection:bg-ruby selection:text-white antialiased">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(localBusinessJsonLd).replace(/</g, "\\u003c"),
+          }}
+        />
         <OrderProvider>
           {/* Main Top Navigation */}
           <Navbar />

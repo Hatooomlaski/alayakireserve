@@ -1,5 +1,3 @@
-"use client";
-
 import React from "react";
 import { Award, HeartPulse, CheckCircle2, Scale } from "lucide-react";
 

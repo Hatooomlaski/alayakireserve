@@ -1,5 +1,3 @@
-"use client";
-
 import React from "react";
 import { MapPin, Phone, Clock, Navigation, Snowflake, Calendar } from "lucide-react";
 import { DISPLAY_PHONE_NUMBER, WHATSAPP_PHONE_NUMBER } from "@/lib/whatsapp";

@@ -1,5 +1,3 @@
-"use client";
-
 import React from "react";
 import { Calendar, Clock, CheckCircle2, Snowflake, ArrowRight, Store } from "lucide-react";
 import { WHATSAPP_PHONE_NUMBER } from "@/lib/whatsapp";

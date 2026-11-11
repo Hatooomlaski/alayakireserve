@@ -245,7 +245,7 @@ export default function OrderDrawer() {
                               : "text-steel"
                           }`}
                         >
-                          Carefully packaged with temperature-controlled protection.
+                          Carefully packaged, delivered 12 noon – 7 PM.
                         </span>
                       </div>
                     </button>
@@ -341,7 +341,7 @@ export default function OrderDrawer() {
                       Opening Hours: Mon–Sat: 8am–7pm | Sun: 1pm–7pm
                     </p>
                     <p className="text-[10px] text-steel">
-                      (Fresh Friday collection opens 12 noon; frozen cuts ready anytime)
+                      (Fresh Friday collection from 3 PM; frozen cuts ready anytime during opening hours)
                     </p>
                   </div>
                 )}

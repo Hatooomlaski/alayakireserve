@@ -154,7 +154,7 @@ export default function Footer() {
             © {new Date().getFullYear()} <strong className="text-white">Alayaki Reserve</strong>. All Rights Reserved. Abeokuta, Ogun State.
           </p>
           <div className="flex items-center gap-3 text-[10px] text-steel">
-            <span>Guaranteed 100% Boneless Pure Meat</span>
+            <span>Guaranteed 100% Boneless Beef</span>
             <span>•</span>
             <span>Digital Weight Verification</span>
           </div>

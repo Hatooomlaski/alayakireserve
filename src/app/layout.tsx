@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   ),
   title: "Alayaki Reserve | Abeokuta’s Premier Bespoke Butchery",
   description:
-    "Abeokuta’s premier luxury butchery service. Guaranteed 100% boneless beef, assorted cow cuts, and fresh goat meat shares. Physical counter at God's Hope Hospital Car Park, Adigbe, Abeokuta. Direct WhatsApp ordering.",
+    "Abeokuta’s premier luxury butchery service. Guaranteed 100% boneless beef, assorted cow cuts, and fresh cow, goat and ram sharing. Physical counter at God's Hope Hospital Car Park, Adigbe, Abeokuta. Direct WhatsApp ordering.",
   keywords: [
     "Alayaki Reserve",
     "Butchery Abeokuta",
@@ -29,7 +29,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Alayaki Reserve — Abeokuta’s Premier Bespoke Butchery",
     description:
-      "Guaranteed 100% Boneless Pure Meat. Direct farm-to-table artisanal butchery in Adigbe, Abeokuta. Live orders routed to WhatsApp.",
+      "Guaranteed 100% Boneless Beef. Direct farm-to-table artisanal butchery in Adigbe, Abeokuta. Live orders routed to WhatsApp.",
     type: "website",
     locale: "en_NG",
     images: [

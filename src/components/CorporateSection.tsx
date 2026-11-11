@@ -68,7 +68,7 @@ export default function CorporateSection() {
                     Strict Portion Precision & Kitchen Cost Control
                   </h4>
                   <p className="text-xs text-steel leading-relaxed mt-0.5">
-                    100% boneless yield means your executive chef calculates food costs with 100% precision. Zero bone trimming loss in your prep kitchen.
+                    Boneless beef means your executive chef can cost every dish accurately, with minimal trimming loss in your prep kitchen. Only brisket portions may include bone.
                   </p>
                 </div>
               </div>
@@ -82,7 +82,7 @@ export default function CorporateSection() {
                     Scheduled Commercial Delivery Runs
                   </h4>
                   <p className="text-xs text-steel leading-relaxed mt-0.5">
-                    Guaranteed priority delivery windows across Abeokuta (Ibara, Oke-Mosan, Adigbe, Kuto, Camp) in temperature-controlled packaging.
+                    Priority delivery runs across Abeokuta (Ibara, Oke-Mosan, Adigbe, Kuto, Camp) between 12 noon and 7 PM, packed in food-grade packaging.
                   </p>
                 </div>
               </div>

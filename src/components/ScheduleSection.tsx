@@ -16,7 +16,7 @@ export default function ScheduleSection() {
             Weekly Butchering & Store Hours
           </h2>
           <p className="text-steel text-sm sm:text-base font-normal">
-            Choose between fresh day-of-slaughter cuts every Friday or certified cold-chain frozen cuts available in-store daily.
+            Choose between fresh day-of-slaughter cuts every Friday or frozen cuts available in-store daily.
           </p>
         </div>
 
@@ -42,13 +42,13 @@ export default function ScheduleSection() {
                 <div className="flex items-start gap-2.5">
                   <Clock className="w-4 h-4 text-ruby flex-shrink-0 mt-0.5" />
                   <span>
-                    <strong>Walk-In Collection:</strong> Opens Friday at 12:00 Noon (Adigbe Store).
+                    <strong>Walk-In Collection:</strong> From 3:00 PM on Friday (Adigbe Store).
                   </span>
                 </div>
                 <div className="flex items-start gap-2.5">
                   <CheckCircle2 className="w-4 h-4 text-whatsapp flex-shrink-0 mt-0.5" />
                   <span>
-                    <strong>Doorstep Delivery:</strong> Dispatched across Abeokuta 12:00 – 5:00 PM.
+                    <strong>Doorstep Delivery:</strong> Across Abeokuta from 12:00 Noon to 7:00 PM.
                   </span>
                 </div>
                 <div className="flex items-start gap-2.5">

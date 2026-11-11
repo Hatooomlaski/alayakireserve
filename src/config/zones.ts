@@ -6,7 +6,7 @@ export const DELIVERY_ZONES: DeliveryZone[] = [
     name: "Self-Pickup (Adigbe Store)",
     area: "God's Hope Hospital Car Park, Adigbe",
     fee: 0,
-    estimatedTime: "Frozen always in-store (Mon–Sat 8am–7pm, Sun 1pm–7pm); Fresh on Fridays by 12:00 Noon",
+    estimatedTime: "Frozen always in-store (Mon–Sat 8am–7pm, Sun 1pm–7pm); Fresh Friday collection from 3:00 PM",
     isPickup: true,
   },
   {
@@ -14,7 +14,7 @@ export const DELIVERY_ZONES: DeliveryZone[] = [
     name: "Adigbe & Environs",
     area: "Adigbe, Obada Road, Harmony, Elite Road",
     fee: 1000,
-    estimatedTime: "Same-Day Delivery (9:00 AM - 12:00 PM)",
+    estimatedTime: "Delivery 12:00 Noon – 7:00 PM",
     isPickup: false,
   },
   {
@@ -22,7 +22,7 @@ export const DELIVERY_ZONES: DeliveryZone[] = [
     name: "Ibara & GRA",
     area: "Ibara GRA, Omida, Ibara Housing Estate, Lalubu Street",
     fee: 1500,
-    estimatedTime: "Same-Day Delivery (10:00 AM - 1:00 PM)",
+    estimatedTime: "Delivery 12:00 Noon – 7:00 PM",
     isPickup: false,
   },
   {
@@ -30,7 +30,7 @@ export const DELIVERY_ZONES: DeliveryZone[] = [
     name: "Oke-Mosan",
     area: "State Secretariat, Governor's Office, Olusegun Obasanjo Presidential Library (OOPL)",
     fee: 2000,
-    estimatedTime: "Same-Day Delivery (11:00 AM - 2:00 PM)",
+    estimatedTime: "Delivery 12:00 Noon – 7:00 PM",
     isPickup: false,
   },
   {
@@ -38,7 +38,7 @@ export const DELIVERY_ZONES: DeliveryZone[] = [
     name: "Kuto & Isabo",
     area: "Kuto Market axis, Isabo, High Court, Quarry Road",
     fee: 1500,
-    estimatedTime: "Same-Day Delivery (10:30 AM - 1:30 PM)",
+    estimatedTime: "Delivery 12:00 Noon – 7:00 PM",
     isPickup: false,
   },
   {
@@ -46,7 +46,7 @@ export const DELIVERY_ZONES: DeliveryZone[] = [
     name: "Idi-Aba",
     area: "Federal Medical Centre (FMC), Idi-Aba, Ajebo Road",
     fee: 2000,
-    estimatedTime: "Same-Day Delivery (11:00 AM - 2:30 PM)",
+    estimatedTime: "Delivery 12:00 Noon – 7:00 PM",
     isPickup: false,
   },
   {
@@ -54,7 +54,7 @@ export const DELIVERY_ZONES: DeliveryZone[] = [
     name: "Camp & FUNAAB Axis",
     area: "Camp Junction, Federal University of Agriculture (FUNAAB), Alabata Axis",
     fee: 2500,
-    estimatedTime: "Same-Day Delivery (12:00 PM - 3:30 PM)",
+    estimatedTime: "Delivery 12:00 Noon – 7:00 PM",
     isPickup: false,
   },
   {
@@ -62,7 +62,7 @@ export const DELIVERY_ZONES: DeliveryZone[] = [
     name: "Obantoko & Asero",
     area: "Obantoko, Asero, Somorin, Ibadan Road Axis",
     fee: 2500,
-    estimatedTime: "Same-Day Delivery (12:00 PM - 3:30 PM)",
+    estimatedTime: "Delivery 12:00 Noon – 7:00 PM",
     isPickup: false,
   },
   {
@@ -70,7 +70,7 @@ export const DELIVERY_ZONES: DeliveryZone[] = [
     name: "Lafenwa & Ita-Oshin",
     area: "Lafenwa, Rounder, Ita-Oshin, Ayetoro Road Axis",
     fee: 2000,
-    estimatedTime: "Same-Day Delivery (11:30 AM - 2:30 PM)",
+    estimatedTime: "Delivery 12:00 Noon – 7:00 PM",
     isPickup: false,
   },
 ];

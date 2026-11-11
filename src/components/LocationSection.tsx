@@ -24,7 +24,7 @@ export default function LocationSection() {
             </h2>
 
             <p className="text-steel text-sm sm:text-base font-normal leading-relaxed">
-              Prefer to see your cuts weighed, trimmed, and packaged in person? Walk into our hygienic butcher station at Adigbe, Abeokuta. Frozen boneless pure beef, offal, and goat shares are <strong className="text-charcoal font-bold">always available</strong> in-store daily, with live slaughter processing every <strong className="text-charcoal font-bold">Friday</strong> (collection opens by 12:00 Noon).
+              Prefer to see your cuts weighed, trimmed, and packaged in person? Walk into our hygienic butcher station at Adigbe, Abeokuta. Frozen boneless pure beef, offal, and goat shares are <strong className="text-charcoal font-bold">always available</strong> in-store daily, with live slaughter processing every <strong className="text-charcoal font-bold">Friday</strong> (fresh collection from 3:00 PM).
             </p>
 
             {/* Store Information Grid */}
@@ -66,7 +66,7 @@ export default function LocationSection() {
                   </div>
                   <div className="pt-1 text-[11px] text-ruby font-bold border-t border-steel-border flex items-center gap-1.5">
                     <Calendar className="w-3.5 h-3.5" />
-                    <span>Friday Fresh Collection: Opens 12:00 Noon onwards</span>
+                    <span>Friday Fresh Collection: From 3:00 PM</span>
                   </div>
                 </div>
               </div>

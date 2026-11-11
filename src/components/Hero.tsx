@@ -26,14 +26,14 @@ export default function Hero() {
           <h1 className="font-serif text-3xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-white leading-[1.15]">
             Pure Edible Yield.{" "}
             <span className="text-reserve-gold-bright block mt-1">
-              Guaranteed 100% Boneless.
+              Guaranteed 100% Boneless Beef.
             </span>
           </h1>
         </div>
 
         {/* Refined Single Description */}
         <p className="text-steel-light text-sm sm:text-base lg:text-lg max-w-2xl mx-auto font-normal leading-relaxed">
-          Artisanal hand-trimmed beef, meticulously sanitized offal, and prime goat meat prepared with clinical scale precision. Live slaughter every Friday, with certified cold-chain cuts always in-store.
+          Artisanal hand-trimmed beef, meticulously sanitized offal, and prime goat meat prepared with clinical scale precision. Fresh slaughter at dawn every Friday, with frozen cuts always in-store.
         </p>
 
         {/* Compact Live Operational Status Badge */}
@@ -44,7 +44,7 @@ export default function Hero() {
               <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
             </span>
             <span className="font-bold text-white">Friday Dawn Slaughter:</span>
-            <span>Opens 12:00 Noon</span>
+            <span>Delivery from 12 Noon • Collection from 3 PM</span>
           </div>
           <span className="hidden sm:inline text-charcoal-border">•</span>
           <div className="flex items-center gap-1.5 text-cyan-300">
@@ -80,10 +80,10 @@ export default function Hero() {
         <div className="pt-6 sm:pt-8 grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4 max-w-3xl mx-auto text-left border-t border-charcoal-border/70">
           <div className="p-3.5 rounded-2xl bg-charcoal-rich/60 border border-charcoal-border/50">
             <div className="text-reserve-gold-bright font-serif text-lg sm:text-xl font-bold">
-              100% Pure Yield
+              100% Raw Yield
             </div>
             <div className="text-xs text-steel-light mt-0.5">
-              Zero bone, zero gristle trimming loss in your pot.
+              Boneless, gristle-free beef. Only brisket may carry bone.
             </div>
           </div>
 
@@ -92,7 +92,7 @@ export default function Hero() {
               Friday Dawns
             </div>
             <div className="text-xs text-steel-light mt-0.5">
-              Live weekly cattle slaughter with same-day dispatch.
+              Weekly dawn slaughter, delivered from 12 noon to 7 PM.
             </div>
           </div>
 

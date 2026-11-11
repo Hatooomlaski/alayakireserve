@@ -111,7 +111,7 @@ export default function ProductCard({ product }: ProductCardProps) {
         <div className="absolute top-3 left-3 right-3 flex items-start justify-between gap-2 pointer-events-none">
           {product.isBonelessGuaranteed ? (
             <span className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-charcoal text-white text-[11px] font-extrabold tracking-wide shadow-md border border-charcoal-border">
-              <span>🥩</span> 100% Boneless Pure Meat
+              <span>🥩</span> 100% Boneless Beef
             </span>
           ) : product.trustBadge ? (
             <span className="inline-flex items-center gap-1 px-2.5 py-1 rounded-full bg-charcoal/90 text-white text-[11px] font-semibold backdrop-blur-sm shadow-md">

@@ -16,7 +16,7 @@ export default function GuaranteesSection() {
             The 100% Boneless Standard
           </h2>
           <p className="text-steel text-sm sm:text-base font-normal leading-relaxed">
-            In standard open markets, up to 40% of the weight you pay for is bone and trim loss. At Alayaki Reserve, you receive 100% pure, cooked edible yield.
+            In standard open markets, up to 40% of the weight you pay for is bone and trim loss. With Alayaki Prime Beef, you pay for pure, raw edible meat.
           </p>
         </div>
 
@@ -29,15 +29,15 @@ export default function GuaranteesSection() {
                 <Award className="w-5 h-5 text-ruby" />
               </div>
               <h3 className="font-serif text-xl sm:text-2xl font-bold text-charcoal mb-2">
-                100% Edible Yield
+                100% Raw Edible Yield
               </h3>
               <p className="text-xs sm:text-sm text-steel font-normal leading-relaxed">
-                Zero femur bones, zero gristle, zero unusable waste. Every kilogram of Alayaki Prime Beef yields a full kilogram of pure cooked meat in your pot.
+                No leg bones, no gristle, no trimming waste. Every kilogram of Alayaki Prime Beef is a full kilogram of raw edible meat. Brisket portions may include brisket bone.
               </p>
             </div>
             <div className="mt-6 pt-4 border-t border-steel-border flex items-center gap-2 text-xs font-bold text-charcoal">
               <CheckCircle2 className="w-4 h-4 text-whatsapp" />
-              <span>Zero Grams Wasted</span>
+              <span>Pure Raw Yield</span>
             </div>
           </div>
 
@@ -67,15 +67,15 @@ export default function GuaranteesSection() {
                 <HeartPulse className="w-5 h-5 text-ruby" />
               </div>
               <h3 className="font-serif text-xl sm:text-2xl font-bold text-charcoal mb-2">
-                Sanitary Cold-Chain
+                Clean Handling
               </h3>
               <p className="text-xs sm:text-sm text-steel font-normal leading-relaxed">
-                Processed in hygienic, fly-free facilities and sealed in food-grade, temperature-controlled packaging to guarantee superior freshness.
+                Processed in a clean, hygienic butchery and packed in food-grade packaging, with frozen cuts kept in our in-store freezers to protect freshness.
               </p>
             </div>
             <div className="mt-6 pt-4 border-t border-steel-border flex items-center gap-2 text-xs font-bold text-charcoal">
               <CheckCircle2 className="w-4 h-4 text-whatsapp" />
-              <span>Certified Hygienic Packaging</span>
+              <span>Clean, Food-Grade Packaging</span>
             </div>
           </div>
         </div>

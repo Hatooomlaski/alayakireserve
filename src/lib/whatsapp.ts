@@ -123,7 +123,7 @@ export function generateCorporateWhatsAppUrl(details: {
     `*Estimated Volume / Schedule:* ${details.estimatedVolume}`,
     details.notes ? `*Additional Requirements:* ${details.notes}` : null,
     "----------------------------------",
-    "Hello Alayaki Reserve, we are interested in setting up a bespoke wholesale supply agreement with guaranteed cold-chain delivery for our establishment.",
+    "Hello Alayaki Reserve, we are interested in setting up a bespoke wholesale supply agreement with scheduled delivery for our establishment.",
   ]
     .filter(Boolean)
     .join("\n");

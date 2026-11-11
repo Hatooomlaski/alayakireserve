@@ -10,13 +10,15 @@ The platform serves as an interactive luxury catalog, live pricing calculator, b
 
 - **Brand Name:** Alayaki Reserve
 - **Slogan:** Abeokuta’s Premier Bespoke Butchery
-- **Primary Trust Badge:** `Guaranteed 100% Boneless Pure Meat`
+- **Primary Trust Badge:** `Guaranteed 100% Boneless Beef` (beef only; brisket portions may include brisket bone)
 - **Physical Walk-In Store:** God's Hope Hospital Car Park, Adigbe, Abeokuta, Ogun State, Nigeria
 - **Store Opening Hours:**
   - **Mondays – Saturdays:** 8:00 AM – 7:00 PM
   - **Sundays:** 1:00 PM – 7:00 PM
 - **Slaughter Schedule:**
-  - **Fresh Cattle Slaughter:** Every **Friday** (Collection opens by 12:00 Noon)
+  - **Fresh Cattle Slaughter:** Every **Friday at dawn**
+  - **Delivery:** 12:00 Noon – 7:00 PM across all zones
+  - **Fresh Collection at the shop:** From 3:00 PM on Friday
   - **Frozen Cuts:** **Always available** at the physical store every day of the week
   - **Status:** *Slots Filling Fast* (High Demand)
 - **Direct WhatsApp Line:** `+2348153861887`

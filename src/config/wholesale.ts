@@ -6,7 +6,7 @@ export const WHOLESALE_ITEMS: WholesaleItem[] = [
     productId: "prime-beef-boneless",
     name: "Prime Beef (100% Boneless) — 10kg Master Carton",
     portionLabel: "10kg Master Carton",
-    specification: "Zero bones, 100% trimmed lean muscle yield for hotels & restaurants",
+    specification: "Boneless, hand-trimmed lean beef for hotels & restaurants (brisket may include bone)",
     price: 77000,
     weightKg: 10,
     defaultState: "Fresh",

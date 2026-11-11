@@ -125,7 +125,7 @@ export default function WholesaleTable() {
             Wholesale & Commercial Kitchen Order Matrix
           </h3>
           <p className="text-xs sm:text-sm text-steel-light font-normal">
-            For Abeokuta restaurants, hotels, caterers, and bulk family freezers. Accurately weighed with certified temperature-controlled packaging.
+            For Abeokuta restaurants, hotels, caterers, and bulk family freezers. Accurately weighed and packed in food-grade packaging.
           </p>
         </div>
 
@@ -292,10 +292,10 @@ export default function WholesaleTable() {
       <div className="p-4 sm:p-6 bg-pristine-muted border-t border-steel-border flex flex-col sm:flex-row items-center justify-between gap-4">
         <div className="text-xs text-steel text-center sm:text-left">
           <p className="font-semibold text-charcoal">
-            Certified cold-chain bulk logistics across Abeokuta.
+            Bulk delivery across Abeokuta, 12 noon – 7 PM.
           </p>
           <p>
-            Orders dispatched in sealed, insulated containers with tamper-evident hygiene seals.
+            Orders are packed and sealed in food-grade packaging for delivery.
           </p>
         </div>
 

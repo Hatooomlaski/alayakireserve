@@ -165,7 +165,7 @@ export default function Navbar() {
               className="text-white hover:text-reserve-gold py-3 flex items-center justify-between"
             >
               <span>Slaughter Schedule</span>
-              <span className="text-xs text-reserve-gold font-serif">Fridays 12 Noon</span>
+              <span className="text-xs text-reserve-gold font-serif">Fridays at Dawn</span>
             </Link>
             <Link
               href="#standards"

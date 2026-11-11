@@ -92,7 +92,7 @@ export default function Footer() {
               </li>
               <li>
                 <Link href="#standards" className="hover:text-white transition-colors">
-                  The 100% Boneless Standard
+                  The Boneless Beef Standard
                 </Link>
               </li>
               <li>
@@ -155,7 +155,7 @@ export default function Footer() {
             © {new Date().getFullYear()} <strong className="text-white">Alayaki Reserve</strong>. All Rights Reserved. Abeokuta, Ogun State.
           </p>
           <div className="flex items-center gap-3 text-[10px] text-steel">
-            <span>Guaranteed 100% Boneless Beef</span>
+            <span>Hand-Trimmed Boneless Beef</span>
             <span>•</span>
             <span>Digital Weight Verification</span>
           </div>

@@ -11,7 +11,7 @@ export default function GuaranteesSection() {
             The Quality Benchmark
           </span>
           <h2 className="font-serif text-3xl sm:text-4xl md:text-5xl font-bold text-charcoal">
-            The 100% Boneless Standard
+            The Boneless Beef Standard
           </h2>
           <p className="text-steel text-sm sm:text-base font-normal leading-relaxed">
             In standard open markets, up to 40% of the weight you pay for is bone and trim loss. With Alayaki Prime Beef, you pay for pure, raw edible meat.
@@ -20,14 +20,14 @@ export default function GuaranteesSection() {
 
         {/* 3 Pillar Cards */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8">
-          {/* Card 1: 100% Pure Yield */}
+          {/* Card 1: Raw Edible Yield */}
           <div className="rounded-2xl p-6 sm:p-8 bg-pristine border border-steel-border shadow-pristine-sm hover:shadow-pristine-md transition-all flex flex-col justify-between">
             <div>
               <div className="w-11 h-11 rounded-xl bg-steel-surface border border-steel-border flex items-center justify-center text-charcoal mb-5">
                 <Award className="w-5 h-5 text-ruby" />
               </div>
               <h3 className="font-serif text-xl sm:text-2xl font-bold text-charcoal mb-2">
-                100% Raw Edible Yield
+                Raw Edible Yield
               </h3>
               <p className="text-xs sm:text-sm text-steel font-normal leading-relaxed">
                 No leg bones, no gristle, no trimming waste. Every kilogram of Alayaki Prime Beef is a full kilogram of raw edible meat. Brisket portions may include brisket bone.

@@ -4,7 +4,7 @@ export const WHOLESALE_ITEMS: WholesaleItem[] = [
   {
     id: "wholesale-beef-10kg",
     productId: "prime-beef-boneless",
-    name: "Prime Beef (100% Boneless) — 10kg Master Carton",
+    name: "Prime Boneless Beef — 10kg Master Carton",
     portionLabel: "10kg Master Carton",
     specification: "Boneless, hand-trimmed lean beef for hotels & restaurants (brisket may include bone)",
     price: 77000,
@@ -14,9 +14,9 @@ export const WHOLESALE_ITEMS: WholesaleItem[] = [
   {
     id: "wholesale-beef-5kg",
     productId: "prime-beef-boneless",
-    name: "Prime Beef (100% Boneless) — 5kg Kitchen Slab",
+    name: "Prime Boneless Beef — 5kg Kitchen Slab",
     portionLabel: "5kg Kitchen Slab",
-    specification: "100% pure edible yield, cut into stew chunks or blocks",
+    specification: "Pure edible yield, cut into stew chunks or blocks",
     price: 38500,
     weightKg: 5,
     defaultState: "Frozen",

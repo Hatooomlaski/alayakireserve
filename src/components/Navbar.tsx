@@ -174,7 +174,7 @@ export default function Navbar() {
               onClick={() => setMobileMenuOpen(false)}
               className="text-white hover:text-reserve-gold py-3 flex items-center justify-between"
             >
-              <span>The 100% Boneless Standard</span>
+              <span>The Boneless Beef Standard</span>
               <span className="text-xs text-steel-light font-serif">Pure Yield</span>
             </Link>
             <Link

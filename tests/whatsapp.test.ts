@@ -49,7 +49,7 @@ describe("generateWhatsAppOrderUrl", () => {
   it("includes customer, items, cut and totals", () => {
     expect(message).toContain("*Customer Name:* Test Customer");
     expect(message).toContain("No 14 Opposite Zenith Bank, Ibara");
-    expect(message).toContain("• Prime Beef (100% Boneless) [1kg] (Fresh) x2 [Cut: Suya Strips (Thinly Sliced)] - ₦15,400");
+    expect(message).toContain("• Prime Boneless Beef [1kg] (Fresh) x2 [Cut: Suya Strips (Thinly Sliced)] - ₦15,400");
     expect(message).toContain("*Accurately Weighed Total:* 2kg");
     expect(message).toContain("*Sharing Slots:* 1 Cow Slot");
     expect(message).toContain("Starting from ₦15,000*");

@@ -3,12 +3,12 @@ import { ProductItem } from "@/types/store";
 export const PRODUCTS: ProductItem[] = [
   {
     id: "prime-beef-boneless",
-    name: "Prime Beef (100% Boneless)",
+    name: "Prime Boneless Beef",
     yorubaName: "Eran Malu Pipe (Ail’egun)",
     category: "beef",
     description:
       "Artisanal hand-trimmed, pure lean muscle cuts sourced from healthy, grass-fed pasture cattle. Boneless and gristle-free for maximum yield in rich Nigerian soups and gourmet feasts. Brisket portions may include brisket bone.",
-    trustBadge: "Guaranteed 100% Boneless Beef",
+    trustBadge: "Hand-Trimmed Boneless Beef",
     isBonelessGuaranteed: true,
     isSpecialty: false,
     availableStates: ["Fresh", "Frozen"],

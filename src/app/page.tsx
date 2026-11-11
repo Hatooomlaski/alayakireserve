@@ -8,7 +8,7 @@ import CorporateSection from "@/components/CorporateSection";
 export default function HomePage() {
   return (
     <>
-      {/* Hero Section with 100% Boneless Badge & Live Butchering Countdown */}
+      {/* Hero Section with Boneless Beef Badge & Live Butchering Countdown */}
       <Hero />
 
       {/* Butchering Schedule Broadcaster */}
@@ -17,7 +17,7 @@ export default function HomePage() {
       {/* Main Interactive Product Grid & Live Portion Configurator */}
       <ProductGrid />
 
-      {/* Trust, Heritage & 100% Boneless Standard Guarantees */}
+      {/* Trust, Heritage & Boneless Beef Standard */}
       <GuaranteesSection />
 
       {/* Physical Walk-In Store at Adigbe & Google Maps */}

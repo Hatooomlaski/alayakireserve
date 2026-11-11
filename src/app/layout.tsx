@@ -23,7 +23,7 @@ const playfair = Playfair_Display({
 });
 
 const description =
-  "Abeokuta’s premier luxury butchery service. Guaranteed 100% boneless beef, assorted cow cuts, and fresh cow, goat and ram sharing. Physical counter at God's Hope Hospital Car Park, Adigbe, Abeokuta. Direct WhatsApp ordering.";
+  "Abeokuta’s premier luxury butchery service. Hand-trimmed boneless beef, assorted cow cuts, and fresh cow, goat and ram sharing. Physical counter at God's Hope Hospital Car Park, Adigbe, Abeokuta. Direct WhatsApp ordering.";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -47,7 +47,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: `${BUSINESS.name} — ${BUSINESS.tagline}`,
     description:
-      "Guaranteed 100% Boneless Beef. Direct farm-to-table artisanal butchery in Adigbe, Abeokuta. Live orders routed to WhatsApp.",
+      "Hand-trimmed boneless beef. Direct farm-to-table artisanal butchery in Adigbe, Abeokuta. Live orders routed to WhatsApp.",
     type: "website",
     locale: "en_NG",
     url: "/",

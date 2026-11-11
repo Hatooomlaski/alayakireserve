@@ -16,7 +16,7 @@ interface FilterOption {
 
 const FILTERS: FilterOption[] = [
   { label: "All Artisanal Cuts", category: "all" },
-  { label: "Boneless Beef (100% Pure)", category: "beef", badge: "Guaranteed" },
+  { label: "Boneless Beef", category: "beef" },
   { label: "Assorted Intestines (Inu Eran)", category: "intestines" },
   { label: "Specialty Cow Cuts (Ori/Iru/Bokoto)", category: "specialty" },
   { label: "Cow, Goat & Ram Sharing", category: "sharing", badge: "New" },

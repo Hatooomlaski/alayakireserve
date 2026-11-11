@@ -10,7 +10,7 @@ The platform serves as an interactive luxury catalog, live pricing calculator, b
 
 - **Brand Name:** Alayaki Reserve
 - **Slogan:** Abeokuta’s Premier Bespoke Butchery
-- **Primary Trust Badge:** `Guaranteed 100% Boneless Beef` (beef only; brisket portions may include brisket bone)
+- **Primary Trust Badge:** `Hand-Trimmed Boneless Beef` (beef only; brisket portions may include brisket bone)
 - **Physical Walk-In Store:** God's Hope Hospital Car Park, Adigbe, Abeokuta, Ogun State, Nigeria
 - **Store Opening Hours:**
   - **Mondays – Saturdays:** 8:00 AM – 7:00 PM
@@ -41,7 +41,7 @@ The platform serves as an interactive luxury catalog, live pricing calculator, b
 
 Each cut features bespoke culinary photography on dark green marble:
 
-1. **Prime Beef (100% Boneless) — *Eran Malu Pipe***
+1. **Prime Boneless Beef — *Eran Malu Pipe***
    - Photo: Pure hand-trimmed lean boneless beef cubes and prime cuts
    - 0.5kg (Half kg): ₦3,850
    - 1kg: ₦7,700
@@ -100,7 +100,7 @@ Customer orders compile into URL-encoded WhatsApp messages targeted to `+2348153
 *Meat State Preference:* [Fresh / Frozen]
 
 *SELECTED ITEMS:*
-• Prime Beef (100% Boneless) [1kg] (Fresh) - ₦7,700
+• Prime Boneless Beef [1kg] (Fresh) - ₦7,700
 • Goat Meat (Ogufe) [1 Slot] (Fresh) - ₦25,000
 • Cow Leg (Bokoto) [1 Unit] - Starting from ₦6,000*
 

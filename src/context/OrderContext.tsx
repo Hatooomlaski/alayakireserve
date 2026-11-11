@@ -39,6 +39,12 @@ interface OrderContextType {
   openDrawer: () => void;
   closeDrawer: () => void;
   getWhatsAppOrderUrl: () => string;
+  /** Details the shop needs before an order can be sent. */
+  orderIssues: { fullName: boolean; deliveryAddress: boolean };
+  isOrderReady: boolean;
+  /** True once the customer tried to send an incomplete order. */
+  showOrderErrors: boolean;
+  setShowOrderErrors: (show: boolean) => void;
 }
 
 const defaultCustomer: CustomerDetails = {
@@ -217,8 +223,24 @@ export function OrderProvider({ children }: { children: React.ReactNode }) {
     return items.some((item) => item.isSpecialty);
   }, [items]);
 
+  const [showOrderErrors, setShowOrderErrors] = useState(false);
+
+  const orderIssues = useMemo(
+    () => ({
+      fullName: !customer.fullName.trim(),
+      deliveryAddress:
+        customer.deliveryType === "delivery" && !customer.deliveryAddress.trim(),
+    }),
+    [customer.fullName, customer.deliveryType, customer.deliveryAddress]
+  );
+  const isOrderReady =
+    items.length > 0 && !orderIssues.fullName && !orderIssues.deliveryAddress;
+
   const openDrawer = () => setIsDrawerOpen(true);
-  const closeDrawer = () => setIsDrawerOpen(false);
+  const closeDrawer = () => {
+    setIsDrawerOpen(false);
+    setShowOrderErrors(false);
+  };
 
   const getWhatsAppOrderUrl = () => {
     return generateWhatsAppOrderUrl({
@@ -258,6 +280,10 @@ export function OrderProvider({ children }: { children: React.ReactNode }) {
         openDrawer,
         closeDrawer,
         getWhatsAppOrderUrl,
+        orderIssues,
+        isOrderReady,
+        showOrderErrors,
+        setShowOrderErrors,
       }}
     >
       {children}

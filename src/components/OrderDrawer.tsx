@@ -1,6 +1,6 @@
 "use client";
 
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import Image from "next/image";
 import { useOrder } from "@/context/OrderContext";
 import { DELIVERY_ZONES } from "@/config/zones";
@@ -18,11 +18,19 @@ import {
   AlertTriangle,
   Scissors,
   CheckCircle2,
-  ShieldCheck,
   ShoppingBag,
   Scale,
-  Sparkles,
 } from "lucide-react";
+
+const FOCUSABLE =
+  'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])';
+
+const inputClass = (hasError: boolean) =>
+  `w-full bg-steel-surface text-charcoal text-xs rounded-xl px-3 py-2 border focus:outline-none ${
+    hasError
+      ? "border-ruby focus:border-ruby"
+      : "border-steel-border focus:border-charcoal"
+  }`;
 
 export default function OrderDrawer() {
   const {
@@ -43,7 +51,70 @@ export default function OrderDrawer() {
     isDrawerOpen,
     closeDrawer,
     getWhatsAppOrderUrl,
+    orderIssues,
+    isOrderReady,
+    showOrderErrors,
+    setShowOrderErrors,
   } = useOrder();
+
+  const panelRef = useRef<HTMLDivElement>(null);
+  const closeButtonRef = useRef<HTMLButtonElement>(null);
+  const nameInputRef = useRef<HTMLInputElement>(null);
+  const addressInputRef = useRef<HTMLInputElement>(null);
+
+  // Dialog behaviour: lock page scroll, move focus in, close on Escape,
+  // keep Tab inside the panel, and restore focus to the opener on close.
+  useEffect(() => {
+    if (!isDrawerOpen) return;
+
+    const previouslyFocused = document.activeElement as HTMLElement | null;
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    closeButtonRef.current?.focus();
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") {
+        event.preventDefault();
+        closeDrawer();
+        return;
+      }
+      if (event.key !== "Tab" || !panelRef.current) return;
+      const focusable = Array.from(
+        panelRef.current.querySelectorAll<HTMLElement>(FOCUSABLE)
+      );
+      if (focusable.length === 0) return;
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (event.shiftKey && document.activeElement === first) {
+        event.preventDefault();
+        last.focus();
+      } else if (!event.shiftKey && document.activeElement === last) {
+        event.preventDefault();
+        first.focus();
+      }
+    };
+
+    document.addEventListener("keydown", handleKeyDown);
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+      document.body.style.overflow = previousOverflow;
+      previouslyFocused?.focus?.();
+    };
+    // closeDrawer is recreated each render; only re-run when open state changes.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isDrawerOpen]);
+
+  // Block sending until the shop has a name (and an address for delivery).
+  const handleSendClick = (event: React.MouseEvent<HTMLAnchorElement>) => {
+    if (isOrderReady) return;
+    event.preventDefault();
+    setShowOrderErrors(true);
+    if (orderIssues.fullName) nameInputRef.current?.focus();
+    else if (orderIssues.deliveryAddress) addressInputRef.current?.focus();
+  };
+
+  const showNameError = showOrderErrors && orderIssues.fullName;
+  const showAddressError = showOrderErrors && orderIssues.deliveryAddress;
 
   if (!isDrawerOpen) return null;
 
@@ -53,11 +124,18 @@ export default function OrderDrawer() {
       <div
         className="fixed inset-0 bg-charcoal/80 backdrop-blur-sm transition-opacity"
         onClick={closeDrawer}
+        aria-hidden="true"
       />
 
       {/* Slide-over panel: Full width on mobile, max-w-lg on desktop */}
       <div className="fixed inset-y-0 right-0 max-w-full flex pl-0 sm:pl-10">
-        <div className="w-screen max-w-full sm:max-w-lg bg-white border-l border-steel-border shadow-luxury-lg flex flex-col justify-between text-charcoal">
+        <div
+          ref={panelRef}
+          role="dialog"
+          aria-modal="true"
+          aria-labelledby="order-drawer-title"
+          className="w-screen max-w-full sm:max-w-lg bg-white border-l border-steel-border shadow-luxury-lg flex flex-col justify-between text-charcoal"
+        >
           {/* Drawer Header (Rich Charcoal Black) */}
           <div className="p-4 sm:p-6 border-b border-charcoal-border flex items-center justify-between bg-charcoal text-white">
             <div className="flex items-center gap-3">
@@ -71,7 +149,7 @@ export default function OrderDrawer() {
                 />
               </div>
               <div>
-                <h2 className="font-serif text-xl sm:text-2xl font-bold text-white">
+                <h2 id="order-drawer-title" className="font-serif text-xl sm:text-2xl font-bold text-white">
                   Bespoke WhatsApp Order
                 </h2>
                 <p className="text-[11px] text-reserve-gold-bright font-semibold">
@@ -81,9 +159,11 @@ export default function OrderDrawer() {
             </div>
 
             <button
+              ref={closeButtonRef}
+              type="button"
               onClick={closeDrawer}
               className="w-10 h-10 rounded-xl text-steel-light hover:text-white hover:bg-white/10 flex items-center justify-center transition-colors"
-              aria-label="Close drawer"
+              aria-label="Close order builder"
             >
               <X className="w-6 h-6" />
             </button>
@@ -183,9 +263,10 @@ export default function OrderDrawer() {
 
                           <div className="flex items-center gap-1 bg-steel-surface rounded-lg p-0.5 border border-steel-border">
                             <button
+                              type="button"
                               onClick={() => updateQuantity(item.id, item.quantity - 1)}
                               className="w-7 h-7 rounded-md bg-white hover:bg-steel-border text-charcoal flex items-center justify-center transition-colors"
-                              aria-label="Decrease quantity"
+                              aria-label={`Decrease ${item.productName}, ${item.portionLabel}`}
                             >
                               <Minus className="w-3 h-3 stroke-[2.5]" />
                             </button>
@@ -193,9 +274,10 @@ export default function OrderDrawer() {
                               {item.quantity}
                             </span>
                             <button
+                              type="button"
                               onClick={() => updateQuantity(item.id, item.quantity + 1)}
                               className="w-7 h-7 rounded-md bg-ruby hover:bg-ruby-hover text-white flex items-center justify-center transition-colors"
-                              aria-label="Increase quantity"
+                              aria-label={`Increase ${item.productName}, ${item.portionLabel}`}
                             >
                               <Plus className="w-3 h-3 stroke-[2.5]" />
                             </button>
@@ -208,13 +290,14 @@ export default function OrderDrawer() {
 
                 {/* UPGRADED WALK-IN VS DELIVERY SELECTOR */}
                 <div className="space-y-3 pt-2">
-                  <label className="text-xs font-bold uppercase tracking-wider text-charcoal block">
+                  <span id="fulfillment-label" className="text-xs font-bold uppercase tracking-wider text-charcoal block">
                     Choose Fulfillment Method:
-                  </label>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                  </span>
+                  <div role="group" aria-labelledby="fulfillment-label" className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                     {/* Option A: Home Delivery */}
                     <button
                       type="button"
+                      aria-pressed={customer.deliveryType === "delivery"}
                       onClick={() => updateCustomer({ deliveryType: "delivery" })}
                       className={`p-4 rounded-2xl text-left border transition-all flex flex-col justify-between ${
                         customer.deliveryType === "delivery"
@@ -253,6 +336,7 @@ export default function OrderDrawer() {
                     {/* Option B: In-Store Pickup */}
                     <button
                       type="button"
+                      aria-pressed={customer.deliveryType === "pickup"}
                       onClick={() => updateCustomer({ deliveryType: "pickup" })}
                       className={`p-4 rounded-2xl text-left border transition-all flex flex-col justify-between ${
                         customer.deliveryType === "pickup"
@@ -294,10 +378,11 @@ export default function OrderDrawer() {
                 {customer.deliveryType === "delivery" ? (
                   <div className="space-y-3 p-4 rounded-2xl bg-white border border-steel-border shadow-pristine-sm">
                     <div>
-                      <label className="text-[11px] font-bold text-charcoal block mb-1">
+                      <label htmlFor="order-zone" className="text-[11px] font-bold text-charcoal block mb-1">
                         Select Abeokuta Delivery Zone:
                       </label>
                       <select
+                        id="order-zone"
                         value={customer.deliveryZoneId}
                         onChange={(e) =>
                           updateCustomer({ deliveryZoneId: e.target.value })
@@ -313,18 +398,29 @@ export default function OrderDrawer() {
                     </div>
 
                     <div>
-                      <label className="text-[11px] font-bold text-charcoal block mb-1">
-                        Street Address & Landmark:
+                      <label htmlFor="order-address" className="text-[11px] font-bold text-charcoal block mb-1">
+                        Street Address & Landmark <span className="text-ruby">*</span>
                       </label>
                       <input
+                        ref={addressInputRef}
+                        id="order-address"
                         type="text"
+                        autoComplete="street-address"
+                        required
+                        aria-invalid={showAddressError}
+                        aria-describedby={showAddressError ? "order-address-error" : undefined}
                         placeholder="e.g., No 14 Opposite Zenith Bank, Ibara"
                         value={customer.deliveryAddress}
                         onChange={(e) =>
                           updateCustomer({ deliveryAddress: e.target.value })
                         }
-                        className="w-full bg-steel-surface text-charcoal text-xs rounded-xl px-3 py-2 border border-steel-border focus:border-charcoal focus:outline-none"
+                        className={inputClass(showAddressError)}
                       />
+                      {showAddressError && (
+                        <p id="order-address-error" className="mt-1 text-[11px] font-semibold text-ruby">
+                          Please add your delivery address so we can reach you.
+                        </p>
+                      )}
                     </div>
                   </div>
                 ) : (
@@ -353,40 +449,54 @@ export default function OrderDrawer() {
                   </span>
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
                     <div>
-                      <label className="text-[10px] uppercase font-bold text-steel block mb-1">
-                        Your Full Name
+                      <label htmlFor="order-name" className="text-[10px] uppercase font-bold text-steel block mb-1">
+                        Your Full Name <span className="text-ruby">*</span>
                       </label>
                       <input
+                        ref={nameInputRef}
+                        id="order-name"
                         type="text"
+                        autoComplete="name"
+                        required
+                        aria-invalid={showNameError}
+                        aria-describedby={showNameError ? "order-name-error" : undefined}
                         placeholder="e.g. Chief Adeyemi"
                         value={customer.fullName}
                         onChange={(e) =>
                           updateCustomer({ fullName: e.target.value })
                         }
-                        className="w-full bg-steel-surface text-charcoal text-xs rounded-xl px-3 py-2 border border-steel-border focus:border-charcoal focus:outline-none"
+                        className={inputClass(showNameError)}
                       />
+                      {showNameError && (
+                        <p id="order-name-error" className="mt-1 text-[11px] font-semibold text-ruby">
+                          Please add your name.
+                        </p>
+                      )}
                     </div>
                     <div>
-                      <label className="text-[10px] uppercase font-bold text-steel block mb-1">
+                      <label htmlFor="order-phone" className="text-[10px] uppercase font-bold text-steel block mb-1">
                         Phone Number
                       </label>
                       <input
+                        id="order-phone"
                         type="tel"
+                        autoComplete="tel"
                         placeholder="e.g. 0801 234 5678"
                         value={customer.phone}
                         onChange={(e) =>
                           updateCustomer({ phone: e.target.value })
                         }
-                        className="w-full bg-steel-surface text-charcoal text-xs rounded-xl px-3 py-2 border border-steel-border focus:border-charcoal focus:outline-none"
+                        className={inputClass(false)}
                       />
                     </div>
                   </div>
 
                   <div>
-                    <label className="text-[10px] uppercase font-bold text-steel block mb-1">
+                    <label htmlFor="order-notes" className="text-[10px] uppercase font-bold text-steel block mb-1">
                       Special Cutting or Packing Notes
                     </label>
                     <input
+                      id="order-notes"
                       type="text"
                       placeholder="e.g. Cut into small bite sizes, pack in separate bags"
                       value={customer.cuttingInstructions}
@@ -441,14 +551,21 @@ export default function OrderDrawer() {
               </div>
 
               {/* Final Action Button: Official WhatsApp Green Exclusively */}
+              {showOrderErrors && !isOrderReady && (
+                <p role="alert" className="text-[11px] text-center font-semibold text-ruby">
+                  Please fill in the highlighted details before sending.
+                </p>
+              )}
+
               <a
                 href={getWhatsAppOrderUrl()}
                 target="_blank"
                 rel="noopener noreferrer"
+                onClick={handleSendClick}
                 className="w-full min-h-[50px] py-3.5 px-4 rounded-xl bg-whatsapp hover:bg-whatsapp-hover text-white font-extrabold text-sm uppercase tracking-wider flex items-center justify-center gap-2 shadow-whatsapp-glow transition-all active:scale-98"
               >
                 <MessageCircle className="w-5 h-5 fill-white" />
-                <span>Send Order via WhatsApp (+2348153861887)</span>
+                <span>Send Order via WhatsApp ({DISPLAY_PHONE_NUMBER})</span>
               </a>
 
               <p className="text-[10px] text-center text-steel">

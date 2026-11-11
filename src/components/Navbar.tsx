@@ -135,7 +135,9 @@ export default function Navbar() {
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               className="lg:hidden p-2 rounded-xl text-white hover:text-reserve-gold bg-white/5 border border-white/10 active:scale-95 transition-all"
-              aria-label="Toggle menu"
+              aria-label={mobileMenuOpen ? "Close menu" : "Open menu"}
+              aria-expanded={mobileMenuOpen}
+              aria-controls="mobile-menu"
             >
               {mobileMenuOpen ? (
                 <X className="w-5 h-5 text-reserve-gold" />
@@ -149,7 +151,7 @@ export default function Navbar() {
 
       {/* Mobile Dropdown Menu (Clean, Minimalist Luxury) */}
       {mobileMenuOpen && (
-        <div className="lg:hidden bg-charcoal border-b border-charcoal-border px-6 pt-4 pb-6 mt-2 space-y-4 shadow-2xl backdrop-blur-xl animate-in fade-in slide-in-from-top-2 duration-200">
+        <div id="mobile-menu" className="lg:hidden bg-charcoal border-b border-charcoal-border px-6 pt-4 pb-6 mt-2 space-y-4 shadow-2xl backdrop-blur-xl animate-in fade-in slide-in-from-top-2 duration-200">
           <nav className="flex flex-col divide-y divide-white/5 text-sm font-medium">
             <Link
               href="#catalog"
@@ -214,7 +216,7 @@ export default function Navbar() {
               className="w-full flex items-center justify-center gap-2 py-3 rounded-xl bg-charcoal-rich border border-charcoal-border hover:border-whatsapp text-white text-xs font-semibold transition-colors"
             >
               <MessageCircle className="w-4 h-4 text-whatsapp" />
-              <span>Chat on WhatsApp (+234 815 386 1887)</span>
+              <span>Chat on WhatsApp ({DISPLAY_PHONE_NUMBER})</span>
             </a>
           </div>
         </div>

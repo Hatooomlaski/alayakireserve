@@ -13,9 +13,19 @@ export default function FloatingOrderBar() {
     subtotal,
     openDrawer,
     getWhatsAppOrderUrl,
+    isOrderReady,
+    setShowOrderErrors,
   } = useOrder();
 
   if (totalItemCount === 0) return null;
+
+  // Incomplete orders go to the drawer (with errors shown) instead of WhatsApp.
+  const handleSendClick = (event: React.MouseEvent<HTMLAnchorElement>) => {
+    if (isOrderReady) return;
+    event.preventDefault();
+    setShowOrderErrors(true);
+    openDrawer();
+  };
 
   return (
     <aside
@@ -97,6 +107,7 @@ export default function FloatingOrderBar() {
               href={getWhatsAppOrderUrl()}
               target="_blank"
               rel="noopener noreferrer"
+              onClick={handleSendClick}
               className="flex-1 sm:flex-initial inline-flex items-center justify-center gap-2 px-5 sm:px-6 py-2.5 sm:py-3 rounded-xl bg-whatsapp hover:bg-whatsapp-hover text-white font-bold text-xs sm:text-sm shadow-whatsapp-glow transition-all active:scale-98 whitespace-nowrap min-h-[44px]"
             >
               <MessageCircle className="w-4 h-4 fill-white flex-shrink-0" />

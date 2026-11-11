@@ -57,6 +57,7 @@ export default function ProductGrid() {
             <div className="inline-flex p-1.5 rounded-2xl bg-steel-surface border border-steel-border shadow-pristine-sm max-w-md w-full">
               <button
                 type="button"
+                aria-pressed={activeMode === "retail"}
                 onClick={() => setActiveMode("retail")}
                 className={`flex-1 py-2.5 px-3 sm:px-4 rounded-xl text-xs sm:text-sm font-bold flex items-center justify-center gap-2 transition-all ${
                   activeMode === "retail"
@@ -70,6 +71,7 @@ export default function ProductGrid() {
 
               <button
                 type="button"
+                aria-pressed={activeMode === "wholesale"}
                 onClick={() => setActiveMode("wholesale")}
                 className={`flex-1 py-2.5 px-3 sm:px-4 rounded-xl text-xs sm:text-sm font-bold flex items-center justify-center gap-2 transition-all ${
                   activeMode === "wholesale"
@@ -95,6 +97,7 @@ export default function ProductGrid() {
                   <button
                     key={f.category}
                     type="button"
+                    aria-pressed={isActive}
                     onClick={() => setActiveCategory(f.category)}
                     className={`flex-shrink-0 inline-flex items-center gap-2 px-4 py-2.5 rounded-full text-xs sm:text-sm font-bold transition-all border min-h-[42px] ${
                       isActive

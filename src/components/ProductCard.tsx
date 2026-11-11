@@ -50,8 +50,6 @@ export default function ProductCard({ product }: ProductCardProps) {
     product.cutOptions && product.cutOptions.length > 0 ? product.cutOptions[0] : ""
   );
 
-  const [toastMessage, setToastMessage] = useState<string | null>(null);
-
   const { portionLabel: currentPortionLabel, unitPrice: currentPrice } =
     resolvePortion(product, selectedTier);
 
@@ -68,9 +66,9 @@ export default function ProductCard({ product }: ProductCardProps) {
 
   const handleAddOne = () => {
     incrementItem(product, selectedTier, selectedState, selectedCut);
-    setToastMessage(`Added ${selectedTier?.shortLabel || currentPortionLabel}!`);
-    setTimeout(() => setToastMessage(null), 1600);
   };
+
+  const idPrefix = `product-${product.id}`;
 
   const handleRemoveOne = () => {
     decrementItem(product, selectedTier, selectedState, selectedCut);
@@ -188,15 +186,20 @@ export default function ProductCard({ product }: ProductCardProps) {
           {product.tiers && product.tiers.length > 0 && (
             <div>
               <div className="flex items-center justify-between gap-2 mb-2">
-                <label className="text-[11px] uppercase tracking-wider text-charcoal font-bold truncate flex items-center gap-1">
+                <span
+                  id={`${idPrefix}-portion`}
+                  className="text-[11px] uppercase tracking-wider text-charcoal font-bold truncate flex items-center gap-1"
+                >
                   <Scale className="w-3 h-3 text-steel" />
                   <span>Choose Portion / Share:</span>
-                </label>
+                </span>
                 <span className="text-xs text-charcoal font-bold truncate text-right flex-shrink-0">
                   {selectedTier?.weightLabel}
                 </span>
               </div>
               <div
+                role="group"
+                aria-labelledby={`${idPrefix}-portion`}
                 className={`grid gap-2 ${
                   product.tiers.length <= 2
                     ? "grid-cols-2"
@@ -220,6 +223,7 @@ export default function ProductCard({ product }: ProductCardProps) {
                     <button
                       key={tier.weightLabel}
                       type="button"
+                      aria-pressed={isSelected}
                       onClick={() => setSelectedTier(tier)}
                       className={`relative w-full min-w-0 px-1 py-2.5 rounded-xl text-center flex flex-col items-center justify-center transition-all border overflow-hidden ${
                         isSelected
@@ -260,16 +264,20 @@ export default function ProductCard({ product }: ProductCardProps) {
 
           {/* Fresh vs Cold-Chain Frozen Toggle */}
           <div>
-            <label className="text-[11px] uppercase tracking-wider text-charcoal block mb-2 font-bold">
+            <span
+              id={`${idPrefix}-state`}
+              className="text-[11px] uppercase tracking-wider text-charcoal block mb-2 font-bold"
+            >
               Processing & Storage State:
-            </label>
-            <div className="grid grid-cols-2 gap-2">
+            </span>
+            <div role="group" aria-labelledby={`${idPrefix}-state`} className="grid grid-cols-2 gap-2">
               {product.availableStates.map((state) => {
                 const isSelected = selectedState === state;
                 return (
                   <button
                     key={state}
                     type="button"
+                    aria-pressed={isSelected}
                     onClick={() => setSelectedState(state)}
                     className={`min-h-[42px] flex items-center justify-center gap-1.5 py-2 px-2.5 rounded-xl text-xs font-bold border transition-all ${
                       isSelected
@@ -296,11 +304,15 @@ export default function ProductCard({ product }: ProductCardProps) {
           {/* Cutting Preference Selector */}
           {product.cutOptions && product.cutOptions.length > 0 && (
             <div>
-              <label className="text-[11px] uppercase tracking-wider text-charcoal block mb-1.5 font-bold flex items-center gap-1">
+              <label
+                htmlFor={`${idPrefix}-cut`}
+                className="text-[11px] uppercase tracking-wider text-charcoal mb-1.5 font-bold flex items-center gap-1"
+              >
                 <Scissors className="w-3.5 h-3.5 text-steel" />
                 <span>Custom Butcher Cut Style:</span>
               </label>
               <select
+                id={`${idPrefix}-cut`}
                 value={selectedCut}
                 onChange={(e) => setSelectedCut(e.target.value)}
                 className="w-full bg-white text-charcoal text-xs rounded-xl px-3 py-2.5 border border-steel-border focus:border-charcoal focus:outline-none min-h-[42px]"
@@ -344,12 +356,12 @@ export default function ProductCard({ product }: ProductCardProps) {
                     type="button"
                     onClick={handleRemoveOne}
                     className="w-11 h-11 rounded-lg bg-white border border-steel-border hover:bg-steel-border text-charcoal flex items-center justify-center transition-colors active:scale-95"
-                    aria-label="Decrease quantity"
+                    aria-label={`Remove one ${product.name}, ${currentPortionLabel}`}
                   >
                     <Minus className="w-4 h-4 stroke-[2.5]" />
                   </button>
 
-                  <div className="text-center px-2">
+                  <div className="text-center px-2" aria-live="polite">
                     <span className="text-xs font-extrabold text-charcoal block">
                       {currentItemQuantity} in Order ({formatNaira(currentPrice * currentItemQuantity)})
                     </span>
@@ -362,7 +374,7 @@ export default function ProductCard({ product }: ProductCardProps) {
                     type="button"
                     onClick={handleAddOne}
                     className="w-11 h-11 rounded-lg bg-ruby hover:bg-ruby-hover text-white flex items-center justify-center transition-colors shadow-ruby-glow active:scale-95"
-                    aria-label="Increase quantity"
+                    aria-label={`Add one more ${product.name}, ${currentPortionLabel}`}
                   >
                     <Plus className="w-4 h-4 stroke-[3]" />
                   </button>
@@ -383,19 +395,10 @@ export default function ProductCard({ product }: ProductCardProps) {
                 type="button"
                 className="w-full min-h-[46px] py-3 px-4 rounded-xl bg-ruby hover:bg-ruby-hover text-white font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2 shadow-ruby-glow active:scale-98 transition-all"
               >
-                {toastMessage ? (
-                  <>
-                    <Check className="w-4 h-4 text-white stroke-[3]" />
-                    <span>{toastMessage}</span>
-                  </>
-                ) : (
-                  <>
-                    <Plus className="w-4 h-4 text-white stroke-[3] flex-shrink-0" />
-                    <span className="truncate">
-                      Add {selectedTier?.shortLabel || currentPortionLabel} ({formatNaira(currentPrice)})
-                    </span>
-                  </>
-                )}
+                <Plus className="w-4 h-4 text-white stroke-[3] flex-shrink-0" />
+                <span className="truncate">
+                  Add {selectedTier?.shortLabel || currentPortionLabel} ({formatNaira(currentPrice)})
+                </span>
               </button>
             )}
           </div>

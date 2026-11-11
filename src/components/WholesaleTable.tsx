@@ -253,7 +253,7 @@ export default function WholesaleTable() {
                         onClick={() => handleQtyChange(index, -1)}
                         disabled={row.quantity === 0}
                         className="w-8 h-8 rounded-lg border border-steel-border bg-pristine hover:bg-steel-surface disabled:opacity-40 text-charcoal flex items-center justify-center font-bold active:scale-95 transition-all"
-                        aria-label="Decrease quantity"
+                        aria-label={`Decrease ${row.name}`}
                       >
                         <Minus className="w-3.5 h-3.5" />
                       </button>
@@ -264,7 +264,7 @@ export default function WholesaleTable() {
                         type="button"
                         onClick={() => handleQtyChange(index, 1)}
                         className="w-8 h-8 rounded-lg bg-ruby text-white hover:bg-ruby-hover flex items-center justify-center font-bold shadow-sm active:scale-95 transition-all"
-                        aria-label="Increase quantity"
+                        aria-label={`Increase ${row.name}`}
                       >
                         <Plus className="w-3.5 h-3.5" />
                       </button>

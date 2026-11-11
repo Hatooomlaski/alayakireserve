@@ -104,10 +104,11 @@ export default function CorporateSection() {
               <form onSubmit={handleSubmit} className="space-y-4">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
-                    <label className="text-xs font-bold text-charcoal uppercase tracking-wider block mb-1">
+                    <label htmlFor="b2b-company" className="text-xs font-bold text-charcoal uppercase tracking-wider block mb-1">
                       Establishment Name *
                     </label>
                     <input
+                      id="b2b-company"
                       type="text"
                       required
                       placeholder="e.g. Park Inn, Ibara Lounge"
@@ -120,10 +121,11 @@ export default function CorporateSection() {
                   </div>
 
                   <div>
-                    <label className="text-xs font-bold text-charcoal uppercase tracking-wider block mb-1">
+                    <label htmlFor="b2b-contact" className="text-xs font-bold text-charcoal uppercase tracking-wider block mb-1">
                       Lead Contact / Chef *
                     </label>
                     <input
+                      id="b2b-contact"
                       type="text"
                       required
                       placeholder="e.g. Chef Emmanuel"
@@ -138,10 +140,11 @@ export default function CorporateSection() {
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
-                    <label className="text-xs font-bold text-charcoal uppercase tracking-wider block mb-1">
+                    <label htmlFor="b2b-phone" className="text-xs font-bold text-charcoal uppercase tracking-wider block mb-1">
                       WhatsApp Phone *
                     </label>
                     <input
+                      id="b2b-phone"
                       type="tel"
                       required
                       placeholder="e.g. 0803 123 4567"
@@ -154,10 +157,11 @@ export default function CorporateSection() {
                   </div>
 
                   <div>
-                    <label className="text-xs font-bold text-charcoal uppercase tracking-wider block mb-1">
+                    <label htmlFor="b2b-volume" className="text-xs font-bold text-charcoal uppercase tracking-wider block mb-1">
                       Estimated Volume
                     </label>
                     <select
+                      id="b2b-volume"
                       value={formData.estimatedVolume}
                       onChange={(e) =>
                         setFormData({ ...formData, estimatedVolume: e.target.value })
@@ -174,10 +178,11 @@ export default function CorporateSection() {
                 </div>
 
                 <div>
-                  <label className="text-xs font-bold text-charcoal uppercase tracking-wider block mb-1">
+                  <label htmlFor="b2b-type" className="text-xs font-bold text-charcoal uppercase tracking-wider block mb-1">
                     Type of Business
                   </label>
                   <select
+                    id="b2b-type"
                     value={formData.supplyType}
                     onChange={(e) =>
                       setFormData({ ...formData, supplyType: e.target.value })
@@ -193,10 +198,11 @@ export default function CorporateSection() {
                 </div>
 
                 <div>
-                  <label className="text-xs font-bold text-charcoal uppercase tracking-wider block mb-1">
+                  <label htmlFor="b2b-notes" className="text-xs font-bold text-charcoal uppercase tracking-wider block mb-1">
                     Specific Cut Specifications or Delivery Notes
                   </label>
                   <textarea
+                    id="b2b-notes"
                     rows={3}
                     placeholder="e.g. Need weekly 30kg boneless beef cut into 40g stew cubes, delivered every Friday morning by 10am."
                     value={formData.notes}
